@@ -40,17 +40,16 @@ interface TelegramSendMessageResp {
 
 function envRequired(name: string): string {
     const v = process.env[name];
-    if (!v) {
-        throw new Error(`Missing required env: ${name}`);
-    }
+    if (!v) throw new Error(`Missing required env: ${name}`);
     return v;
 }
 
 export async function POST(req: NextRequest) {
     try {
-        const body = (await req.json()) as Partial<EssaySubmitBody>;
+        // ↓ Avoid `any` from NextRequest.json()
+        const raw: unknown = await req.json();
+        const body = raw as Partial<EssaySubmitBody>;
 
-        // Basic validation (keep it light; no zod to avoid adding deps)
         if (!body.firstName || !body.lastName) {
             return NextResponse.json(
                 { ok: false, error: "firstName/lastName required" },
@@ -67,17 +66,15 @@ export async function POST(req: NextRequest) {
         const TELEGRAM_BOT_TOKEN = envRequired("TELEGRAM_BOT_TOKEN");
         const TELEGRAM_CHAT_ID = envRequired("TELEGRAM_CHAT_ID");
 
-        // Build the message (HTML)
         const fullName = `${body.lastName} ${body.firstName}`.trim();
-        const contact =
-            body.telegram?.trim() ||
-            body.phone?.trim() ||
-            "—";
+        const contact = body.telegram?.trim() || body.phone?.trim() || "—";
 
         const essayPreview =
-            (body.essayText ?? "").slice(0, 700).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            (body.essayText ?? "")
+                .slice(0, 700)
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
 
-        // Answers compact view (e.g., 1:A, 2:C, …)
         const compactAnswers = Object.keys(body.answers!)
             .sort((a, b) => Number(a) - Number(b))
             .map((k) => `${k}:${String(body.answers![Number(k)])}`)
@@ -106,7 +103,6 @@ export async function POST(req: NextRequest) {
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                // Note: no Markdown; using HTML with basic escaping above
                 body: JSON.stringify({
                     chat_id: TELEGRAM_CHAT_ID,
                     text,
@@ -116,7 +112,7 @@ export async function POST(req: NextRequest) {
             }
         );
 
-        const tgJson = (await tgRes.json()) as TelegramSendMessageResp;
+        const tgJson: TelegramSendMessageResp = await tgRes.json();
 
         if (!tgRes.ok || !tgJson.ok) {
             const description = tgJson.description || `HTTP ${tgRes.status}`;
@@ -127,7 +123,7 @@ export async function POST(req: NextRequest) {
         }
 
         return NextResponse.json({ ok: true });
-    } catch (error) {
+    } catch (error: unknown) {
         const message = error instanceof Error ? error.message : "Unexpected error";
         return NextResponse.json({ ok: false, error: message }, { status: 500 });
     }
