@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import type { Question } from "@/types";
 import MatchTable from "./MatchTable";
+import Image from "next/image";
 
 type Props = {
     q: Question;
@@ -21,9 +22,9 @@ function isDiagramOption(
     return (
         !!opt &&
         typeof opt === "object" &&
-        "top" in (opt as any) &&
-        "left" in (opt as any) &&
-        "right" in (opt as any)
+        "top" in (opt) &&
+        "left" in (opt) &&
+        "right" in (opt)
     );
 }
 
@@ -63,7 +64,7 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
             {/* optional image (tap to enlarge) */}
             {q.imageUrl && (
                 <>
-                    <img
+                    <Image
                         src={q.imageUrl}
                         alt="diagram"
                         className="mt-1 max-h-72 w-auto cursor-zoom-in rounded-md border bg-white"
@@ -74,7 +75,7 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
                             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
                             onClick={() => setShowImg(false)}
                         >
-                            <img
+                            <Image
                                 src={q.imageUrl}
                                 alt="diagram enlarged"
                                 className="max-h-[90vh] max-w-[95vw] rounded-lg shadow-2xl"

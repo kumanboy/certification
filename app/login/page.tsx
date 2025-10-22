@@ -12,7 +12,7 @@ export default function LoginPage() {
     const router = useRouter();
     const sp = useSearchParams();
 
-    async function onSubmit(e: React.FormEvent) {
+    async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setLoading(true);
         setErr(null);
@@ -22,12 +22,14 @@ export default function LoginPage() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ code }),
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data?.error || "Login failed");
-            const next = sp.get("redirect") || "/exam";
+            const data: { ok?: boolean; error?: string } = await res.json();
+            if (!res.ok) {
+                throw new Error(data?.error || "Login failed");
+            }
+            const next = sp.get("redirect") ?? "/exam";
             router.replace(next);
-        } catch (e: any) {
-            setErr(e.message);
+        } catch (error: unknown) {
+            setErr(error instanceof Error ? error.message : "Login failed");
         } finally {
             setLoading(false);
         }
@@ -40,20 +42,28 @@ export default function LoginPage() {
                 className="w-full max-w-sm space-y-4 rounded-2xl border bg-white p-6 shadow"
             >
                 <h1 className="text-xl font-semibold text-center">Kirish</h1>
-                <p className="text-sm text-gray-500 text-center">
-                     Kodni kiriting
-                </p>
+                <p className="text-sm text-gray-500 text-center">Kodni kiriting</p>
+
                 <Input
                     placeholder="Kodni kiriting"
                     value={code}
-                    onChange={(e) => setCode(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setCode(e.target.value)
+                    }
+                    autoComplete="one-time-code"
+                    autoFocus
                     required
                 />
+
                 {err && <p className="text-sm text-red-600">{err}</p>}
-                <Button type="submit" disabled={loading}>
+
+                <Button type="submit" disabled={loading} className="w-full">
                     {loading ? "Tekshirilmoqda..." : "Kirish"}
                 </Button>
-                <p className="text-xs text-gray-400 text-center">Imtihon 3 soat davom etadi</p>
+
+                <p className="text-xs text-gray-400 text-center">
+                    Imtihon 3 soat davom etadi
+                </p>
             </form>
         </main>
     );

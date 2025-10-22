@@ -177,7 +177,7 @@ export default function ExamPage() {
         // essay
         const essayText = String(answers[45] ?? "");
         const essayWords = wordCount(essayText);
-        let essayScore = 0; // manual grading later
+        const essayScore = 0; // manual grading later
 
         // send essay to telegram (best-effort)
         try {
@@ -274,7 +274,7 @@ export default function ExamPage() {
 
                         <div className="mt-4">
                             <QuestionRenderer
-                                q={q as any}
+                                q={q}
                                 answer={answers[q.id]}
                                 onAnswer={(val) => setAnswer(q.id, val)}
                             />

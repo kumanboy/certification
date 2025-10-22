@@ -1,6 +1,26 @@
-import { NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
+type EssayPayload = {
+    fullName: string;
+    telegram?: string;
+    phone?: string;
+    essay: string;                       // 250–300 words
+    answers?: Record<string, string>;    // optional map qId -> answer
+};
+
 
 export async function POST(req: Request) {
+    const data = (await req.json()) as unknown;
+
+    // Narrow `unknown` → EssayPayload with basic guards
+    if (typeof data !== "object" || data === null) {
+        return NextResponse.json({ ok: false, error: "Bad payload" }, { status: 400 });
+    }
+    const payload = data as Partial<EssayPayload>;
+
+    if (typeof payload.essay !== "string" || typeof payload.fullName !== "string") {
+        return NextResponse.json({ ok: false, error: "Missing fields" }, { status: 400 });
+    }
+
     try {
         const { essayText, user } = (await req.json()) as {
             essayText?: string;
@@ -39,6 +59,7 @@ export async function POST(req: Request) {
         if (!data.ok) {
             return NextResponse.json({ ok: false, error: data.description }, { status: 500 });
         }
+
 
         return NextResponse.json({ ok: true });
     } catch (e: any) {
