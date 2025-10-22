@@ -8,34 +8,15 @@ interface EssaySubmitBody {
     lastName: string;
     telegram?: string;
     phone?: string;
-    answers: AnswersMap;     // all answers (including 45)
-    essayText: string;       // Q45 text
-    essayWords: number;      // word count
-    testScore: number;       // raw test score (present set)
-    testMaxPresent: number;  // max from present items
-    scaledTest: number;      // scaled to 75
-    totalPoints: number;     // scaledTest + essayScore (usually essayScore=0 here)
-    totalPercent: number;    // %
-    grade: string;           // letter grade
-}
-
-interface TelegramSendMessageResp {
-    ok: boolean;
-    result?: {
-        message_id: number;
-        date?: number;
-        chat?: {
-            id: number;
-            type: string;
-            title?: string;
-            username?: string;
-            first_name?: string;
-            last_name?: string;
-        };
-        text?: string;
-    };
-    description?: string;
-    error_code?: number;
+    answers: AnswersMap;
+    essayText: string;
+    essayWords: number;
+    testScore: number;
+    testMaxPresent: number;
+    scaledTest: number;
+    totalPoints: number;
+    totalPercent: number;
+    grade: string;
 }
 
 function envRequired(name: string): string {
@@ -46,10 +27,11 @@ function envRequired(name: string): string {
 
 export async function POST(req: NextRequest) {
     try {
-        // ↓ Avoid `any` from NextRequest.json()
+        // Never use `any` here
         const raw: unknown = await req.json();
         const body = raw as Partial<EssaySubmitBody>;
 
+        // Basic validation
         if (!body.firstName || !body.lastName) {
             return NextResponse.json(
                 { ok: false, error: "firstName/lastName required" },
@@ -67,17 +49,19 @@ export async function POST(req: NextRequest) {
         const TELEGRAM_CHAT_ID = envRequired("TELEGRAM_CHAT_ID");
 
         const fullName = `${body.lastName} ${body.firstName}`.trim();
-        const contact = body.telegram?.trim() || body.phone?.trim() || "—";
+        const contact =
+            (typeof body.telegram === "string" && body.telegram.trim()) ||
+            (typeof body.phone === "string" && body.phone.trim()) ||
+            "—";
 
-        const essayPreview =
-            (body.essayText ?? "")
-                .slice(0, 700)
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+        const essayText = typeof body.essayText === "string" ? body.essayText : "";
+        const essayPreview = essayText.slice(0, 700).replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-        const compactAnswers = Object.keys(body.answers!)
+        // answers compact view
+        const ansObj: AnswersMap = body.answers as AnswersMap;
+        const compactAnswers = Object.keys(ansObj)
             .sort((a, b) => Number(a) - Number(b))
-            .map((k) => `${k}:${String(body.answers![Number(k)])}`)
+            .map((k) => `${k}:${String(ansObj[Number(k)])}`)
             .join(", ");
 
         const text = [
@@ -98,7 +82,7 @@ export async function POST(req: NextRequest) {
             essayPreview || "—",
         ].join("\n");
 
-        const tgRes = await fetch(
+        const resp = await fetch(
             `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
             {
                 method: "POST",
@@ -112,10 +96,23 @@ export async function POST(req: NextRequest) {
             }
         );
 
-        const tgJson: TelegramSendMessageResp = await tgRes.json();
+        // Parse as unknown and narrow
+        const jsonUnknown: unknown = await resp.json();
+        const ok =
+            resp.ok &&
+            typeof jsonUnknown === "object" &&
+            jsonUnknown !== null &&
+            "ok" in jsonUnknown &&
+            (jsonUnknown as { ok: unknown }).ok === true;
 
-        if (!tgRes.ok || !tgJson.ok) {
-            const description = tgJson.description || `HTTP ${tgRes.status}`;
+        if (!ok) {
+            const description =
+                typeof jsonUnknown === "object" &&
+                jsonUnknown !== null &&
+                "description" in jsonUnknown &&
+                typeof (jsonUnknown as { description?: unknown }).description === "string"
+                    ? (jsonUnknown as { description: string }).description
+                    : `HTTP ${resp.status}`;
             return NextResponse.json(
                 { ok: false, error: `Telegram send failed: ${description}` },
                 { status: 502 }
