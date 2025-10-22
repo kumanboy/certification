@@ -1,3 +1,5 @@
+// types/index.ts
+
 export interface User {
     id: string;
     sessionToken: string;
@@ -5,23 +7,65 @@ export interface User {
     expiresAt: Date;
 }
 
+export interface MatchMeta {
+    left: { key: string; text: string }[];   // e.g., A–D
+    right: { key: string; text: string }[];  // e.g., 1–6
+}
+
+/** 3-node diagram option used as a single choice (Q3 style). */
+export interface DiagramOption {
+    top: string;
+    left: string;
+    right: string;
+}
+
+/** 4-node fixed diagram (center + 4 directions) shown above the options (Q5 style). */
+export interface DiagramFour {
+    center: string;
+    top: string;
+    right: string;
+    bottom: string;
+    left: string;
+}
+
 export type QuestionType =
     | "multiple_choice"
+    | "diagram_mcq"
+    | "match_table"
     | "fill_blank"
+    | "structured"
+    | "structured_textarea"
+    | "passage"
     | "essay";
+
+export type StructuredPart = {
+    key: string;                 // "a" | "b" | "1"...
+    prompt: string;              // the text shown next to input
+    kind: "text" | "select";     // input type
+    options?: string[];          // if kind === "select"
+    correct: string;             // canonical correct answer
+};
 
 export interface Question {
     id: number;
-    questionText: string;
+    questionText: string;                   // use \n for new lines
     questionType: QuestionType;
-    options?: string[];          // for MCQ
-    correctAnswer?: string;      // single correct for MCQ/fill
-    imageUrl?: string;           // optional image shown above question
-    points?: number;             // not used (we calculate by id), but kept for flexibility
-    // optional hint for the renderer (e.g., draw a diagram)
-    diagram?: boolean;
-}
 
+    /** For MCQ and diagram_mcq. */
+    options?: (string | DiagramOption)[];
+
+    correctAnswer?: string;
+    imageUrl?: string;
+    points?: number;
+
+    match?: MatchMeta;
+    parts?: StructuredPart[];
+
+    /** Show a 4-way diagram above the options (Q5). */
+    diagram4?: DiagramFour;
+    subInputs?: Array<{ key: string; label: string; textarea?: boolean }>;
+
+}
 
 export interface ExamAttempt {
     id: string;
