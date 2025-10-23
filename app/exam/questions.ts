@@ -702,116 +702,99 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
 
     /* ---------------- 36 & 37 (fixed answers) ---------------- */
 
+    /* 36) Shakldosh so‘z — diagram + single input */
     {
         id: 36,
         questionType: "structured",
         questionText: [
             "Berilgan so‘zlar ma’nosini ifodalaydigan **shakldosh** so‘zni yozing.",
             "",
-            "• «Xijolatli, kamsitishni boshdan kechirmoq»",
-            "• «Juda og‘ir bo‘lgan ma’lum bir predmet»"
         ].join("\n"),
         imageUrl: "/images/q36-diagram.png",
-        correctAnswer: "zil",          // per your key-table
+        parts: [
+            { key: "a", label: "Javob:", placeholder: "Masalan: ...", multiline: false },
+        ],
         points: 1.1,
     },
 
+    /* 37) Tinish belgilarining ketma-ketligi — multiline input */
     {
         id: 37,
-        questionType: "structured_textarea",
+        questionType: "structured",
         questionText: [
             "Berilgan gapda qo‘llanishi lozim bo‘lgan **tinish belgilarining to‘g‘ri ketma-ketligini** yozing.",
             "",
-            "Alhosil tarbiya bizlar uchun y o hayot y o mamot y o najot y o halokat y o saodat y o falokat masalasidur"
+            "Alhosil tarbiya bizlar uchun y o hayot y o mamot y o najot y o halokat y o saodat y o falokat masalasidur",
         ].join("\n"),
-        // per your key-table (you provided the exact chain). Keep spaces exactly as you want to accept.
-        correctAnswer: ", - , , - .",
+        parts: [
+            { key: "a", label: "Javob:", multiline: true, placeholder: "Masalan: “, — , — , — .”" },
+        ],
         points: 1.1,
     },
 
-    /* ---------------- 38–44 (new) ---------------- */
-
-    {
-        id: 38,
-        questionType: "structured",
-        questionText: "Har uchala kelishik shakli bilan ham ma’nodoshlik hosil qila oluvchi ko‘makchini yozing.",
-        imageUrl: "/images/q38-diagram.png",
-        correctAnswer: "haqida",
-        points: 1.1,
-    },
-
-    {
-        id: 39,
-        questionType: "structured",
-        questionText: "Gapdagi **qavs ichida** berilgan birlik turini aniqlang va yozing.",
-        imageUrl: "/images/q39-diagram.png",
-        correctAnswer: "kiritma",
-        points: 1.1,
-    },
-
+    /* 40) (a) tobelanib…, (b) teng munosabatda…  — two inputs */
     {
         id: 40,
         questionType: "structured",
-        questionText: "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
-        imageUrl: "/images/q40-diagram.png",
-        // two inputs (a / b) on a single page:
-        subInputs: [
-            { key: "a", label: "a) ajratib ko‘rsatilgan so‘z **tobelanib bog‘langan** so‘z:", textarea: false },
-            { key: "b", label: "b) ajratib ko‘rsatilgan so‘z bilan **teng munosabatda bog‘langan** so‘z:", textarea: false },
+        questionText:
+            "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
+        imageUrl: "/images/q40-card.png", // if you exported an image; else remove
+        parts: [
+            { key: "a", label: "gapda ajratib ko‘rsatilgan so‘z **tobelanib bog‘langan** so‘zni yozing.", multiline: false },
+            { key: "b", label: "gapda ajratib ko‘rsatilgan so‘z bilan **teng munosabatda bog‘langan** so‘zni yozing.", multiline: false },
         ],
-        // For reference (from your key-table): a) Talab etadi   b) Ortib borishi
         points: 1.1,
     },
 
+    /* 41) (a) qanday vosita?, (b) qaysi turi? — two inputs */
     {
         id: 41,
         questionType: "structured",
-        questionText: "Berilgan gaplarni **grammatik jihatdan** to‘g‘ri bog‘lang.",
-        imageUrl: "/images/q41-diagram.png",
-        subInputs: [
-            { key: "a", label: "a) 2-gapi va 3-gapi qanday vosita bilan bog‘lanadi?", textarea: false },
-            { key: "b", label: "b) Natijada qo‘shma gapning qaysi turi hosil bo‘ladi?", textarea: false },
+        questionText: "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.",
+        imageUrl: "/images/q41-flow.png",
+        parts: [
+            { key: "a", label: "ikkinchi va uchinchi gapni qanday **grammatik vosita** yordamida to‘g‘ri bog‘lash mumkin?", multiline: false },
+            { key: "b", label: "natijada qo‘shma gapning **qaysi turi** hosil bo‘ladi?", multiline: false },
         ],
-        // key-table: a) Na.....na   b) Bog'langan
         points: 1.1,
     },
 
+    /* 42) (a) 1-badiiy san’at, (b) 2-badiiy san’at — two inputs */
     {
         id: 42,
         questionType: "structured",
-        questionText: "She’riy parchada **aks etgan** san’atlarni aniqlang va yozing.",
-        imageUrl: "/images/q42-diagram.png",
-        subInputs: [
-            { key: "a", label: "a) she'riy parchada ajratib ko'rsatilgan so'zlar orqali hosil qilingan 1-badiiy san’at:", textarea: false },
-            { key: "b", label: "b) she'riy parchada ajratib ko'rsatilgan so'zlar orqali hosil qilingan 2-badiiy san’at:", textarea: false },
+        questionText: "She’riy parchada aks etgan she’riy san’atlarni aniqlang va yozing.",
+        imageUrl: "/images/q42-verse.png",
+        parts: [
+            { key: "a", label: "1-badiiy san’at:", multiline: false },
+            { key: "b", label: "2-badiiy san’at:", multiline: false },
         ],
-        // key-table: a) Tazod   b) Tardi aks
         points: 1.1,
     },
 
+    /* 43) (a) raviy, (b) qaysi tur — two inputs */
     {
         id: 43,
         questionType: "structured",
-        questionText: "She’riy parchaning **qofiyasini** tahlil qiling va yozing.",
-        imageUrl: "/images/q43-diagram.png",
-        subInputs: [
-            { key: "a", label: "a) Qofiyadosh so‘zlardagi raviy:", textarea: false },
-            { key: "b", label: "b) Raviy o‘rniga ko‘ra qofiyaning turi:", textarea: false },
+        questionText: "She’riy parchanning qofiyasini tahlil qiling va yozing.",
+        imageUrl: "/images/q43-verse.png",
+        parts: [
+            { key: "a", label: "baytda qo‘llangan **qofiyadosh so‘zlardagi raviy**:", multiline: false },
+            { key: "b", label: "qofiyadosh so‘zlar raviyining **o‘rniga ko‘ra turi**:", multiline: false },
         ],
-        // key-table: a) B   b) Mutlaq
         points: 1.1,
     },
 
+    /* 44) (a) janr, (b) ma’no — two inputs */
     {
         id: 44,
         questionType: "structured",
-        questionText: "Quyidagi she’riy parcha **mazmunini** tahlil qiling va savollarga javob yozing.",
-        imageUrl: "/images/q44-diagram.png",
-        subInputs: [
-            { key: "a", label: "a) Ushbu she’riy parchani janri:", textarea: false },
-            { key: "b", label: "b) 1-misradagi ajratib ko‘rsatilgan so‘z qanday ma’noda keldi?", textarea: false },
+        questionText: "Quyidagi she’riy parchaning mazmunini tahlil qiling va savollarga javob yozing.",
+        imageUrl: "/images/q44-verse.png",
+        parts: [
+            { key: "a", label: "ushbu she’riy parchaning **janri**:", multiline: false },
+            { key: "b", label: "birinchi misradagi ajratib ko‘rsatilgan so‘z **qanday ma’noda** kelgan?", multiline: false },
         ],
-        // key-table: a) Tuyuq   b) Yoringa boringlar (harakatni ifodalovchi buyruq ma’nosida)
         points: 1.1,
     },
     // 45) ESSE — long-form writing (textarea is rendered by QuestionRenderer)

@@ -7,6 +7,7 @@ export interface User {
     expiresAt: Date;
 }
 
+/** Matching table meta (Q7 style) */
 export interface MatchMeta {
     left: { key: string; text: string }[];   // e.g., A–D
     right: { key: string; text: string }[];  // e.g., 1–6
@@ -19,7 +20,7 @@ export interface DiagramOption {
     right: string;
 }
 
-/** 4-node fixed diagram (center + 4 directions) shown above the options (Q5 style). */
+/** 4-node fixed diagram (center + 4 directions) shown above the options (not always used). */
 export interface DiagramFour {
     center: string;
     top: string;
@@ -33,38 +34,54 @@ export type QuestionType =
     | "diagram_mcq"
     | "match_table"
     | "fill_blank"
-    | "structured"
-    | "structured_textarea"
+    | "structured"          // free-text (single or multi-part); inputs or textareas
+    | "structured_textarea" // legacy alias (treated like "structured")
     | "passage"
     | "essay";
 
+/**
+ * Structured question parts.
+ * Backward-compatible fields:
+ *  - New:    label / multiline / placeholder
+ *  - Legacy: prompt / kind("text" | "select" | "textarea") / options / correct
+ */
 export type StructuredPart = {
-    key: string;                 // "a" | "b" | "1"...
-    prompt: string;              // the text shown next to input
-    kind: "text" | "select";     // input type
-    options?: string[];          // if kind === "select"
-    correct: string;             // canonical correct answer
+    key: string;                 // "a" | "b" | "1" | ...
+    // New fields used by the current renderer:
+    label?: string;
+    multiline?: boolean;
+    placeholder?: string;
+
+    // Legacy fields still accepted so older code compiles:
+    prompt?: string;
+    kind?: "text" | "select" | "textarea";
+    options?: string[];
+    correct?: string;
 };
 
 export interface Question {
     id: number;
-    questionText: string;                   // use \n for new lines
+    /** Use \n for new lines; passages are rendered in <pre>. */
+    questionText: string;
     questionType: QuestionType;
 
-    /** For MCQ and diagram_mcq. */
+    /** For MCQ / diagram_mcq. */
     options?: (string | DiagramOption)[];
-
     correctAnswer?: string;
     imageUrl?: string;
     points?: number;
 
+    /** For match_table. */
     match?: MatchMeta;
+
+    /** For structured (free-text) questions (Q36–Q44). */
     parts?: StructuredPart[];
 
-    /** Show a 4-way diagram above the options (Q5). */
+    /** Optional: show a 4-way diagram above the options. */
     diagram4?: DiagramFour;
-    subInputs?: Array<{ key: string; label: string; textarea?: boolean }>;
 
+    /** Legacy optional multi-input API (not used by current renderer). */
+    subInputs?: Array<{ key: string; label: string; textarea?: boolean }>;
 }
 
 export interface ExamAttempt {
