@@ -259,25 +259,26 @@ export default function ExamPage() {
                 body: JSON.stringify(payload),
             });
 
-            const respText = await r.text();
-            let data: { ok?: boolean; error?: string; target?: string; reason?: string } | null = null;
+            let j: unknown = null;
             try {
-                data = JSON.parse(respText) as { ok?: boolean; error?: string; target?: string; reason?: string };
+                j = await r.json();
             } catch {
-                // not JSON, keep raw
+                // ignore parse error, but log status text
             }
 
-            if (!r.ok || !data?.ok) {
-                const errMsg = data?.error ?? `${r.status} ${r.statusText}`;
-                // Show the exact reason so you can fix channel perms/IDs
-                window.alert(`Telegramga yuborilmadi: ${errMsg}`);
-                // Also log server response for diagnostics
-                console.error("send-essay response:", respText);
+            const okJson =
+                typeof j === "object" &&
+                j !== null &&
+                "ok" in j &&
+                (j as { ok: unknown }).ok === true;
+
+            if (!r.ok || !okJson) {
+                // Surface the reason in console for quick diagnosis
+                console.error("Send essay failed:", j || r.statusText);
             }
         } catch (e) {
-            const m = e instanceof Error ? e.message : String(e);
-            window.alert(`Telegramga yuborishda xatolik: ${m}`);
-            console.error("send-essay threw:", e);
+            console.error("Send essay threw:", e);
+            // swallow so UI still completes
         }
 
         setRows(newRows);
