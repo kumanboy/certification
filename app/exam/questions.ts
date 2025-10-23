@@ -727,7 +727,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
             "Alhosil tarbiya bizlar uchun y o hayot y o mamot y o najot y o halokat y o saodat y o falokat masalasidur",
         ].join("\n"),
         parts: [
-            { key: "a", label: "Javob:", multiline: true, placeholder: "Masalan: “, — , — , — .”" },
+            { key: "a", label: "Javob:", multiline: true, placeholder: "Masalan: “. - , ! ?” " },
         ],
         points: 1.1,
     },
