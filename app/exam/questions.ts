@@ -764,7 +764,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 42,
         questionType: "structured",
         questionText: "She’riy parchada aks etgan she’riy san’atlarni aniqlang va yozing.",
-        imageUrl: "/images/q42-vdiagram.png",
+        imageUrl: "/images/q42-diagram.png",
         parts: [
             { key: "a", label: "1-badiiy san’at:", multiline: false },
             { key: "b", label: "2-badiiy san’at:", multiline: false },
@@ -777,7 +777,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 43,
         questionType: "structured",
         questionText: "She’riy parchanning qofiyasini tahlil qiling va yozing.",
-        imageUrl: "/images/q43-vdiagram.png",
+        imageUrl: "/images/q43-diagram.png",
         parts: [
             { key: "a", label: "baytda qo‘llangan **qofiyadosh so‘zlardagi raviy**:", multiline: false },
             { key: "b", label: "qofiyadosh so‘zlar raviyining **o‘rniga ko‘ra turi**:", multiline: false },
@@ -790,7 +790,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 44,
         questionType: "structured",
         questionText: "Quyidagi she’riy parchaning mazmunini tahlil qiling va savollarga javob yozing.",
-        imageUrl: "/images/q44-vdiagram.png",
+        imageUrl: "/images/q44-diagram.png",
         parts: [
             { key: "a", label: "ushbu she’riy parchaning **janri**:", multiline: false },
             { key: "b", label: "birinchi misradagi ajratib ko‘rsatilgan so‘z **qanday ma’noda** kelgan?", multiline: false },

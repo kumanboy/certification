@@ -1,5 +1,3 @@
-// app/exam/page.tsx
-
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -12,7 +10,6 @@ import SubmitDialog, { SubmitDetails } from "@/components/exam/SubmitDialog";
 import { QUESTIONS } from "./questions";
 import { getQuestionPoints, TEST_MAX, ESSAY_MAX, wordCount } from "@/lib/scoring";
 import { letterGradeFromTotal } from "@/lib/grading";
-import type { Question } from "@/types";
 
 const EXAM_MINUTES = 90;
 
@@ -137,39 +134,6 @@ export default function ExamPage() {
         if (timeLeft === 0 && !submitted) setShowDialog(true);
     }, [timeLeft, submitted]);
 
-    /* ------------------ FIXES: helpers for robust scoring ------------------ */
-
-    function displayAnswer(val: unknown): string {
-        if (val == null) return "—";
-        if (typeof val === "string") {
-            const s = val.trim();
-            return s ? s : "—";
-        }
-        if (Array.isArray(val)) {
-            const parts = val.map(v => (v == null ? "—" : String(v).trim() || "—"));
-            const joined = parts.join(" | ").trim();
-            return joined || "—";
-        }
-        if (typeof val === "object") {
-            const parts = Object.values(val as Record<string, unknown>)
-                .map(v => (v == null ? "—" : String(v).trim() || "—"));
-            const joined = parts.join(" | ").trim();
-            return joined || "—";
-        }
-        const s = String(val).trim();
-        return s ? s : "—";
-    }
-
-    // TS-safe: treat any Question that has a non-empty string correctAnswer as gradable
-    function hasKeyedCorrect(item: Question): boolean {
-        const ca = (item as Question).correctAnswer as unknown;
-        return typeof ca === "string" && ca.trim().length > 0;
-    }
-
-    function verdictFor(user: string, correct: string): "✔" | "✘" {
-        return user && user !== "—" && user.toUpperCase() === correct.toUpperCase() ? "✔" : "✘";
-    }
-
     // compute + table + telegram (called after user fills dialog)
     async function finalizeAndScore(info: SubmitDetails) {
         setUserInfo(info);
@@ -179,34 +143,31 @@ export default function ExamPage() {
         const newRows: typeof rows = [];
 
         for (const item of QUESTIONS) {
-            if (item.id === 45) continue;                  // essay separately
-            if (item.questionType === "passage") continue; // not graded / not shown in table
+            if (item.id === 45) continue; // essay separately
+            if (item.questionType === "passage") continue; // not graded
 
             const pts = getQuestionPoints(item.id);
             testMaxPresent += pts;
 
-            const raw = answers[item.id];
-            const userDisp = displayAnswer(raw);
+            const user = (answers[item.id] ?? "").trim();
 
-            if (hasKeyedCorrect(item as Question)) {
-                // Grade MCQ + diagram_mcq + match_table (they all use letter keys A/B/C/D…)
-                const correct = String((item as Question).correctAnswer).toUpperCase();
-                const v = verdictFor(userDisp, correct);
-                if (v === "✔") testScore += pts;
+            if (item.questionType === "multiple_choice") {
+                const correct = (item.correctAnswer ?? "").toUpperCase();
+                const verdict = user ? (user.toUpperCase() === correct ? "✔" : "✘") : "-";
+                if (verdict === "✔") testScore += pts;
 
                 newRows.push({
                     label: labelMap[item.id],
                     qid: item.id,
-                    user: userDisp,
+                    user: user || "—",
                     correct,
-                    verdict: v,
+                    verdict,
                 });
             } else {
-                // Structured/free inputs → display only
                 newRows.push({
                     label: labelMap[item.id],
                     qid: item.id,
-                    user: userDisp,
+                    user: user || "—",
                     correct: "—",
                     verdict: "-",
                 });
@@ -226,7 +187,7 @@ export default function ExamPage() {
                 body: JSON.stringify({ essayText, user: info }),
             });
         } catch {
-            // ignore network errors
+            // ignore
         }
 
         const scaledTest = testMaxPresent > 0 ? (testScore / testMaxPresent) * TEST_MAX : 0;
