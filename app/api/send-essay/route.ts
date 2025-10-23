@@ -1,4 +1,8 @@
 // app/api/send-essay/route.ts
+/* Force Node runtime + no caching on Vercel */
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from "next/server";
 
 type AnswersMap = Record<number, string>;
@@ -19,31 +23,53 @@ interface EssaySubmitBody {
     grade: string;
 }
 
-function envStrict(name: string): string {
+function required(name: string): string {
     const v = process.env[name];
     if (!v || !v.trim()) throw new Error(`Missing required env: ${name}`);
     return v.trim();
 }
-
-function envOptional(name: string): string | undefined {
+function optional(name: string): string | undefined {
     const v = process.env[name];
     return v && v.trim() ? v.trim() : undefined;
 }
 
-async function sendToTelegram(token: string, chatId: string, text: string) {
+async function tgSendMessage(token: string, chatId: string, text: string) {
     const resp = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        // channel id can be "-100…", or "@channelusername"
         body: JSON.stringify({
-            chat_id: chatId,          // channel id like -1003097514170 works here
+            chat_id: chatId,
             text,
             parse_mode: "HTML",
             disable_web_page_preview: true,
         }),
+        // no cache
+        cache: "no-store",
     });
 
-    const data = (await resp.json()) as { ok?: boolean; description?: string };
-    return { ok: resp.ok && data?.ok === true, description: data?.description ?? `HTTP ${resp.status}` };
+    let data: unknown;
+    try {
+        data = await resp.json();
+    } catch {
+        // ignore parse error
+    }
+    const ok =
+        resp.ok &&
+        typeof data === "object" &&
+        data !== null &&
+        "ok" in data &&
+        (data as { ok: unknown }).ok === true;
+
+    const description =
+        typeof data === "object" &&
+        data !== null &&
+        "description" in data &&
+        typeof (data as { description?: unknown }).description === "string"
+            ? (data as { description: string }).description
+            : `HTTP ${resp.status}`;
+
+    return { ok, description, raw: data };
 }
 
 export async function POST(req: NextRequest) {
@@ -52,20 +78,27 @@ export async function POST(req: NextRequest) {
         const body = raw as Partial<EssaySubmitBody>;
 
         if (!body.firstName || !body.lastName) {
-            return NextResponse.json({ ok: false, error: "firstName/lastName required" }, { status: 400 });
+            return NextResponse.json(
+                { ok: false, error: "firstName/lastName required" },
+                { status: 400 }
+            );
         }
         if (!body.answers || typeof body.answers !== "object") {
-            return NextResponse.json({ ok: false, error: "answers required" }, { status: 400 });
+            return NextResponse.json(
+                { ok: false, error: "answers required" },
+                { status: 400 }
+            );
         }
 
         // Use your channel bot + channel id (required)
-        const BOT_TOKEN = envStrict("ESSAY_BOT_SENDER");         // 8217...:AA...
-        const CHANNEL_ID = envStrict("CHANNEL_ID");              // -1003097514170
+        const CHANNEL_BOT = required("ESSAY_BOT_SENDER");   // 8217…:AA…
+        const CHANNEL_ID =
+            optional("CHANNEL_ID") ?? // "-1003097514170" or "@your_channel"
+            required("TELEGRAM_CHAT_ID"); // fallback if you had it set this way
 
-        // Optional personal fallback (admin chat)
-        const ADMIN_CHAT_ID =
-            envOptional("TELEGRAM_ADMIN_CHAT_ID") ||
-            envOptional("TELEGRAM_CHAT_ID");
+        // Optional admin fallback (sends to you if channel fails)
+        const ADMIN_CHAT =
+            optional("TELEGRAM_ADMIN_CHAT_ID") ?? optional("TELEGRAM_CHAT_ID");
 
         const fullName = `${body.lastName} ${body.firstName}`.trim();
         const contact =
@@ -74,9 +107,11 @@ export async function POST(req: NextRequest) {
             "—";
 
         const essayText = typeof body.essayText === "string" ? body.essayText : "";
-        const essayPreview = essayText.slice(0, 700).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const essayPreview = essayText
+            .slice(0, 700)
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
 
-        // answers compact view
         const ansObj: AnswersMap = body.answers as AnswersMap;
         const compactAnswers = Object.keys(ansObj)
             .sort((a, b) => Number(a) - Number(b))
@@ -101,31 +136,47 @@ export async function POST(req: NextRequest) {
             essayPreview || "—",
         ].join("\n");
 
-        // 1) Try CHANNEL first (required)
-        const toChannel = await sendToTelegram(BOT_TOKEN, CHANNEL_ID, text);
+        // 1) Try channel first
+        const toChannel = await tgSendMessage(CHANNEL_BOT, CHANNEL_ID, text);
         if (toChannel.ok) {
             return NextResponse.json({ ok: true, target: "channel" });
         }
 
-        // 2) If channel fails and admin fallback exists, send to admin as backup
-        if (ADMIN_CHAT_ID) {
-            const toAdmin = await sendToTelegram(BOT_TOKEN, ADMIN_CHAT_ID, `⚠️ Channel send failed (${toChannel.description}).\n\n${text}`);
+        // 2) Fallback to admin if configured
+        if (ADMIN_CHAT) {
+            const toAdmin = await tgSendMessage(
+                CHANNEL_BOT,
+                ADMIN_CHAT,
+                `⚠️ Channel send failed: ${toChannel.description}\n\n${text}`
+            );
             if (toAdmin.ok) {
-                return NextResponse.json({ ok: true, target: "admin_fallback", reason: toChannel.description });
+                return NextResponse.json({
+                    ok: true,
+                    target: "admin_fallback",
+                    reason: toChannel.description,
+                });
             }
             return NextResponse.json(
-                { ok: false, error: `Channel failed: ${toChannel.description}; Admin failed: ${toAdmin.description}` },
+                {
+                    ok: false,
+                    error: `Channel failed: ${toChannel.description}; Admin failed: ${toAdmin.description}`,
+                    details: { channel: toChannel.raw },
+                },
                 { status: 502 }
             );
         }
 
-        // No fallback available
+        // No fallback
         return NextResponse.json(
-            { ok: false, error: `Channel send failed: ${toChannel.description}` },
+            {
+                ok: false,
+                error: `Channel send failed: ${toChannel.description}`,
+                details: { channel: toChannel.raw },
+            },
             { status: 502 }
         );
-    } catch (error: unknown) {
-        const message = error instanceof Error ? error.message : "Unexpected error";
+    } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : "Unexpected error";
         return NextResponse.json({ ok: false, error: message }, { status: 500 });
     }
 }
