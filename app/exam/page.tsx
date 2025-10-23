@@ -1,4 +1,4 @@
-// app/exam/page.tsx  (UPDATED)
+// app/exam/page.tsx
 
 "use client";
 
@@ -12,6 +12,7 @@ import SubmitDialog, { SubmitDetails } from "@/components/exam/SubmitDialog";
 import { QUESTIONS } from "./questions";
 import { getQuestionPoints, TEST_MAX, ESSAY_MAX, wordCount } from "@/lib/scoring";
 import { letterGradeFromTotal } from "@/lib/grading";
+import type { Question } from "@/types";
 
 const EXAM_MINUTES = 90;
 
@@ -159,9 +160,10 @@ export default function ExamPage() {
         return s ? s : "—";
     }
 
-    // Consider any question that has a string `correctAnswer` as gradable
-    function hasKeyedCorrect(item: any): boolean {
-        return typeof item.correctAnswer === "string" && item.correctAnswer.trim().length > 0;
+    // TS-safe: treat any Question that has a non-empty string correctAnswer as gradable
+    function hasKeyedCorrect(item: Question): boolean {
+        const ca = (item as Question).correctAnswer as unknown;
+        return typeof ca === "string" && ca.trim().length > 0;
     }
 
     function verdictFor(user: string, correct: string): "✔" | "✘" {
@@ -186,9 +188,9 @@ export default function ExamPage() {
             const raw = answers[item.id];
             const userDisp = displayAnswer(raw);
 
-            if (hasKeyedCorrect(item)) {
+            if (hasKeyedCorrect(item as Question)) {
                 // Grade MCQ + diagram_mcq + match_table (they all use letter keys A/B/C/D…)
-                const correct = (item.correctAnswer as string).toUpperCase();
+                const correct = String((item as Question).correctAnswer).toUpperCase();
                 const v = verdictFor(userDisp, correct);
                 if (v === "✔") testScore += pts;
 
