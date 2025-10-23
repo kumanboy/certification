@@ -738,7 +738,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionType: "structured",
         questionText:
             "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
-        imageUrl: "/images/q40-card.png", // if you exported an image; else remove
+        imageUrl: "/images/q40-diagram.png", // if you exported an image; else remove
         parts: [
             { key: "a", label: "gapda ajratib ko‘rsatilgan so‘z **tobelanib bog‘langan** so‘zni yozing.", multiline: false },
             { key: "b", label: "gapda ajratib ko‘rsatilgan so‘z bilan **teng munosabatda bog‘langan** so‘zni yozing.", multiline: false },
@@ -751,7 +751,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 41,
         questionType: "structured",
         questionText: "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.",
-        imageUrl: "/images/q41-flow.png",
+        imageUrl: "/images/q41-diagram.png",
         parts: [
             { key: "a", label: "ikkinchi va uchinchi gapni qanday **grammatik vosita** yordamida to‘g‘ri bog‘lash mumkin?", multiline: false },
             { key: "b", label: "natijada qo‘shma gapning **qaysi turi** hosil bo‘ladi?", multiline: false },
@@ -764,7 +764,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 42,
         questionType: "structured",
         questionText: "She’riy parchada aks etgan she’riy san’atlarni aniqlang va yozing.",
-        imageUrl: "/images/q42-verse.png",
+        imageUrl: "/images/q42-vdiagram.png",
         parts: [
             { key: "a", label: "1-badiiy san’at:", multiline: false },
             { key: "b", label: "2-badiiy san’at:", multiline: false },
@@ -777,7 +777,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 43,
         questionType: "structured",
         questionText: "She’riy parchanning qofiyasini tahlil qiling va yozing.",
-        imageUrl: "/images/q43-verse.png",
+        imageUrl: "/images/q43-vdiagram.png",
         parts: [
             { key: "a", label: "baytda qo‘llangan **qofiyadosh so‘zlardagi raviy**:", multiline: false },
             { key: "b", label: "qofiyadosh so‘zlar raviyining **o‘rniga ko‘ra turi**:", multiline: false },
@@ -790,7 +790,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 44,
         questionType: "structured",
         questionText: "Quyidagi she’riy parchaning mazmunini tahlil qiling va savollarga javob yozing.",
-        imageUrl: "/images/q44-verse.png",
+        imageUrl: "/images/q44-vdiagram.png",
         parts: [
             { key: "a", label: "ushbu she’riy parchaning **janri**:", multiline: false },
             { key: "b", label: "birinchi misradagi ajratib ko‘rsatilgan so‘z **qanday ma’noda** kelgan?", multiline: false },
