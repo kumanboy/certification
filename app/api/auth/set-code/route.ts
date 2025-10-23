@@ -1,59 +1,67 @@
 // app/api/auth/set-code/route.ts
 export const runtime = "nodejs";
 import { NextResponse } from "next/server";
-import { setCode } from "@/lib/code-store";
+import { createHmac } from "crypto";
 
 type SetCodeBody = {
-    code?: string;
-    ttlSeconds?: number;
+    ttlSeconds?: number; // optional override from caller
 };
+
+function pickAlphabetCode(hmac: Buffer, len = 6): string {
+    const alphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // no O/0, l/1
+    const base = alphabet.length;
+    let out = "";
+    // use first len bytes; mix for distribution
+    for (let i = 0; i < len; i++) {
+        out += alphabet[hmac[i] % base];
+    }
+    return out;
+}
+
+function deriveCode(secret: string, slot: number, len = 6): string {
+    const digest = createHmac("sha256", secret).update(String(slot)).digest();
+    return pickAlphabetCode(digest, len);
+}
+
+function normalizeTtlSeconds(bodyTtl: number | undefined): number {
+    if (typeof bodyTtl === "number" && Number.isFinite(bodyTtl) && bodyTtl > 0) return bodyTtl;
+    const envMinutes = Number(process.env.ROTATE_INTERVAL_MIN || 180);
+    return (Number.isFinite(envMinutes) && envMinutes > 0 ? envMinutes : 180) * 60;
+}
 
 function isSetCodeBody(x: unknown): x is SetCodeBody {
     if (typeof x !== "object" || x === null) return false;
     const o = x as Record<string, unknown>;
-    if ("code" in o && typeof o.code !== "string") return false;
     return !("ttlSeconds" in o && typeof o.ttlSeconds !== "number");
 
 }
 
-// 6-char, no lookalikes
-function makeCode(len = 6): string {
-    const alphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-    let out = "";
-    for (let i = 0; i < len; i++) out += alphabet[(Math.random() * alphabet.length) | 0];
-    return out;
-}
-
 export async function POST(req: Request) {
-    // 1) Admin auth
     const admin = req.headers.get("x-admin-secret");
     if (!admin || admin !== process.env.ACCESS_CODE_ADMIN_SECRET) {
         return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
     }
 
-    // 2) Parse & validate body (no `any`)
     let raw: unknown;
     try {
         raw = await req.json();
     } catch {
-        return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
+        raw = {};
     }
     if (!isSetCodeBody(raw)) {
         return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
     }
 
-    // 3) Normalize inputs
-    const ttlSeconds =
-        typeof raw.ttlSeconds === "number" && raw.ttlSeconds > 0 ? raw.ttlSeconds : 60 * 60 * 3;
+    const ttlSeconds = normalizeTtlSeconds(raw.ttlSeconds);
+    const slotSizeMs = ttlSeconds * 1000;
+    const now = Date.now();
+    const slot = Math.floor(now / slotSizeMs);
 
-    const provided = typeof raw.code === "string" ? raw.code.trim() : "";
-    const code = provided || makeCode(6); // generate if empty/missing
+    const secret = process.env.ACCESS_CODE_ADMIN_SECRET!;
+    const code = deriveCode(secret, slot, 6);
+    const expiresAt = Math.floor((slot + 1) * slotSizeMs / 1000);
 
-    // 4) Persist
-    const expiresAt = Math.floor(Date.now() / 1000) + ttlSeconds;
-    await setCode({ code, expiresAt });
-
-    // 5) Respond (include code for Telegram to show)
+    // Stateless: we don’t persist; any region can recompute.
     return NextResponse.json({ ok: true, code, expiresAt }, { status: 200 });
 }
 
