@@ -1,6 +1,4 @@
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
+// app/api/send-essay/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 type AnswersMap = Record<number, string>;
@@ -21,44 +19,12 @@ interface EssaySubmitBody {
     grade: string;
 }
 
-function envFirst(...names: string[]): string {
+function requiredEnv(...names: string[]): string {
     for (const n of names) {
         const v = process.env[n];
-        if (v && v.trim()) return v.trim();
+        if (v && v.trim().length > 0) return v;
     }
-    throw new Error(`Missing required env: one of [${names.join(", ")}]`);
-}
-
-async function tgSend(token: string, chatId: string, text: string) {
-    const resp = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text,
-            parse_mode: "HTML",
-            disable_web_page_preview: true,
-        }),
-    });
-
-    const data: unknown = await resp.json();
-    const ok =
-        resp.ok &&
-        typeof data === "object" &&
-        data !== null &&
-        "ok" in data &&
-        (data as { ok: unknown }).ok === true;
-
-    if (!ok) {
-        const desc =
-            typeof data === "object" &&
-            data !== null &&
-            "description" in data &&
-            typeof (data as { description?: unknown }).description === "string"
-                ? (data as { description: string }).description
-                : `HTTP ${resp.status}`;
-        throw new Error(`Telegram send failed: ${desc}`);
-    }
+    throw new Error(`Missing required env. Tried: ${names.join(", ")}`);
 }
 
 export async function POST(req: NextRequest) {
@@ -66,7 +32,8 @@ export async function POST(req: NextRequest) {
         const raw: unknown = await req.json();
         const body = raw as Partial<EssaySubmitBody>;
 
-        if (!body || !body.firstName || !body.lastName) {
+        // Basic validation
+        if (!body.firstName || !body.lastName) {
             return NextResponse.json(
                 { ok: false, error: "firstName/lastName required" },
                 { status: 400 }
@@ -79,8 +46,16 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const TELEGRAM_BOT_TOKEN = envFirst("ESSAY_BOT_SENDER");
-        const TELEGRAM_CHAT_ID = envFirst("CHANNEL_ID");
+        // Use your actual envs, with sensible fallbacks
+        const TELEGRAM_BOT_TOKEN = requiredEnv(
+            "ESSAY_BOT_SENDER",
+            "TELEGRAM_BOT_TOKEN"
+        );
+        const TELEGRAM_CHAT_ID = requiredEnv(
+            "CHANNEL_ID",
+            "TELEGRAM_CHAT_ID",
+            "TELEGRAM_ADMIN_CHAT_ID"
+        );
 
         const fullName = `${body.lastName} ${body.firstName}`.trim();
         const contact =
@@ -88,20 +63,21 @@ export async function POST(req: NextRequest) {
             (typeof body.phone === "string" && body.phone.trim()) ||
             "—";
 
+        const essayText = typeof body.essayText === "string" ? body.essayText : "";
+        const essayPreview = essayText
+            .slice(0, 700)
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        // answers compact view
         const ansObj: AnswersMap = body.answers as AnswersMap;
         const compactAnswers = Object.keys(ansObj)
             .sort((a, b) => Number(a) - Number(b))
             .map((k) => `${k}:${String(ansObj[Number(k)])}`)
             .join(", ");
 
-        const essayText = typeof body.essayText === "string" ? body.essayText : "";
-        const essayPreview = essayText
-            .slice(0, 2000)
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
-
-        const header = [
-            `<b>Yangi natija / esse</b>`,
+        const text = [
+            `<b>Yangi esse yuborildi</b>`,
             ``,
             `<b>F.I.Sh:</b> ${fullName}`,
             `<b>Kontakt:</b> ${contact}`,
@@ -113,15 +89,46 @@ export async function POST(req: NextRequest) {
             `• Baho: ${body.grade}`,
             ``,
             `<b>Javoblar:</b> ${compactAnswers || "—"}`,
-        ].join("\n");
-
-        await tgSend(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, header);
-
-        const essayMsg = [
+            ``,
             `<b>Esse (so‘zlar: ${body.essayWords})</b>`,
             essayPreview || "—",
         ].join("\n");
-        await tgSend(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, essayMsg);
+
+        const resp = await fetch(
+            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text,
+                    parse_mode: "HTML",
+                    disable_web_page_preview: true,
+                }),
+            }
+        );
+
+        const jsonUnknown: unknown = await resp.json();
+        const ok =
+            resp.ok &&
+            typeof jsonUnknown === "object" &&
+            jsonUnknown !== null &&
+            "ok" in jsonUnknown &&
+            (jsonUnknown as { ok: unknown }).ok === true;
+
+        if (!ok) {
+            const description =
+                typeof jsonUnknown === "object" &&
+                jsonUnknown !== null &&
+                "description" in jsonUnknown &&
+                typeof (jsonUnknown as { description?: unknown }).description === "string"
+                    ? (jsonUnknown as { description: string }).description
+                    : `HTTP ${resp.status}`;
+            return NextResponse.json(
+                { ok: false, error: `Telegram send failed: ${description}` },
+                { status: 502 }
+            );
+        }
 
         return NextResponse.json({ ok: true });
     } catch (error: unknown) {
