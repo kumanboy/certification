@@ -1,3 +1,6 @@
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from "next/server";
 
 type AnswersMap = Record<number, string>;
@@ -18,7 +21,6 @@ interface EssaySubmitBody {
     grade: string;
 }
 
-/** Return the first defined env from the list, else throw */
 function envFirst(...names: string[]): string {
     for (const n of names) {
         const v = process.env[n];
@@ -27,7 +29,6 @@ function envFirst(...names: string[]): string {
     throw new Error(`Missing required env: one of [${names.join(", ")}]`);
 }
 
-/** Telegram send helper (sendMessage) */
 async function tgSend(token: string, chatId: string, text: string) {
     const resp = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
@@ -65,7 +66,6 @@ export async function POST(req: NextRequest) {
         const raw: unknown = await req.json();
         const body = raw as Partial<EssaySubmitBody>;
 
-        // Basic validation
         if (!body || !body.firstName || !body.lastName) {
             return NextResponse.json(
                 { ok: false, error: "firstName/lastName required" },
@@ -79,7 +79,6 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Use your env names; fall back to TELEGRAM_* if present
         const TELEGRAM_BOT_TOKEN = envFirst("ESSAY_BOT_SENDER", "TELEGRAM_BOT_TOKEN");
         const TELEGRAM_CHAT_ID = envFirst("CHANNEL_ID", "TELEGRAM_CHAT_ID");
 
@@ -89,7 +88,6 @@ export async function POST(req: NextRequest) {
             (typeof body.phone === "string" && body.phone.trim()) ||
             "—";
 
-        // Answers (compact)
         const ansObj: AnswersMap = body.answers as AnswersMap;
         const compactAnswers = Object.keys(ansObj)
             .sort((a, b) => Number(a) - Number(b))
@@ -97,11 +95,11 @@ export async function POST(req: NextRequest) {
             .join(", ");
 
         const essayText = typeof body.essayText === "string" ? body.essayText : "";
-        const essayPreview = essayText.slice(0, 2000) // safe chunk
+        const essayPreview = essayText
+            .slice(0, 2000)
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;");
 
-        // Header + scores + answers (keep well under 4096)
         const header = [
             `<b>Yangi natija / esse</b>`,
             ``,
@@ -117,10 +115,8 @@ export async function POST(req: NextRequest) {
             `<b>Javoblar:</b> ${compactAnswers || "—"}`,
         ].join("\n");
 
-        // Send header/results first
         await tgSend(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, header);
 
-        // Send essay separately (so we never hit the 4096 char limit)
         const essayMsg = [
             `<b>Esse (so‘zlar: ${body.essayWords})</b>`,
             essayPreview || "—",

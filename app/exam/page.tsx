@@ -142,12 +142,23 @@ export default function ExamPage() {
         let testScore = 0;
         let testMaxPresent = 0;
         const newRows: {
-            label: string; qid: number; user: string; correct?: string; verdict?: "✔" | "✘" | "-"
+            label: string;
+            qid: number;
+            user: string;
+            correct?: string;
+            verdict?: "✔" | "✘" | "-";
         }[] = [];
 
+        // small helpers
+        const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+        const disp = (s?: string) => {
+            const v = (s ?? "").trim();
+            return v ? v : "—";
+        };
+
         for (const item of QUESTIONS) {
-            if (item.id === 45) continue;          // essay separately
-            if (item.questionType === "passage") continue; // not graded
+            if (item.id === 45) continue;           // essay separately
+            if (item.questionType === "passage") continue; // passages not graded
 
             const pts = getQuestionPoints(item.id);
             testMaxPresent += pts;
@@ -155,7 +166,7 @@ export default function ExamPage() {
             const label = labelMap[item.id];
             const userAns = (answers[item.id] ?? "").trim();
 
-            // MCQ-like (letter keyed)
+            // Letter-keyed types
             if (
                 item.questionType === "multiple_choice" ||
                 item.questionType === "diagram_mcq" ||
@@ -169,25 +180,26 @@ export default function ExamPage() {
                 newRows.push({
                     label,
                     qid: item.id,
-                    user: userAns || "—",
-                    correct,
+                    user: disp(userAns),
+                    correct: correct || "—",
                     verdict,
                 });
                 continue;
             }
 
-            // Structured (free text; compare against parts.correct if provided)
+            // Structured (free text with per-part answers)
             if (item.questionType === "structured") {
                 const parts: StructuredPart[] = item.parts ?? [];
                 const userParts = String(answers[item.id] ?? "").split("||");
                 const correctParts = parts.map((p) => (p.correct ?? "").trim());
-                const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
 
                 let verdict: "✔" | "✘" | "-" = "-";
                 if (correctParts.some((c) => c.length > 0)) {
                     const allOk =
                         correctParts.length > 0 &&
-                        correctParts.every((c, i) => c.length > 0 && normalize(c) === normalize(userParts[i] ?? ""));
+                        correctParts.every(
+                            (c, i) => c.length > 0 && normalize(c) === normalize(userParts[i] ?? "")
+                        );
                     verdict = allOk ? "✔" : "✘";
                     if (verdict === "✔") testScore += pts;
                 }
@@ -195,54 +207,71 @@ export default function ExamPage() {
                 newRows.push({
                     label,
                     qid: item.id,
-                    user: userParts.join("||") || "—",
-                    correct: correctParts.filter((c) => c.length > 0).join("||") || "—",
+                    user: disp(userParts.join("||")),
+                    correct: disp(correctParts.filter((c) => c.length > 0).join("||")),
                     verdict,
                 });
                 continue;
             }
 
-            // Fallback
-            newRows.push({ label, qid: item.id, user: userAns || "—", correct: "—", verdict: "-" });
+            // Fallback (unknown types just echo user answer)
+            newRows.push({
+                label,
+                qid: item.id,
+                user: disp(userAns),
+                correct: "—",
+                verdict: "-",
+            });
         }
 
-        // essay
+        // Essay
         const essayText = String(answers[45] ?? "");
         const essayWords = wordCount(essayText);
         const essayScore = 0; // manual grading later
 
-        // SUMMARIES (compute BEFORE sending so variables are defined)
+        // Totals
         const scaledTest = testMaxPresent > 0 ? (testScore / testMaxPresent) * TEST_MAX : 0;
         const totalPoints = scaledTest + essayScore;
         const totalPercent = Math.round((totalPoints / (TEST_MAX + ESSAY_MAX)) * 100);
         const grade = letterGradeFromTotal(totalPoints, TEST_MAX + ESSAY_MAX);
 
-        // send everything to telegram (best-effort)
+        // Send to Telegram via API (best-effort, but with useful error logging)
         try {
-            await fetch("/api/send-essay", {
+            const payload = {
+                firstName: info.firstName,
+                lastName: info.lastName,
+                telegram: info.telegram,
+                phone: info.phone,
+                answers, // Record<number, string> from the store
+                essayText,
+                essayWords,
+                testScore,
+                testMaxPresent,
+                scaledTest,
+                totalPoints,
+                totalPercent,
+                grade,
+            };
+
+            const r = await fetch("/api/send-essay", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    // identity
-                    firstName: info.firstName,
-                    lastName: info.lastName,
-                    telegram: info.telegram,
-                    phone: info.phone,
-                    // answers + essay
-                    answers,        // Record<number, string> from the store
-                    essayText,
-                    essayWords,
-                    // scoring snapshot
-                    testScore,
-                    testMaxPresent,
-                    scaledTest,
-                    totalPoints,
-                    totalPercent,
-                    grade,
-                }),
+                body: JSON.stringify(payload),
             });
-        } catch {
-            // ignore network errors so UI completes
+
+            let j: any = null;
+            try {
+                j = await r.json();
+            } catch {
+                // ignore parse error, but log status text
+            }
+            if (!r.ok || !j?.ok) {
+                // Surface the reason in console for quick diagnosis
+                console.error("Send essay failed:", j || r.statusText);
+            }
+        } catch (e) {
+            console.error("Send essay threw:", e);
+            // swallow so UI still completes
         }
 
         setRows(newRows);
@@ -258,6 +287,7 @@ export default function ExamPage() {
             grade,
         });
     }
+
 
     function onClickFinish() {
         setShowDialog(true);
