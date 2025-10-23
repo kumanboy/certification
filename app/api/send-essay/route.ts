@@ -19,19 +19,25 @@ interface EssaySubmitBody {
     grade: string;
 }
 
-function envRequired(name: string): string {
-    const v = process.env[name];
-    if (!v) throw new Error(`Missing required env: ${name}`);
-    return v;
+function envRequired(names: string[]): string {
+    for (const name of names) {
+        const v = process.env[name];
+        if (v) return v;
+    }
+    throw new Error(`Missing required env: one of ${names.join(", ")}`);
+}
+
+function escapeHtml(s: string): string {
+    return s.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 }
 
 export async function POST(req: NextRequest) {
     try {
-        // Never use `any` here
         const raw: unknown = await req.json();
         const body = raw as Partial<EssaySubmitBody>;
 
-        // Basic validation
         if (!body.firstName || !body.lastName) {
             return NextResponse.json(
                 { ok: false, error: "firstName/lastName required" },
@@ -45,8 +51,9 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const TELEGRAM_BOT_TOKEN = envRequired("TELEGRAM_BOT_TOKEN");
-        const TELEGRAM_CHAT_ID = envRequired("TELEGRAM_CHAT_ID");
+        // Your provided variable names with safe fallbacks
+        const TELEGRAM_BOT_TOKEN = envRequired(["ESSAY_BOT_SENDER", "TELEGRAM_BOT_TOKEN"]);
+        const TELEGRAM_CHAT_ID = envRequired(["CHANNEL_ID", "TELEGRAM_CHAT_ID"]);
 
         const fullName = `${body.lastName} ${body.firstName}`.trim();
         const contact =
@@ -55,63 +62,60 @@ export async function POST(req: NextRequest) {
             "—";
 
         const essayText = typeof body.essayText === "string" ? body.essayText : "";
-        const essayPreview = essayText.slice(0, 700).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const essayPreview = escapeHtml(essayText.slice(0, 3500)); // Telegram 4096 char limit (leave headroom)
 
-        // answers compact view
         const ansObj: AnswersMap = body.answers as AnswersMap;
         const compactAnswers = Object.keys(ansObj)
-            .sort((a, b) => Number(a) - Number(b))
-            .map((k) => `${k}:${String(ansObj[Number(k)])}`)
+            .map((k) => Number(k))
+            .sort((a, b) => a - b)
+            .map((k) => `${k}:${String(ansObj[k] ?? "")}`)
             .join(", ");
 
-        const text = [
-            `<b>Yangi esse yuborildi</b>`,
+        const lines = [
+            `<b>📝 Yangi natija va esse</b>`,
             ``,
-            `<b>F.I.Sh:</b> ${fullName}`,
-            `<b>Kontakt:</b> ${contact}`,
+            `<b>F.I.Sh:</b> ${escapeHtml(fullName)}`,
+            `<b>Kontakt:</b> ${escapeHtml(contact)}`,
             ``,
             `<b>Natijalar</b>`,
             `• Test (avto): ${body.testScore} / ${body.testMaxPresent}`,
             `• Test (skalalanib): ${body.scaledTest} / 75`,
             `• Umumiy: ${body.totalPoints} / 150  (${body.totalPercent}%)`,
-            `• Baho: ${body.grade}`,
+            `• Baho: ${escapeHtml(String(body.grade ?? ""))}`,
             ``,
-            `<b>Javoblar:</b> ${compactAnswers || "—"}`,
+            `<b>Javoblar:</b> ${escapeHtml(compactAnswers || "—")}`,
             ``,
-            `<b>Esse (so‘zlar: ${body.essayWords})</b>`,
+            `<b>Esse</b> (so‘zlar: ${body.essayWords ?? 0})`,
             essayPreview || "—",
-        ].join("\n");
+        ];
+        const text = lines.join("\n");
 
-        const resp = await fetch(
-            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-            {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text,
-                    parse_mode: "HTML",
-                    disable_web_page_preview: true,
-                }),
-            }
-        );
+        const resp = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text,
+                parse_mode: "HTML",
+                disable_web_page_preview: true,
+            }),
+        });
 
-        // Parse as unknown and narrow
-        const jsonUnknown: unknown = await resp.json();
+        const json: unknown = await resp.json();
         const ok =
             resp.ok &&
-            typeof jsonUnknown === "object" &&
-            jsonUnknown !== null &&
-            "ok" in jsonUnknown &&
-            (jsonUnknown as { ok: unknown }).ok === true;
+            typeof json === "object" &&
+            json !== null &&
+            "ok" in json &&
+            (json as { ok: unknown }).ok === true;
 
         if (!ok) {
             const description =
-                typeof jsonUnknown === "object" &&
-                jsonUnknown !== null &&
-                "description" in jsonUnknown &&
-                typeof (jsonUnknown as { description?: unknown }).description === "string"
-                    ? (jsonUnknown as { description: string }).description
+                typeof json === "object" &&
+                json !== null &&
+                "description" in json &&
+                typeof (json as { description?: unknown }).description === "string"
+                    ? (json as { description: string }).description
                     : `HTTP ${resp.status}`;
             return NextResponse.json(
                 { ok: false, error: `Telegram send failed: ${description}` },

@@ -1,5 +1,3 @@
-// app/exam/page.tsx
-
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -55,7 +53,7 @@ export default function ExamPage() {
         grade: string;
     } | null>(null);
 
-    // simple rows for answers vs correct (for the results table)
+    // rows for the results table
     const [rows, setRows] = useState<
         { label: string; qid: number; user: string; correct?: string; verdict?: "✔" | "✘" | "-" }[]
     >([]);
@@ -137,77 +135,61 @@ export default function ExamPage() {
         if (timeLeft === 0 && !submitted) setShowDialog(true);
     }, [timeLeft, submitted]);
 
-    /* ------------------ helpers for robust scoring ------------------ */
-
-    function displayAnswer(val: unknown): string {
-        if (val == null) return "—";
-        if (typeof val === "string") {
-            const s = val.trim();
-            return s ? s : "—";
-        }
-        const s = String(val).trim();
-        return s ? s : "—";
-    }
-
-    function verdictFor(user: string, correct: string): "✔" | "✘" {
-        return user && user !== "—" && user.toUpperCase() === correct.toUpperCase() ? "✔" : "✘";
-    }
-
     // compute + table + telegram (called after user fills dialog)
     async function finalizeAndScore(info: SubmitDetails) {
         setUserInfo(info);
 
         let testScore = 0;
         let testMaxPresent = 0;
-        const newRows: { label: string; qid: number; user: string; correct?: string; verdict?: "✔" | "✘" | "-" }[] = [];
+        const newRows: {
+            label: string; qid: number; user: string; correct?: string; verdict?: "✔" | "✘" | "-"
+        }[] = [];
 
-        // ===================== UPDATED LOOP (score & show all types) =====================
         for (const item of QUESTIONS) {
-            if (item.id === 45) continue;                  // essay separately
-            if (item.questionType === "passage") continue; // not graded / not shown in table
+            if (item.id === 45) continue;          // essay separately
+            if (item.questionType === "passage") continue; // not graded
 
             const pts = getQuestionPoints(item.id);
             testMaxPresent += pts;
 
-            const raw = answers[item.id];
-            const userDisp = displayAnswer(raw);
             const label = labelMap[item.id];
+            const userAns = (answers[item.id] ?? "").trim();
 
-            // Grade MCQ-like (letter-keyed): multiple_choice, diagram_mcq, match_table
+            // MCQ-like (letter keyed)
             if (
                 item.questionType === "multiple_choice" ||
                 item.questionType === "diagram_mcq" ||
                 item.questionType === "match_table"
             ) {
                 const correct = (item.correctAnswer ?? "").toUpperCase();
-                const v = verdictFor(userDisp, correct);
-                if (v === "✔") testScore += pts;
+                const verdict: "✔" | "✘" | "-" =
+                    userAns ? (userAns.toUpperCase() === correct ? "✔" : "✘") : "-";
+                if (verdict === "✔") testScore += pts;
 
                 newRows.push({
                     label,
                     qid: item.id,
-                    user: userDisp,
-                    correct: correct || "—",
-                    verdict: v,
+                    user: userAns || "—",
+                    correct,
+                    verdict,
                 });
                 continue;
             }
 
-            // Structured: compare per-part if "correct" provided; otherwise display only.
+            // Structured (free text; compare against parts.correct if provided)
             if (item.questionType === "structured") {
                 const parts: StructuredPart[] = item.parts ?? [];
-                const userParts = String(raw ?? "").split("||");
-
+                const userParts = String(answers[item.id] ?? "").split("||");
                 const correctParts = parts.map((p) => (p.correct ?? "").trim());
                 const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
 
-                let v: "✔" | "✘" | "-" = "-";
+                let verdict: "✔" | "✘" | "-" = "-";
                 if (correctParts.some((c) => c.length > 0)) {
-                    const isAllEqual =
+                    const allOk =
                         correctParts.length > 0 &&
                         correctParts.every((c, i) => c.length > 0 && normalize(c) === normalize(userParts[i] ?? ""));
-                    v = isAllEqual ? "✔" : "✘";
-                    if (v === "✔") testScore += pts;
+                    verdict = allOk ? "✔" : "✘";
+                    if (verdict === "✔") testScore += pts;
                 }
 
                 newRows.push({
@@ -215,53 +197,53 @@ export default function ExamPage() {
                     qid: item.id,
                     user: userParts.join("||") || "—",
                     correct: correctParts.filter((c) => c.length > 0).join("||") || "—",
-                    verdict: v,
-                });
-                continue;
-            }
-
-            // Fill-blank (if present)
-            if (item.questionType === "fill_blank") {
-                const correct = item.correctAnswer ?? "";
-                const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
-                const v = userDisp !== "—" && normalize(userDisp) === normalize(correct) ? "✔" : "✘";
-                if (v === "✔") testScore += pts;
-
-                newRows.push({
-                    label,
-                    qid: item.id,
-                    user: userDisp,
-                    correct: correct || "—",
-                    verdict: v,
+                    verdict,
                 });
                 continue;
             }
 
             // Fallback
-            newRows.push({ label, qid: item.id, user: userDisp, correct: "—", verdict: "-" });
+            newRows.push({ label, qid: item.id, user: userAns || "—", correct: "—", verdict: "-" });
         }
-        // ================================================================================
 
         // essay
         const essayText = String(answers[45] ?? "");
         const essayWords = wordCount(essayText);
         const essayScore = 0; // manual grading later
 
-        // send essay to telegram (best-effort)
-        try {
-            await fetch("/api/send-essay", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ essayText, user: info }),
-            });
-        } catch {
-            // ignore network errors
-        }
-
+        // SUMMARIES (compute BEFORE sending so variables are defined)
         const scaledTest = testMaxPresent > 0 ? (testScore / testMaxPresent) * TEST_MAX : 0;
         const totalPoints = scaledTest + essayScore;
         const totalPercent = Math.round((totalPoints / (TEST_MAX + ESSAY_MAX)) * 100);
         const grade = letterGradeFromTotal(totalPoints, TEST_MAX + ESSAY_MAX);
+
+        // send everything to telegram (best-effort)
+        try {
+            await fetch("/api/send-essay", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    // identity
+                    firstName: info.firstName,
+                    lastName: info.lastName,
+                    telegram: info.telegram,
+                    phone: info.phone,
+                    // answers + essay
+                    answers,        // Record<number, string> from the store
+                    essayText,
+                    essayWords,
+                    // scoring snapshot
+                    testScore,
+                    testMaxPresent,
+                    scaledTest,
+                    totalPoints,
+                    totalPercent,
+                    grade,
+                }),
+            });
+        } catch {
+            // ignore network errors so UI completes
+        }
 
         setRows(newRows);
         setSubmitted(true);
@@ -388,7 +370,7 @@ export default function ExamPage() {
                                     </p>
                                 )}
                                 <p>Test (avto): <b>{calc.testScore}</b> / {calc.testMaxPresent}</p>
-                                <p>Test (skalalanib): <b>{calc.scaledTest}</b> / {TEST_MAX}</p>
+                                <p>Test (shkalalanib): <b>{calc.scaledTest}</b> / {TEST_MAX}</p>
                                 <p>Esse so‘zlar: <b>{calc.essayWords}</b> (ball {calc.essayScore} / {ESSAY_MAX})</p>
                                 <hr className="my-2" />
                                 <p>Umumiy ball: <b>{calc.totalPoints}</b> / {TEST_MAX + ESSAY_MAX}</p>
