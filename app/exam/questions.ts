@@ -703,21 +703,24 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
     /* ---------------- 36 & 37 (fixed answers) ---------------- */
 
     /* 36) Shakldosh so‘z — diagram + single input */
+    /* ---------------- 36–44 (with correct keys) ---------------- */
+
+    /* 36) Shakldosh so‘z — single input (correct: Zil) */
     {
         id: 36,
         questionType: "structured",
         questionText: [
             "Berilgan so‘zlar ma’nosini ifodalaydigan **shakldosh** so‘zni yozing.",
-            "",
+            ""
         ].join("\n"),
         imageUrl: "/images/q36-diagram.png",
         parts: [
-            { key: "a", label: "Javob:", placeholder: "Masalan: ...", multiline: false },
+            { key: "a", label: "Javob:", multiline: false, correct: "Zil" }
         ],
         points: 1.1,
     },
 
-    /* 37) Tinish belgilarining ketma-ketligi — multiline input */
+    /* 37) Tinish belgilarining ketma-ketligi — single textarea */
     {
         id: 37,
         questionType: "structured",
@@ -727,76 +730,98 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
             "Alhosil tarbiya bizlar uchun y o hayot y o mamot y o najot y o halokat y o saodat y o falokat masalasidur",
         ].join("\n"),
         parts: [
-            { key: "a", label: "Javob:", multiline: true, placeholder: "Masalan: “. - , ! ?” " },
+            { key: "a", label: "Javob:", multiline: true, placeholder: "masalan: , ? . - !", correct: ", - , - , ." }
         ],
         points: 1.1,
     },
 
-    /* 40) (a) tobelanib…, (b) teng munosabatda…  — two inputs */
+    /* 38) So‘z turkumi — single input (correct: Haqida) */
+    {
+        id: 38,
+        questionType: "structured",
+        questionText: "To‘g‘ri javobni yozing.",
+        parts: [
+            { key: "a", label: "Javob:", multiline: false, correct: "Haqida" }
+        ],
+        points: 1.1,
+    },
+
+    /* 39) Tilshunoslik termini — single input (correct: Kiritma) */
+    {
+        id: 39,
+        questionType: "structured",
+        questionText: "To‘g‘ri atamani yozing.",
+        parts: [
+            { key: "a", label: "Javob:", multiline: false, correct: "Kiritma" }
+        ],
+        points: 1.1,
+    },
+
+    /* 40) a) Talab etadi; b) Ortib borishi */
     {
         id: 40,
         questionType: "structured",
-        questionText:
-            "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
-        imageUrl: "/images/q40-diagram.png", // if you exported an image; else remove
+        questionText: "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
+        imageUrl: "/images/q40-diagram.png",
         parts: [
-            { key: "a", label: "gapda ajratib ko‘rsatilgan so‘z **tobelanib bog‘langan** so‘zni yozing.", multiline: false },
-            { key: "b", label: "gapda ajratib ko‘rsatilgan so‘z bilan **teng munosabatda bog‘langan** so‘zni yozing.", multiline: false },
+            { key: "a", label: "a) … tobelanib bog‘langan so‘z:", multiline: false, correct: "Talab etadi" },
+            { key: "b", label: "b) … teng munosabatda bog‘langan so‘z:", multiline: false, correct: "Ortib borishi" },
         ],
         points: 1.1,
     },
 
-    /* 41) (a) qanday vosita?, (b) qaysi turi? — two inputs */
+    /* 41) a) Na…na ; b) Bog‘langan */
     {
         id: 41,
         questionType: "structured",
         questionText: "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.",
         imageUrl: "/images/q41-diagram.png",
         parts: [
-            { key: "a", label: "ikkinchi va uchinchi gapni qanday **grammatik vosita** yordamida to‘g‘ri bog‘lash mumkin?", multiline: false },
-            { key: "b", label: "natijada qo‘shma gapning **qaysi turi** hosil bo‘ladi?", multiline: false },
+            { key: "a", label: "a) Qanday grammatik vosita?", multiline: false, correct: "Na…na" },
+            { key: "b", label: "b) Qaysi tur hosil bo‘ladi?", multiline: false, correct: "Bog‘langan" },
         ],
         points: 1.1,
     },
 
-    /* 42) (a) 1-badiiy san’at, (b) 2-badiiy san’at — two inputs */
+    /* 42) a) Tazod ; b) Tardi aks */
     {
         id: 42,
         questionType: "structured",
-        questionText: "She’riy parchada aks etgan she’riy san’atlarni aniqlang va yozing.",
-        imageUrl: "/images/q42-diagram.png",
+        questionText: "She’riy parchada aks etgan san’at(lar)ni yozing.",
+        imageUrl: "/images/q42-vdiagram.png",
         parts: [
-            { key: "a", label: "1-badiiy san’at:", multiline: false },
-            { key: "b", label: "2-badiiy san’at:", multiline: false },
+            { key: "a", label: "a) 1-badiiy san’at:", multiline: false, correct: "Tazod" },
+            { key: "b", label: "b) 2-badiiy san’at:", multiline: false, correct: "Tardi aks" },
         ],
         points: 1.1,
     },
 
-    /* 43) (a) raviy, (b) qaysi tur — two inputs */
+    /* 43) a) B ; b) Mutlaq */
     {
         id: 43,
         questionType: "structured",
-        questionText: "She’riy parchanning qofiyasini tahlil qiling va yozing.",
-        imageUrl: "/images/q43-diagram.png",
+        questionText: "She’riy parchaning qofiyasini tahlil qiling.",
+        imageUrl: "/images/q43-vdiagram.png",
         parts: [
-            { key: "a", label: "baytda qo‘llangan **qofiyadosh so‘zlardagi raviy**:", multiline: false },
-            { key: "b", label: "qofiyadosh so‘zlar raviyining **o‘rniga ko‘ra turi**:", multiline: false },
+            { key: "a", label: "a) Raviy:", multiline: false, correct: "B" },
+            { key: "b", label: "b) Qofiyaning turi:", multiline: false, correct: "Mutlaq" },
         ],
         points: 1.1,
     },
 
-    /* 44) (a) janr, (b) ma’no — two inputs */
+    /* 44) a) Tuyuq ; b) “Yoringa boringlar …” (buyruq ma’nosi) */
     {
         id: 44,
         questionType: "structured",
-        questionText: "Quyidagi she’riy parchaning mazmunini tahlil qiling va savollarga javob yozing.",
-        imageUrl: "/images/q44-diagram.png",
+        questionText: "Quyidagi she’riy parchaning mazmuni bo‘yicha javob yozing.",
+        imageUrl: "/images/q44-vdiagram.png",
         parts: [
-            { key: "a", label: "ushbu she’riy parchaning **janri**:", multiline: false },
-            { key: "b", label: "birinchi misradagi ajratib ko‘rsatilgan so‘z **qanday ma’noda** kelgan?", multiline: false },
+            { key: "a", label: "a) Janr:", multiline: false, correct: "Tuyuq" },
+            { key: "b", label: "b) Ajratilgan so‘zning ma’nosi:", multiline: false, correct: "Yoringa boringlar (harakatni ifodalovchi buyruq ma’nosida)" },
         ],
         points: 1.1,
     },
+
     // 45) ESSE — long-form writing (textarea is rendered by QuestionRenderer)
     {
         id: 45,

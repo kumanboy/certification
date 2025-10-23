@@ -1,3 +1,5 @@
+// app/exam/page.tsx
+
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -10,6 +12,7 @@ import SubmitDialog, { SubmitDetails } from "@/components/exam/SubmitDialog";
 import { QUESTIONS } from "./questions";
 import { getQuestionPoints, TEST_MAX, ESSAY_MAX, wordCount } from "@/lib/scoring";
 import { letterGradeFromTotal } from "@/lib/grading";
+import type { StructuredPart } from "@/types";
 
 const EXAM_MINUTES = 90;
 
@@ -134,45 +137,110 @@ export default function ExamPage() {
         if (timeLeft === 0 && !submitted) setShowDialog(true);
     }, [timeLeft, submitted]);
 
+    /* ------------------ helpers for robust scoring ------------------ */
+
+    function displayAnswer(val: unknown): string {
+        if (val == null) return "—";
+        if (typeof val === "string") {
+            const s = val.trim();
+            return s ? s : "—";
+        }
+        const s = String(val).trim();
+        return s ? s : "—";
+    }
+
+    function verdictFor(user: string, correct: string): "✔" | "✘" {
+        return user && user !== "—" && user.toUpperCase() === correct.toUpperCase() ? "✔" : "✘";
+    }
+
     // compute + table + telegram (called after user fills dialog)
     async function finalizeAndScore(info: SubmitDetails) {
         setUserInfo(info);
 
         let testScore = 0;
         let testMaxPresent = 0;
-        const newRows: typeof rows = [];
+        const newRows: { label: string; qid: number; user: string; correct?: string; verdict?: "✔" | "✘" | "-" }[] = [];
 
+        // ===================== UPDATED LOOP (score & show all types) =====================
         for (const item of QUESTIONS) {
-            if (item.id === 45) continue; // essay separately
-            if (item.questionType === "passage") continue; // not graded
+            if (item.id === 45) continue;                  // essay separately
+            if (item.questionType === "passage") continue; // not graded / not shown in table
 
             const pts = getQuestionPoints(item.id);
             testMaxPresent += pts;
 
-            const user = (answers[item.id] ?? "").trim();
+            const raw = answers[item.id];
+            const userDisp = displayAnswer(raw);
+            const label = labelMap[item.id];
 
-            if (item.questionType === "multiple_choice") {
+            // Grade MCQ-like (letter-keyed): multiple_choice, diagram_mcq, match_table
+            if (
+                item.questionType === "multiple_choice" ||
+                item.questionType === "diagram_mcq" ||
+                item.questionType === "match_table"
+            ) {
                 const correct = (item.correctAnswer ?? "").toUpperCase();
-                const verdict = user ? (user.toUpperCase() === correct ? "✔" : "✘") : "-";
-                if (verdict === "✔") testScore += pts;
+                const v = verdictFor(userDisp, correct);
+                if (v === "✔") testScore += pts;
 
                 newRows.push({
-                    label: labelMap[item.id],
+                    label,
                     qid: item.id,
-                    user: user || "—",
-                    correct,
-                    verdict,
+                    user: userDisp,
+                    correct: correct || "—",
+                    verdict: v,
                 });
-            } else {
-                newRows.push({
-                    label: labelMap[item.id],
-                    qid: item.id,
-                    user: user || "—",
-                    correct: "—",
-                    verdict: "-",
-                });
+                continue;
             }
+
+            // Structured: compare per-part if "correct" provided; otherwise display only.
+            if (item.questionType === "structured") {
+                const parts: StructuredPart[] = item.parts ?? [];
+                const userParts = String(raw ?? "").split("||");
+
+                const correctParts = parts.map((p) => (p.correct ?? "").trim());
+                const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+
+                let v: "✔" | "✘" | "-" = "-";
+                if (correctParts.some((c) => c.length > 0)) {
+                    const isAllEqual =
+                        correctParts.length > 0 &&
+                        correctParts.every((c, i) => c.length > 0 && normalize(c) === normalize(userParts[i] ?? ""));
+                    v = isAllEqual ? "✔" : "✘";
+                    if (v === "✔") testScore += pts;
+                }
+
+                newRows.push({
+                    label,
+                    qid: item.id,
+                    user: userParts.join("||") || "—",
+                    correct: correctParts.filter((c) => c.length > 0).join("||") || "—",
+                    verdict: v,
+                });
+                continue;
+            }
+
+            // Fill-blank (if present)
+            if (item.questionType === "fill_blank") {
+                const correct = item.correctAnswer ?? "";
+                const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+                const v = userDisp !== "—" && normalize(userDisp) === normalize(correct) ? "✔" : "✘";
+                if (v === "✔") testScore += pts;
+
+                newRows.push({
+                    label,
+                    qid: item.id,
+                    user: userDisp,
+                    correct: correct || "—",
+                    verdict: v,
+                });
+                continue;
+            }
+
+            // Fallback
+            newRows.push({ label, qid: item.id, user: userDisp, correct: "—", verdict: "-" });
         }
+        // ================================================================================
 
         // essay
         const essayText = String(answers[45] ?? "");
@@ -187,7 +255,7 @@ export default function ExamPage() {
                 body: JSON.stringify({ essayText, user: info }),
             });
         } catch {
-            // ignore
+            // ignore network errors
         }
 
         const scaledTest = testMaxPresent > 0 ? (testScore / testMaxPresent) * TEST_MAX : 0;
