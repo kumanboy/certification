@@ -6,8 +6,8 @@ import React from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "O'zbek tili imtihon tizimi",
-    description: "Uzbek Language Certification Mock Test System",
+    title: "Ona tili va adabiyot imtihon tizimi",
+    description: "Sardor Toshmuhammadovning Ona tili va adabiyot imtihon tizimi",
 };
 
 export default function RootLayout({

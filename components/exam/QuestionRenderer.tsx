@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import type { Question } from "@/types";
@@ -9,10 +10,13 @@ import MatchTable from "./MatchTable";
 
 type Props = { q: Question; answer?: string; onAnswer: (val: string) => void };
 
-const LABELS = ["A", "B", "C", "D", "E", "F"];
+const LABELS = ["A", "B", "C", "D", "E", "F"] as const;
 
-function isDiagramOption(opt: unknown): opt is { top: string; left: string; right: string } {
-    return !!opt && typeof opt === "object" && "top" in (opt as any) && "left" in (opt as any) && "right" in (opt as any);
+type DiagramOption = { top: string; left: string; right: string };
+function isDiagramOption(opt: unknown): opt is DiagramOption {
+    if (typeof opt !== "object" || opt === null) return false;
+    const o = opt as Partial<Record<keyof DiagramOption, unknown>>;
+    return typeof o.top === "string" && typeof o.left === "string" && typeof o.right === "string";
 }
 
 export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
@@ -35,7 +39,6 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
 
     const setPart = (idx: number, val: string) => {
         const arr = [...splitAns];
-        // make sure length fits
         while (arr.length < (q.parts?.length ?? 1)) arr.push("");
         arr[idx] = val;
         onAnswer(arr.join("||"));
@@ -48,15 +51,36 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
             {/* optional image (click to enlarge) */}
             {q.imageUrl && (
                 <>
-                    <img
-                        src={q.imageUrl}
-                        alt="diagram"
-                        className="mt-1 max-h-72 w-auto cursor-zoom-in rounded-md border bg-white"
+                    <div
+                        className="relative mt-1 h-72 w-full max-w-full cursor-zoom-in rounded-md border bg-white"
                         onClick={() => setShowImg(true)}
-                    />
+                    >
+                        <Image
+                            src={q.imageUrl}
+                            alt="diagram"
+                            fill
+                            unoptimized
+                            className="object-contain rounded-md p-1"
+                            sizes="100vw"
+                            priority
+                        />
+                    </div>
+
                     {showImg && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setShowImg(false)}>
-                            <img src={q.imageUrl} alt="diagram enlarged" className="max-h-[90vh] max-w-[95vw] rounded-lg shadow-2xl" />
+                        <div
+                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+                            onClick={() => setShowImg(false)}
+                        >
+                            <div className="relative h-[90vh] w-[95vw]">
+                                <Image
+                                    src={q.imageUrl}
+                                    alt="diagram enlarged"
+                                    fill
+                                    unoptimized
+                                    className="object-contain rounded-lg shadow-2xl"
+                                    sizes="100vw"
+                                />
+                            </div>
                         </div>
                     )}
                 </>
@@ -103,7 +127,10 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
                                 <button
                                     key={label}
                                     onClick={() => onAnswer(label)}
-                                    className={cn("w-full rounded-lg border p-3 text-left transition", checked ? "border-blue-600 bg-blue-50" : "hover:bg-gray-50")}
+                                    className={cn(
+                                        "w-full rounded-lg border p-3 text-left transition",
+                                        checked ? "border-blue-600 bg-blue-50" : "hover:bg-gray-50"
+                                    )}
                                 >
                                     <div className="mb-2 font-semibold">{label})</div>
                                     <div className="grid grid-cols-3 gap-2 items-start">
@@ -123,7 +150,10 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
                             <button
                                 key={label}
                                 onClick={() => onAnswer(label)}
-                                className={cn("w-full rounded-lg border px-4 py-2 text-left transition", checked ? "border-blue-600 bg-blue-50" : "hover:bg-gray-50")}
+                                className={cn(
+                                    "w-full rounded-lg border px-4 py-2 text-left transition",
+                                    checked ? "border-blue-600 bg-blue-50" : "hover:bg-gray-50"
+                                )}
                             >
                                 <span className="mr-2 font-semibold">{label})</span>
                                 <span>{plain}</span>
@@ -144,7 +174,10 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
                             <button
                                 key={label}
                                 onClick={() => onAnswer(label)}
-                                className={cn("w-full rounded-lg border px-4 py-2 text-left transition", checked ? "border-blue-600 bg-blue-50" : "hover:bg-gray-50")}
+                                className={cn(
+                                    "w-full rounded-lg border px-4 py-2 text-left transition",
+                                    checked ? "border-blue-600 bg-blue-50" : "hover:bg-gray-50"
+                                )}
                             >
                                 <span className="mr-2 font-semibold">{label})</span>
                                 <span>{opt}</span>
