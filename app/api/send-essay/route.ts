@@ -1,4 +1,3 @@
-// app/api/send-essay/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
 type AnswersMap = Record<number, string>;
@@ -19,18 +18,46 @@ interface EssaySubmitBody {
     grade: string;
 }
 
-function envRequired(names: string[]): string {
-    for (const name of names) {
-        const v = process.env[name];
-        if (v) return v;
+/** Return the first defined env from the list, else throw */
+function envFirst(...names: string[]): string {
+    for (const n of names) {
+        const v = process.env[n];
+        if (v && v.trim()) return v.trim();
     }
-    throw new Error(`Missing required env: one of ${names.join(", ")}`);
+    throw new Error(`Missing required env: one of [${names.join(", ")}]`);
 }
 
-function escapeHtml(s: string): string {
-    return s.replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+/** Telegram send helper (sendMessage) */
+async function tgSend(token: string, chatId: string, text: string) {
+    const resp = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text,
+            parse_mode: "HTML",
+            disable_web_page_preview: true,
+        }),
+    });
+
+    const data: unknown = await resp.json();
+    const ok =
+        resp.ok &&
+        typeof data === "object" &&
+        data !== null &&
+        "ok" in data &&
+        (data as { ok: unknown }).ok === true;
+
+    if (!ok) {
+        const desc =
+            typeof data === "object" &&
+            data !== null &&
+            "description" in data &&
+            typeof (data as { description?: unknown }).description === "string"
+                ? (data as { description: string }).description
+                : `HTTP ${resp.status}`;
+        throw new Error(`Telegram send failed: ${desc}`);
+    }
 }
 
 export async function POST(req: NextRequest) {
@@ -38,7 +65,8 @@ export async function POST(req: NextRequest) {
         const raw: unknown = await req.json();
         const body = raw as Partial<EssaySubmitBody>;
 
-        if (!body.firstName || !body.lastName) {
+        // Basic validation
+        if (!body || !body.firstName || !body.lastName) {
             return NextResponse.json(
                 { ok: false, error: "firstName/lastName required" },
                 { status: 400 }
@@ -51,9 +79,9 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // Your provided variable names with safe fallbacks
-        const TELEGRAM_BOT_TOKEN = envRequired(["ESSAY_BOT_SENDER", "TELEGRAM_BOT_TOKEN"]);
-        const TELEGRAM_CHAT_ID = envRequired(["CHANNEL_ID", "TELEGRAM_CHAT_ID"]);
+        // Use your env names; fall back to TELEGRAM_* if present
+        const TELEGRAM_BOT_TOKEN = envFirst("ESSAY_BOT_SENDER", "TELEGRAM_BOT_TOKEN");
+        const TELEGRAM_CHAT_ID = envFirst("CHANNEL_ID", "TELEGRAM_CHAT_ID");
 
         const fullName = `${body.lastName} ${body.firstName}`.trim();
         const contact =
@@ -61,67 +89,43 @@ export async function POST(req: NextRequest) {
             (typeof body.phone === "string" && body.phone.trim()) ||
             "—";
 
-        const essayText = typeof body.essayText === "string" ? body.essayText : "";
-        const essayPreview = escapeHtml(essayText.slice(0, 3500)); // Telegram 4096 char limit (leave headroom)
-
+        // Answers (compact)
         const ansObj: AnswersMap = body.answers as AnswersMap;
         const compactAnswers = Object.keys(ansObj)
-            .map((k) => Number(k))
-            .sort((a, b) => a - b)
-            .map((k) => `${k}:${String(ansObj[k] ?? "")}`)
+            .sort((a, b) => Number(a) - Number(b))
+            .map((k) => `${k}:${String(ansObj[Number(k)])}`)
             .join(", ");
 
-        const lines = [
-            `<b>📝 Yangi natija va esse</b>`,
+        const essayText = typeof body.essayText === "string" ? body.essayText : "";
+        const essayPreview = essayText.slice(0, 2000) // safe chunk
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        // Header + scores + answers (keep well under 4096)
+        const header = [
+            `<b>Yangi natija / esse</b>`,
             ``,
-            `<b>F.I.Sh:</b> ${escapeHtml(fullName)}`,
-            `<b>Kontakt:</b> ${escapeHtml(contact)}`,
+            `<b>F.I.Sh:</b> ${fullName}`,
+            `<b>Kontakt:</b> ${contact}`,
             ``,
             `<b>Natijalar</b>`,
             `• Test (avto): ${body.testScore} / ${body.testMaxPresent}`,
             `• Test (skalalanib): ${body.scaledTest} / 75`,
             `• Umumiy: ${body.totalPoints} / 150  (${body.totalPercent}%)`,
-            `• Baho: ${escapeHtml(String(body.grade ?? ""))}`,
+            `• Baho: ${body.grade}`,
             ``,
-            `<b>Javoblar:</b> ${escapeHtml(compactAnswers || "—")}`,
-            ``,
-            `<b>Esse</b> (so‘zlar: ${body.essayWords ?? 0})`,
+            `<b>Javoblar:</b> ${compactAnswers || "—"}`,
+        ].join("\n");
+
+        // Send header/results first
+        await tgSend(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, header);
+
+        // Send essay separately (so we never hit the 4096 char limit)
+        const essayMsg = [
+            `<b>Esse (so‘zlar: ${body.essayWords})</b>`,
             essayPreview || "—",
-        ];
-        const text = lines.join("\n");
-
-        const resp = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: TELEGRAM_CHAT_ID,
-                text,
-                parse_mode: "HTML",
-                disable_web_page_preview: true,
-            }),
-        });
-
-        const json: unknown = await resp.json();
-        const ok =
-            resp.ok &&
-            typeof json === "object" &&
-            json !== null &&
-            "ok" in json &&
-            (json as { ok: unknown }).ok === true;
-
-        if (!ok) {
-            const description =
-                typeof json === "object" &&
-                json !== null &&
-                "description" in json &&
-                typeof (json as { description?: unknown }).description === "string"
-                    ? (json as { description: string }).description
-                    : `HTTP ${resp.status}`;
-            return NextResponse.json(
-                { ok: false, error: `Telegram send failed: ${description}` },
-                { status: 502 }
-            );
-        }
+        ].join("\n");
+        await tgSend(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, essayMsg);
 
         return NextResponse.json({ ok: true });
     } catch (error: unknown) {
