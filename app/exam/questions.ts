@@ -739,7 +739,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
     {
         id: 38,
         questionType: "structured",
-        questionText: "To‘g‘ri javobni yozing.",
+        questionText: "Har uchala kelishik shakli bilan ham ma'nodoshlik hosil qila oluvchi ko'makchini yozing",
+        imageUrl: "/images/q38-diagram.png",
         parts: [
             { key: "a", label: "Javob:", multiline: false, correct: "Haqida" }
         ],
@@ -750,7 +751,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
     {
         id: 39,
         questionType: "structured",
-        questionText: "To‘g‘ri atamani yozing.",
+        questionText: "Gapdagi qavs ichida berilgan birlik turini aniqlang va yozing",
+        imageUrl: "/images/q39-diagram.png",
         parts: [
             { key: "a", label: "Javob:", multiline: false, correct: "Kiritma" }
         ],
