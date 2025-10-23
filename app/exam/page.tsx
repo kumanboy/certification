@@ -259,13 +259,20 @@ export default function ExamPage() {
                 body: JSON.stringify(payload),
             });
 
-            let j: any = null;
+            let j: unknown = null;
             try {
                 j = await r.json();
             } catch {
                 // ignore parse error, but log status text
             }
-            if (!r.ok || !j?.ok) {
+
+            const okJson =
+                typeof j === "object" &&
+                j !== null &&
+                "ok" in j &&
+                (j as { ok: unknown }).ok === true;
+
+            if (!r.ok || !okJson) {
                 // Surface the reason in console for quick diagnosis
                 console.error("Send essay failed:", j || r.statusText);
             }
