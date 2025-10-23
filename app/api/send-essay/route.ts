@@ -79,8 +79,8 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const TELEGRAM_BOT_TOKEN = envFirst("ESSAY_BOT_SENDER", "TELEGRAM_BOT_TOKEN");
-        const TELEGRAM_CHAT_ID = envFirst("CHANNEL_ID", "TELEGRAM_CHAT_ID");
+        const TELEGRAM_BOT_TOKEN = envFirst("ESSAY_BOT_SENDER");
+        const TELEGRAM_CHAT_ID = envFirst("CHANNEL_ID");
 
         const fullName = `${body.lastName} ${body.firstName}`.trim();
         const contact =
