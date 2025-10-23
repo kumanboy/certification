@@ -790,7 +790,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 42,
         questionType: "structured",
         questionText: "She’riy parchada aks etgan san’at(lar)ni yozing.",
-        imageUrl: "/images/q42-vdiagram.png",
+        imageUrl: "/images/q42-diagram.png",
         parts: [
             { key: "a", label: "a) 1-badiiy san’at:", multiline: false, correct: "Tazod" },
             { key: "b", label: "b) 2-badiiy san’at:", multiline: false, correct: "Tardi aks" },
@@ -803,7 +803,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 43,
         questionType: "structured",
         questionText: "She’riy parchaning qofiyasini tahlil qiling.",
-        imageUrl: "/images/q43-vdiagram.png",
+        imageUrl: "/images/q43-diagram.png",
         parts: [
             { key: "a", label: "a) Raviy:", multiline: false, correct: "B" },
             { key: "b", label: "b) Qofiyaning turi:", multiline: false, correct: "Mutlaq" },
@@ -816,7 +816,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         id: 44,
         questionType: "structured",
         questionText: "Quyidagi she’riy parchaning mazmuni bo‘yicha javob yozing.",
-        imageUrl: "/images/q44-vdiagram.png",
+        imageUrl: "/images/q44-diagram.png",
         parts: [
             { key: "a", label: "a) Janr:", multiline: false, correct: "Tuyuq" },
             { key: "b", label: "b) Ajratilgan so‘zning ma’nosi:", multiline: false, correct: "Yoringa boringlar (harakatni ifodalovchi buyruq ma’nosida)" },
