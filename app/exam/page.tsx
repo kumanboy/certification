@@ -13,7 +13,7 @@ import { getQuestionPoints, TEST_MAX, ESSAY_MAX, wordCount } from "@/lib/scoring
 import { letterGradeFromTotal } from "@/lib/grading";
 import type { StructuredPart } from "@/types";
 
-const EXAM_MINUTES = 90;
+const EXAM_MINUTES = 180;
 const STORAGE_KEY = "exam_state_v1";
 
 /** passages → special labels (excluded from numbering & progress) */
