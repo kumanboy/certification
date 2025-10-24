@@ -3,18 +3,13 @@ export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import { createHmac } from "crypto";
 
-type SetCodeBody = {
-    ttlSeconds?: number; // optional override from caller
-};
+type SetCodeBody = { ttlSeconds?: number };
 
 function pickAlphabetCode(hmac: Buffer, len = 6): string {
-    const alphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789"; // no O/0, l/1
+    const alphabet = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
     const base = alphabet.length;
     let out = "";
-    // use first len bytes; mix for distribution
-    for (let i = 0; i < len; i++) {
-        out += alphabet[hmac[i] % base];
-    }
+    for (let i = 0; i < len; i++) out += alphabet[hmac[i] % base];
     return out;
 }
 
@@ -43,25 +38,20 @@ export async function POST(req: Request) {
     }
 
     let raw: unknown;
-    try {
-        raw = await req.json();
-    } catch {
-        raw = {};
-    }
+    try { raw = await req.json(); } catch { raw = {}; }
     if (!isSetCodeBody(raw)) {
         return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
     }
 
     const ttlSeconds = normalizeTtlSeconds(raw.ttlSeconds);
-    const slotSizeMs = ttlSeconds * 1000;
-    const now = Date.now();
-    const slot = Math.floor(now / slotSizeMs);
+
+    // >>> NEW: per-second slot so every press yields a fresh code
+    const slot = Math.floor(Date.now() / 1000);
 
     const secret = process.env.ACCESS_CODE_ADMIN_SECRET!;
     const code = deriveCode(secret, slot, 6);
-    const expiresAt = Math.floor((slot + 1) * slotSizeMs / 1000);
+    const expiresAt = Math.floor(Date.now() / 1000) + ttlSeconds;
 
-    // Stateless: we don’t persist; any region can recompute.
     return NextResponse.json({ ok: true, code, expiresAt }, { status: 200 });
 }
 
