@@ -189,7 +189,26 @@ export default function ExamPage() {
         const newRows: RowsItem[] = [];
 
         // small helpers
-        const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+        function normalize(s: string): string {
+            // canonicalize unicode, trim
+            let v = s.normalize("NFKC").trim();
+
+            // unify apostrophes (’, ‘, ʼ, ʻ, `, ´ → ')
+            v = v.replace(/[`´ʻ’‘ʹʼ]/g, "'");
+
+            // unify ellipsis (… or 2+ dots → ...)
+            v = v.replace(/\u2026/g, "...").replace(/\.{2,}/g, "...");
+
+            // unify dashes (– — → -)
+            v = v.replace(/[–—]/g, "-");
+
+            // collapse internal whitespace
+            v = v.replace(/\s+/g, " ");
+
+            // compare case-insensitively
+            return v.toUpperCase();
+        }
+
         const disp = (s?: string) => {
             const v = (s ?? "").trim();
             return v ? v : "—";

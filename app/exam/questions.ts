@@ -236,9 +236,9 @@ export const QUESTIONS: Question[] = [
             "Said Ahmadning “Jimjitlik” romaniga nomutanosib bo‘lgan javobni aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "Tolibjonning onasi Egamberdi qizning nojo‘natvor holi uchun tanbeh beradi.",
-            "Do‘lim/ziy kelinining o‘z otasi cho‘pon bo‘lgani haqida Tolibjonning onasiga aytib beradi.",
-            "Tolibjonning onasi G‘uromiddin xotini kichkina paytda juda jizzaki bo‘lganini uning o‘ziga hasrat payti aytib bergandi.",
+            "Tolibjonning onasi Egamberdiga uyiga kelib qolgan qizingni jo'natvor, deb tanbeh bergan",
+            "Dolimboy kelinining o‘z otasi cho‘pon bo‘lganligi haqida Tolibjonning onasiga aytib beradi.",
+            "Tolibjonning onasi G‘upromiddinning xotini kichkinaligida  juda jiqildoq bo‘lganligini uning o‘ziga hashar payti aytib bergandi.",
             "Tolibjon yaqin 30 yildan beri o‘g‘lim voyaga yetganda o‘qiydi deb, kitob yig‘ardi.",
         ],
         correctAnswer: "B",
@@ -253,9 +253,9 @@ export const QUESTIONS: Question[] = [
         questionType: "multiple_choice",
         options: [
             "Tergov jarayonida Shahnoza Rustamning o‘limiga bevosita aloqasi borligini tan oladi.",
-            "Rustam talabchalik davrida paxta terimida qattiq shamollab qoladi va Shahnoza qat’iyatlik bilan shifokorni olib keladi.",
-            "Komissaryosh tergovchining nohaqligini ko‘zga ekkan, xonlik davridagi tergov usullarining naqadar muvaffaqiyatsiz ekanligini o‘ylaydi.",
-            "Soat Ganiyevning onasi boshiga musibat tushgach, birdaniga nainozxon bo‘lib qoladi va har duosida eshondan uzr so‘raydi.",
+            "Rustam talabalik davrida paxta terimida qattiq shamollab qoladi va Shahnoza qat’iyatlik bilan shifokorni olib keladi.",
+            "Komissar yosh tergovchining no'noqligini ko‘rar ekkan, xonlik davridagi tergov usullarining naqadar muvaffaqiyatli ekanligini o‘ylaydi.",
+            "Soat G'aniyevning onasi boshiga musibat tushgach, birdaniga namozxon bo‘lib qoladi va har duosida eshondan uzr so‘raydi.",
         ],
         correctAnswer: "D",
         points: 1.7,
@@ -265,12 +265,12 @@ export const QUESTIONS: Question[] = [
     {
         id: 15,
         questionText:
-            "Jorj Oruellning “Moxona” asari voqealari xato bayon qilingan javobni aniqlang.",
+            "Jorj Oruellning “Molxona” asari voqealari xato bayon qilingan javobni aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "Asarda hayvonlar tomonidan yaratilgan jamiyat adolatsizlikka ham duch kelamiz.",
-            "Asarda ikki oyoqda yura oladigan har bir jon – g‘anim. To‘rtta oyoq yaxshi, qanotli jon esa do‘st degan fikrlar aytilgan.",
-            "Tegirmonda ular eshardi va u mobaynida sezilarli daromad keltiradi.",
+            "Asarda hayvonlar tomonidan yaratilgan jamiyat oxir-oqibat qulashiga ham duch kelamiz.",
+            "Asarda ikki oyoqda yura oladigan har bir jon – g‘anim. To‘rtta oyog'i yo qanotli bor har bir jon - do‘st, degan fikrlar aytilgan.",
+            "Tegirmonda un elashardi va u molxonaga sezilarli daromad keltiradi.",
             "Ushbu asar oxirida ikkita cho‘chqa urushib ketadi va asar tugaydi.",
         ],
         correctAnswer: "D",
@@ -282,9 +282,9 @@ export const QUESTIONS: Question[] = [
         id: 16,
         questionText:
             'Fitratning "Abulfayzxon" dramasi qahramonlari haqida to‘g‘ri talqin qilingan javob(lar)ni aniqlang.\n\n' +
-            '1. Mir Vafo – Rahimxoimning hukmronlik tarixiga bag‘ishlangan "Tuhfayi xoniy" asarining muallifi. Hakimbiyning odami chamasi ellik-oltmiş yoshlarida edi.\n' +
+            '1. Mir Vafo – Rahimxonning hukmronlik tarixiga bag‘ishlangan "Tuhfayi xoniy" asarining muallifi. Hakimbiyning odami chamasi ellik-oltmish yoshlarda edi.\n' +
             '2. Ulfat – xonning xo‘jasaroyi (haram boshlig‘i) edi.\n' +
-            '3. Rahimbiy – Abulfayzxonnning o‘g‘li Abdulmo‘minni zaharlab o‘ldiradi.',
+            '3. Rahimbiy – Abulfayzxonning o‘g‘li Abdulmo‘minni zaharlab o‘ldiradi.',
         questionType: "multiple_choice",
         options: [
             "1, 2, 3",
@@ -300,7 +300,7 @@ export const QUESTIONS: Question[] = [
     {
         id: 17,
         questionText:
-            "Pirimqul Qodirovning “Yulduzli tunlar” romani qahramonlari haqida to‘g‘ri talqin qilingan javob(lar)ni toping.\n1. Bayda – Panipat jangida halok bo‘lgan Ibrohim Lodiyning onasi, ya’ni malika edi.\n2. Bahodir – yosh bo‘lishiga qaramasdan forscha va sanskritni yaxshi bilar, Bobur uchun zarur bo‘lgan ba’zi hujjatlarni tarjima qilar edi.\n3. Xo‘ja Kalonbek – Boburning yonida yurgan ustozlik qilgan yaqin insonlardan biri bo‘lgan.",
+            "Pirimqul Qodirovning “Yulduzli tunlar” romani qahramonlari haqida to‘g‘ri talqin qilingan javob(lar)ni toping.\n1. Bayda – Panipat jangida halok bo‘lgan Ibrohim Lodining onasi, ya’ni malika edi.\n2. Bahodir – yosh bo‘lishiga qaramasdan forscha va sanskritni yaxshi bilar, Bobur uchun zarur bo‘lgan ba’zi hujjatlarni tarjima qilar edi.\n3. Xo‘ja Kalonbek – Boburning yonida yurgan ustozlik qilgan yaqin insonlardan biri bo‘lgan.",
         questionType: "multiple_choice",
         options: ["1,3", "1,2,3", "1,2", "2,3"],
         correctAnswer: "B",
@@ -503,12 +503,12 @@ Men esa u paytda dadamga faqat bir qarashda o‘xshasam kerak, deb o‘yladim. T
     {
         id: 24,
         questionType: "multiple_choice",
-        questionText: "Andryushaning minbarda gapirishi qanday hisni ifodalagan?",
+        questionText: "Dada obraziga mos javobni aniqlang ?",
         options: [
-            "Kechirilmagan xatolaridan pushaymonni.",
-            "O‘z kuchini ko‘rsatish istagini.",
-            "Minnatdorchilik va quvonch hislarini.",
-            "Bemorlikdagi og‘riq iztiroblarini."
+            "Maqtanchoq va qattiqqo’l",
+            "O’z kuchiga ishonuvchan shifokor",
+            "Qilgan  ishlarini hamma tomonidan e’tirof etilganidan hijolat chekadigan obraz",
+            "Bemorlarning ijtimoiy holatiga qarab munosabatda bo’ladigan shifokor"
         ],
         correctAnswer: "C",
         points: 1.1,
@@ -766,8 +766,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
         imageUrl: "/images/q40-diagram.png",
         parts: [
-            { key: "a", label: "a) … tobelanib bog‘langan so‘z:", multiline: false, correct: "TALAB ETADI" },
-            { key: "b", label: "b) … teng munosabatda bog‘langan so‘z:", multiline: false, correct: "ORTIB BORISHI" },
+            { key: "a", label: "… tobelanib bog‘langan so‘z:", multiline: false, correct: "TALAB ETADI" },
+            { key: "b", label: "… teng munosabatda bog‘langan so‘z:", multiline: false, correct: "ORTIB BORISHI" },
         ],
         points: 1.1,
     },
@@ -779,8 +779,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.",
         imageUrl: "/images/q41-diagram.png",
         parts: [
-            { key: "a", label: "a) Qanday grammatik vosita?", multiline: false, correct: "NA…NA" },
-            { key: "b", label: "b) Qaysi tur hosil bo‘ladi?", multiline: false, correct: "BOG'LANGAN" },
+            { key: "a", label: "Qanday grammatik vosita?", multiline: false, correct: "NA…NA" },
+            { key: "b", label: "Qaysi tur hosil bo‘ladi?", multiline: false, correct: "BOG'LANGAN" },
         ],
         points: 1.1,
     },
@@ -792,8 +792,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "She’riy parchada aks etgan san’at(lar)ni yozing.",
         imageUrl: "/images/q42-diagram.png",
         parts: [
-            { key: "a", label: "a) 1-badiiy san’at:", multiline: false, correct: "TAZOD" },
-            { key: "b", label: "b) 2-badiiy san’at:", multiline: false, correct: "TARDI AKS" },
+            { key: "a", label: "1-badiiy san’at:", multiline: false, correct: "TAZOD" },
+            { key: "b", label: "2-badiiy san’at:", multiline: false, correct: "TARDI AKS" },
         ],
         points: 1.1,
     },
@@ -805,8 +805,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "She’riy parchaning qofiyasini tahlil qiling.",
         imageUrl: "/images/q43-diagram.png",
         parts: [
-            { key: "a", label: "a) Raviy:", multiline: false, correct: "B" },
-            { key: "b", label: "b) Qofiyaning turi:", multiline: false, correct: "MUTLAQ" },
+            { key: "a", label: "Raviy:", multiline: false, correct: "B" },
+            { key: "b", label: "Qofiyaning turi:", multiline: false, correct: "MUTLAQ" },
         ],
         points: 1.1,
     },
@@ -818,8 +818,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Quyidagi she’riy parchaning mazmuni bo‘yicha javob yozing.",
         imageUrl: "/images/q44-diagram.png",
         parts: [
-            { key: "a", label: "a) Janr:", multiline: false, correct: "TUYUQ" },
-            { key: "b", label: "b) Ajratilgan so‘zning ma’nosi:", multiline: false, correct: "YORINGGA BORINGLAR" },
+            { key: "a", label: "Janr:", multiline: false, correct: "TUYUQ" },
+            { key: "b", label: "Ajratilgan so‘zning ma’nosi:", multiline: false, correct: "YORINGGA BORINGLAR" },
         ],
         points: 1.1,
     },
