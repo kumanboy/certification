@@ -715,7 +715,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         ].join("\n"),
         imageUrl: "/images/q36-diagram.png",
         parts: [
-            { key: "a", label: "Javob:", multiline: false, correct: "ZIL" }
+            { key: "a", label: "Javob:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "ZIL" }
         ],
         points: 1.1,
     },
@@ -742,7 +742,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Har uchala kelishik shakli bilan ham ma'nodoshlik hosil qila oluvchi ko'makchini yozing",
         imageUrl: "/images/q38-diagram.png",
         parts: [
-            { key: "a", label: "Javob:", multiline: false, correct: "HAQIDA" }
+            { key: "a", label: "Javob:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "HAQIDA" }
         ],
         points: 1.1,
     },
@@ -754,7 +754,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Gapdagi qavs ichida berilgan birlik turini aniqlang va yozing",
         imageUrl: "/images/q39-diagram.png",
         parts: [
-            { key: "a", label: "Javob:", multiline: false, correct: "KIRITMA" }
+            { key: "a", label: "Javob:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "KIRITMA" }
         ],
         points: 1.1,
     },
@@ -766,8 +766,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
         imageUrl: "/images/q40-diagram.png",
         parts: [
-            { key: "a", label: "… tobelanib bog‘langan so‘z:", multiline: false, correct: "TALAB ETADI" },
-            { key: "b", label: "… teng munosabatda bog‘langan so‘z:", multiline: false, correct: "ORTIB BORISHI" },
+            { key: "a", label: "… tobelanib bog‘langan so‘z:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TALAB ETADI" },
+            { key: "b", label: "… teng munosabatda bog‘langan so‘z:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "ORTIB BORISHI" },
         ],
         points: 1.1,
     },
@@ -779,8 +779,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.",
         imageUrl: "/images/q41-diagram.png",
         parts: [
-            { key: "a", label: "Qanday grammatik vosita?", multiline: false, correct: "NA…NA" },
-            { key: "b", label: "Qaysi tur hosil bo‘ladi?", multiline: false, correct: "BOG'LANGAN" },
+            { key: "a", label: "Qanday grammatik vosita?",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "NA…NA" },
+            { key: "b", label: "Qaysi tur hosil bo‘ladi?",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "BOG'LANGAN" },
         ],
         points: 1.1,
     },
@@ -792,8 +792,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "She’riy parchada aks etgan san’at(lar)ni yozing.",
         imageUrl: "/images/q42-diagram.png",
         parts: [
-            { key: "a", label: "1-badiiy san’at:", multiline: false, correct: "TAZOD" },
-            { key: "b", label: "2-badiiy san’at:", multiline: false, correct: "TARDI AKS" },
+            { key: "a", label: "1-badiiy san’at:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TAZOD" },
+            { key: "b", label: "2-badiiy san’at:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TARDI AKS" },
         ],
         points: 1.1,
     },
@@ -805,8 +805,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "She’riy parchaning qofiyasini tahlil qiling.",
         imageUrl: "/images/q43-diagram.png",
         parts: [
-            { key: "a", label: "Raviy:", multiline: false, correct: "B" },
-            { key: "b", label: "Qofiyaning turi:", multiline: false, correct: "MUTLAQ" },
+            { key: "a", label: "Raviy:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "B" },
+            { key: "b", label: "Qofiyaning turi:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "MUTLAQ" },
         ],
         points: 1.1,
     },
@@ -818,8 +818,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Quyidagi she’riy parchaning mazmuni bo‘yicha javob yozing.",
         imageUrl: "/images/q44-diagram.png",
         parts: [
-            { key: "a", label: "Janr:", multiline: false, correct: "TUYUQ" },
-            { key: "b", label: "Ajratilgan so‘zning ma’nosi:", multiline: false, correct: "YORINGGA BORINGLAR" },
+            { key: "a", label: "Janr:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TUYUQ" },
+            { key: "b", label: "Ajratilgan so‘zning ma’nosi:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "YORINGGA BORINGLAR" },
         ],
         points: 1.1,
     },

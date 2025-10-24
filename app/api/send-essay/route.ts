@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
             ``,
             `<b>Natijalar</b>`,
             `• Test (avto): ${body.testScore} / ${body.testMaxPresent}`,
-            `• Test (skalalanib): ${body.scaledTest} / 75`,
+            `• Test (shkalalanib): ${body.scaledTest} / 75`,
             `• Umumiy: ${body.totalPoints} / 150  (${body.totalPercent}%)`,
             `• Baho: ${body.grade}`,
             ``,
