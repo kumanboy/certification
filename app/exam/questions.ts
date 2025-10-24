@@ -727,7 +727,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: [
             "Berilgan gapda qo‘llanishi lozim bo‘lgan **tinish belgilarining to‘g‘ri ketma-ketligini** yozing.",
             "",
-            "Alhosil tarbiya bizlar uchun y o hayot y o mamot y o najot y o halokat y o saodat y o falokat masalasidur",
+            "Alhosil tarbiya bizlar uchun yo hayot yo mamot yo najot yo halokat yo saodat yo falokat masalasidur",
         ].join("\n"),
         parts: [
             { key: "a", label: "Javob:", multiline: true, placeholder: "masalan: , ? . - !", correct: ", - , - , - ." }
