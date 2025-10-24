@@ -24,7 +24,6 @@ function isSetCodeBody(x: unknown): x is SetCodeBody {
     if (typeof x !== "object" || x === null) return false;
     const o = x as Record<string, unknown>;
     return !("ttlSeconds" in o && typeof o.ttlSeconds !== "number");
-
 }
 
 export async function POST(req: Request) {
@@ -47,12 +46,14 @@ export async function POST(req: Request) {
 
     // Generate a brand-new code each time /generate is pressed
     const code = makeCode(6);
-    const expiresAt = Math.floor(Date.now() / 1000) + ttlSeconds;
+    const nowSec = Math.floor(Date.now() / 1000);
+    const expiresAt = nowSec + ttlSeconds;       // seconds since epoch
+    const expiresAtMs = expiresAt * 1000;        // milliseconds since epoch
 
     // Save as the ONLY active code (KV with TTL or dev fallback)
     await saveActiveCode({ code, expiresAt }, ttlSeconds);
 
-    return NextResponse.json({ ok: true, code, expiresAt }, { status: 200 });
+    return NextResponse.json({ ok: true, code, expiresAt, expiresAtMs }, { status: 200 });
 }
 
 export function GET() {
