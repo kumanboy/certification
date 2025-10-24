@@ -1,6 +1,7 @@
+// app/exam/page.tsx
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useExamStore } from "@/store/exam-store";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -13,12 +14,13 @@ import { letterGradeFromTotal } from "@/lib/grading";
 import type { StructuredPart } from "@/types";
 
 const EXAM_MINUTES = 90;
+const STORAGE_KEY = "exam_state_v1";
 
 /** passages → special labels (excluded from numbering & progress) */
 const SPECIAL_LABELS: Record<number, "M" | "G"> = {
-    100: "M",   // VIRUSLAR (after 17)
-    2301: "M",  // “Kattalar” oqshomi
-    2800: "G",  // G‘azal
+    100: "M",
+    2301: "M",
+    2800: "G",
 };
 
 /** manual numeric label overrides so your sequence is 1..32, [33,34,35 on Q33], 36, 37 ... */
@@ -26,6 +28,14 @@ const SPECIAL_NUMBERS: Record<number, number> = {
     33: 33,
     36: 36,
     37: 37,
+};
+
+type RowsItem = {
+    label: string;
+    qid: number;
+    user: string;
+    correct?: string;
+    verdict?: "✔" | "✘" | "-";
 };
 
 export default function ExamPage() {
@@ -53,10 +63,7 @@ export default function ExamPage() {
         grade: string;
     } | null>(null);
 
-    // rows for the results table
-    const [rows, setRows] = useState<
-        { label: string; qid: number; user: string; correct?: string; verdict?: "✔" | "✘" | "-" }[]
-    >([]);
+    const [rows, setRows] = useState<RowsItem[]>([]);
 
     // ids in render order
     const ids = useMemo(() => QUESTIONS.map((q) => q.id), []);
@@ -112,9 +119,36 @@ export default function ExamPage() {
 
     const q = useMemo(() => QUESTIONS[currentQuestionIndex], [currentQuestionIndex]);
 
-    // init
+    // -------- Persistence (hydrate + autosave) --------
+    const hydratedOnceRef = useRef(false);
+
     useEffect(() => {
+        // Initial reset, then hydrate from localStorage once
         resetExam();
+
+        // hydrate after reset
+        if (!hydratedOnceRef.current) {
+            try {
+                const raw = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+                if (raw) {
+                    const parsed = JSON.parse(raw) as { answers?: Record<string, string> } | null;
+                    if (parsed && parsed.answers) {
+                        // apply saved answers (including essay id 45)
+                        Object.entries(parsed.answers).forEach(([k, v]) => {
+                            const idNum = Number(k);
+                            if (Number.isFinite(idNum)) {
+                                setAnswer(idNum, String(v));
+                            }
+                        });
+                    }
+                }
+            } catch {
+                // ignore corrupted storage
+            } finally {
+                hydratedOnceRef.current = true;
+            }
+        }
+
         setTimeLeft(EXAM_MINUTES * 60);
         setSubmitted(false);
         setCalc(null);
@@ -122,6 +156,17 @@ export default function ExamPage() {
         setUserInfo(null);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // autosave answers to localStorage
+    useEffect(() => {
+        try {
+            if (typeof window !== "undefined") {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers }));
+            }
+        } catch {
+            // quota/cookies disabled → ignore
+        }
+    }, [answers]);
 
     // timer
     useEffect(() => {
@@ -141,13 +186,7 @@ export default function ExamPage() {
 
         let testScore = 0;
         let testMaxPresent = 0;
-        const newRows: {
-            label: string;
-            qid: number;
-            user: string;
-            correct?: string;
-            verdict?: "✔" | "✘" | "-";
-        }[] = [];
+        const newRows: RowsItem[] = [];
 
         // small helpers
         const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
@@ -157,7 +196,7 @@ export default function ExamPage() {
         };
 
         for (const item of QUESTIONS) {
-            if (item.id === 45) continue;           // essay separately
+            if (item.id === 45) continue; // essay separately
             if (item.questionType === "passage") continue; // passages not graded
 
             const pts = getQuestionPoints(item.id);
@@ -242,7 +281,7 @@ export default function ExamPage() {
                 lastName: info.lastName,
                 telegram: info.telegram,
                 phone: info.phone,
-                answers, // Record<number, string> from the store
+                answers, // Record<number, string> from the store (includes essay at 45)
                 essayText,
                 essayWords,
                 testScore,
@@ -259,26 +298,20 @@ export default function ExamPage() {
                 body: JSON.stringify(payload),
             });
 
-            let j: unknown = null;
+            let okJson = false;
             try {
-                j = await r.json();
+                const j = (await r.json()) as { ok?: boolean } | unknown;
+                if (typeof j === "object" && j !== null && "ok" in j) {
+                    okJson = Boolean((j as { ok?: boolean }).ok);
+                }
             } catch {
-                // ignore parse error, but log status text
+                // ignore parse error
             }
-
-            const okJson =
-                typeof j === "object" &&
-                j !== null &&
-                "ok" in j &&
-                (j as { ok: unknown }).ok === true;
-
             if (!r.ok || !okJson) {
-                // Surface the reason in console for quick diagnosis
-                console.error("Send essay failed:", j || r.statusText);
+                console.error("Send essay failed with status:", r.status);
             }
         } catch (e) {
             console.error("Send essay threw:", e);
-            // swallow so UI still completes
         }
 
         setRows(newRows);
@@ -294,7 +327,6 @@ export default function ExamPage() {
             grade,
         });
     }
-
 
     function onClickFinish() {
         setShowDialog(true);
@@ -319,6 +351,14 @@ export default function ExamPage() {
         if (lab === "G") return "G‘azal";
         return `Savol ${lab} / ${totalNumbered}`;
     }, [currentQuestionIndex, ids, labelMap, totalNumbered]);
+
+    // Intercept answers to force CAPITALS on Q33–Q44
+    function handleAnswerForCurrent(val: string) {
+        const id = q.id;
+        const isCapRange = id >= 33 && id <= 44;
+        const normalized = isCapRange ? val.toUpperCase() : val;
+        setAnswer(id, normalized);
+    }
 
     return (
         <main className="min-h-screen bg-gray-50 p-6">
@@ -363,7 +403,7 @@ export default function ExamPage() {
                             <QuestionRenderer
                                 q={q}
                                 answer={answers[q.id]}
-                                onAnswer={(val) => setAnswer(q.id, val)}
+                                onAnswer={handleAnswerForCurrent}
                             />
                         </div>
 

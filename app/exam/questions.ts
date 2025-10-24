@@ -39,7 +39,7 @@ export const QUESTIONS: Question[] = [
         ].join("\n"),
         questionType: "multiple_choice",
         options: ["3 va 4", "1 va 3", "2 va 3", "1 va 4"],
-        correctAnswer: "D",
+        correctAnswer: "B",
         points: 1.7,
     },
 
@@ -55,7 +55,7 @@ export const QUESTIONS: Question[] = [
             {top: "ziyon", left: "futur", right: "talafot"},
             {top: "yovuz", left: "dushman", right: "g‘anim"},
         ] as DiagramOption[],
-        correctAnswer: "D",
+        correctAnswer: "C",
         points: 1.7,
     },
 
@@ -510,7 +510,7 @@ Men esa u paytda dadamga faqat bir qarashda o‘xshasam kerak, deb o‘yladim. T
             "Minnatdorchilik va quvonch hislarini.",
             "Bemorlikdagi og‘riq iztiroblarini."
         ],
-        correctAnswer: "D",
+        correctAnswer: "C",
         points: 1.1,
     },
 
@@ -525,7 +525,7 @@ Men esa u paytda dadamga faqat bir qarashda o‘xshasam kerak, deb o‘yladim. T
             "Minnatdorchilik va quvonch hislarini.",
             "Bemorlikdagi og‘riq iztiroblarini."
         ],
-        correctAnswer: "B",
+        correctAnswer: "D",
         points: 1.1,
     },
 
@@ -540,7 +540,7 @@ Men esa u paytda dadamga faqat bir qarashda o‘xshasam kerak, deb o‘yladim. T
             "O‘z manfaatini yaxshi ko‘radigan inson sifatida.",
             "Har doim shaxsiy ishlarini birinchi o‘ringa qo‘yadigan inson sifatida."
         ],
-        correctAnswer: "D",
+        correctAnswer: "A",
         points: 1.1,
     },
 
@@ -684,7 +684,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         },
         // MCQ variants for the mapping above
         options: [
-            "33–D; 34–A; 35–B",
+            "33–D; 34–F; 35–B",
             "33–F; 34–C; 35–B",
             "33–D; 34–F; 35–E",
             "33–E; 34–A; 35–B",
@@ -715,7 +715,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         ].join("\n"),
         imageUrl: "/images/q36-diagram.png",
         parts: [
-            { key: "a", label: "Javob:", multiline: false, correct: "Zil" }
+            { key: "a", label: "Javob:", multiline: false, correct: "ZIL" }
         ],
         points: 1.1,
     },
@@ -730,7 +730,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
             "Alhosil tarbiya bizlar uchun y o hayot y o mamot y o najot y o halokat y o saodat y o falokat masalasidur",
         ].join("\n"),
         parts: [
-            { key: "a", label: "Javob:", multiline: true, placeholder: "masalan: , ? . - !", correct: ", - , - , ." }
+            { key: "a", label: "Javob:", multiline: true, placeholder: "masalan: , ? . - !", correct: ", - , - , - ." }
         ],
         points: 1.1,
     },
@@ -742,7 +742,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Har uchala kelishik shakli bilan ham ma'nodoshlik hosil qila oluvchi ko'makchini yozing",
         imageUrl: "/images/q38-diagram.png",
         parts: [
-            { key: "a", label: "Javob:", multiline: false, correct: "Haqida" }
+            { key: "a", label: "Javob:", multiline: false, correct: "HAQIDA" }
         ],
         points: 1.1,
     },
@@ -754,7 +754,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Gapdagi qavs ichida berilgan birlik turini aniqlang va yozing",
         imageUrl: "/images/q39-diagram.png",
         parts: [
-            { key: "a", label: "Javob:", multiline: false, correct: "Kiritma" }
+            { key: "a", label: "Javob:", multiline: false, correct: "KIRITMA" }
         ],
         points: 1.1,
     },
@@ -766,8 +766,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
         imageUrl: "/images/q40-diagram.png",
         parts: [
-            { key: "a", label: "a) … tobelanib bog‘langan so‘z:", multiline: false, correct: "Talab etadi" },
-            { key: "b", label: "b) … teng munosabatda bog‘langan so‘z:", multiline: false, correct: "Ortib borishi" },
+            { key: "a", label: "a) … tobelanib bog‘langan so‘z:", multiline: false, correct: "TALAB ETADI" },
+            { key: "b", label: "b) … teng munosabatda bog‘langan so‘z:", multiline: false, correct: "ORTIB BORISHI" },
         ],
         points: 1.1,
     },
@@ -779,8 +779,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.",
         imageUrl: "/images/q41-diagram.png",
         parts: [
-            { key: "a", label: "a) Qanday grammatik vosita?", multiline: false, correct: "Na…na" },
-            { key: "b", label: "b) Qaysi tur hosil bo‘ladi?", multiline: false, correct: "Bog‘langan" },
+            { key: "a", label: "a) Qanday grammatik vosita?", multiline: false, correct: "NA…NA" },
+            { key: "b", label: "b) Qaysi tur hosil bo‘ladi?", multiline: false, correct: "BOG'LANGAN" },
         ],
         points: 1.1,
     },
@@ -792,8 +792,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "She’riy parchada aks etgan san’at(lar)ni yozing.",
         imageUrl: "/images/q42-diagram.png",
         parts: [
-            { key: "a", label: "a) 1-badiiy san’at:", multiline: false, correct: "Tazod" },
-            { key: "b", label: "b) 2-badiiy san’at:", multiline: false, correct: "Tardi aks" },
+            { key: "a", label: "a) 1-badiiy san’at:", multiline: false, correct: "TAZOD" },
+            { key: "b", label: "b) 2-badiiy san’at:", multiline: false, correct: "TARDI AKS" },
         ],
         points: 1.1,
     },
@@ -806,7 +806,7 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         imageUrl: "/images/q43-diagram.png",
         parts: [
             { key: "a", label: "a) Raviy:", multiline: false, correct: "B" },
-            { key: "b", label: "b) Qofiyaning turi:", multiline: false, correct: "Mutlaq" },
+            { key: "b", label: "b) Qofiyaning turi:", multiline: false, correct: "MUTLAQ" },
         ],
         points: 1.1,
     },
@@ -818,8 +818,8 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
         questionText: "Quyidagi she’riy parchaning mazmuni bo‘yicha javob yozing.",
         imageUrl: "/images/q44-diagram.png",
         parts: [
-            { key: "a", label: "a) Janr:", multiline: false, correct: "Tuyuq" },
-            { key: "b", label: "b) Ajratilgan so‘zning ma’nosi:", multiline: false, correct: "Yoringa boringlar (harakatni ifodalovchi buyruq ma’nosida)" },
+            { key: "a", label: "a) Janr:", multiline: false, correct: "TUYUQ" },
+            { key: "b", label: "b) Ajratilgan so‘zning ma’nosi:", multiline: false, correct: "YORINGGA BORINGLAR" },
         ],
         points: 1.1,
     },
@@ -845,9 +845,11 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
             "",
             "Esse yozilmagan bo‘lsa, 0 ball beriladi.",
             "",
-            "DIQQAT! Esse uchun reja tuzilmaydi, epigraf qo‘yilmaydi."
+            "DIQQAT! Esse uchun reja tuzilmaydi, epigraf qo‘yilmaydi.",
+            "",
+            "ESLATMA: ESSE qo'lda tekshiriladi va yakunda e'lon qilinadi"
         ].join("\n"),
-        points: 0, // ball qo‘lda kiritiladi; sizning hisoblagichingizda esse alohida baholanadi
+        points: 0, //
     }
 
 
