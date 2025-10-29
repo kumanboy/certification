@@ -12,6 +12,7 @@ import { QUESTIONS } from "./questions";
 import { getQuestionPoints, TEST_MAX, ESSAY_MAX, wordCount } from "@/lib/scoring";
 import { letterGradeFromTotal } from "@/lib/grading";
 import type { StructuredPart } from "@/types";
+import Link from "next/link";
 
 const EXAM_MINUTES = 180;
 const STORAGE_KEY = "exam_state_v1";
@@ -516,14 +517,14 @@ export default function ExamPage() {
                             Online Diagnostika Test tahlili bo'ladigan telegram kanalimizga qo'shiling
                         </span>
                     </p>
-                    <a
+                    <Link
                         href="https://t.me/sardortoshmuhammad_onatili"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
                     >
                         Telegram kanalga qo‘shilish
-                    </a>
+                    </Link>
                 </div>
                 {/* ===== /Telegram CTA ===== */}
             </div>
