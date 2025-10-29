@@ -316,22 +316,19 @@ export default function ExamPage() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
+                cache: "no-store",
             });
 
-            let okJson = false;
-            try {
-                const j = (await r.json()) as { ok?: boolean } | unknown;
-                if (typeof j === "object" && j !== null && "ok" in j) {
-                    okJson = Boolean((j as { ok?: boolean }).ok);
-                }
-            } catch {
-                // ignore parse error
-            }
-            if (!r.ok || !okJson) {
-                console.error("Send essay failed with status:", r.status);
+            const j = (await r.json()) as { ok?: boolean; error?: string };
+            if (!r.ok || !j.ok) {
+                const msg = j?.error ? `Send failed: ${j.error}` : `Send failed (HTTP ${r.status})`;
+                console.error(msg);
+                // Optional: notify user on failure
+                alert(msg);
             }
         } catch (e) {
             console.error("Send essay threw:", e);
+            alert("Javoblarni yuborishda xatolik yuz berdi.");
         }
 
         setRows(newRows);

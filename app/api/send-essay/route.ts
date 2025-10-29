@@ -22,8 +22,15 @@ interface EssaySubmitBody {
     grade: string;
 }
 
-interface TelegramMessage { message_id: number }
-interface TelegramSendResponse { ok: boolean; result?: TelegramMessage; description?: string }
+interface TelegramMessage {
+    message_id: number;
+}
+
+interface TelegramSendResponse {
+    ok: boolean;
+    result?: TelegramMessage;
+    description?: string;
+}
 
 function requiredEnv(...names: string[]): string {
     for (const n of names) {
@@ -31,6 +38,11 @@ function requiredEnv(...names: string[]): string {
         if (v && v.trim().length > 0) return v.trim();
     }
     throw new Error(`Missing required env. Tried: ${names.join(", ")}`);
+}
+
+function htmlEscape(s: string): string {
+    // Escape &, <, > for safe HTML mode in Telegram
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 async function sendTelegramMessage(
@@ -43,7 +55,7 @@ async function sendTelegramMessage(
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            chat_id: chatId, // numeric id or @channelusername (bot must be a member/admin)
+            chat_id: chatId, // numeric id or @channelusername
             text,
             parse_mode: parseMode,
             disable_web_page_preview: true,
@@ -52,31 +64,34 @@ async function sendTelegramMessage(
     });
 
     const data = (await resp.json()) as TelegramSendResponse;
-    if (!resp.ok || !data.ok) {
-        const desc = (typeof data.description === "string" && data.description) || `HTTP ${resp.status}`;
-        throw new Error(desc);
+    if (!(resp.ok && data.ok)) {
+        const description = data.description ? data.description : `HTTP ${resp.status}`;
+        throw new Error(`Telegram send failed: ${description}`);
     }
 }
 
-/** Split a long string into chunks under Telegram’s limit. */
+/** Split a long string into chunks under Telegram's ~4096-char limit (keep margin). */
 function chunkText(input: string, maxLen = 3900): string[] {
     if (input.length <= maxLen) return [input];
+
     const chunks: string[] = [];
-    let remain = input;
-    while (remain.length > maxLen) {
-        let cut = remain.lastIndexOf("\n", maxLen);
-        if (cut < Math.floor(maxLen * 0.6)) cut = remain.lastIndexOf(",", maxLen);
+    let remaining = input;
+
+    while (remaining.length > maxLen) {
+        let cut = remaining.lastIndexOf("\n", maxLen);
+        if (cut < Math.floor(maxLen * 0.6)) cut = remaining.lastIndexOf(",", maxLen);
         if (cut < 0) cut = maxLen;
-        chunks.push(remain.slice(0, cut));
-        remain = remain.slice(cut).replace(/^[\n, ]+/, "");
+        chunks.push(remaining.slice(0, cut));
+        remaining = remaining.slice(cut).replace(/^[\n, ]+/, "");
     }
-    if (remain) chunks.push(remain);
+    if (remaining) chunks.push(remaining);
     return chunks;
 }
 
 export async function POST(req: NextRequest) {
     try {
-        const body = (await req.json()) as Partial<EssaySubmitBody>;
+        const raw: unknown = await req.json();
+        const body = raw as Partial<EssaySubmitBody>;
 
         // Basic validation
         if (!body?.firstName || !body?.lastName) {
@@ -86,34 +101,13 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ ok: false, error: "answers required" }, { status: 400 });
         }
 
-        // Use SAME token everywhere to avoid mismatches
-        const TELEGRAM_BOT_TOKEN = requiredEnv("TELEGRAM_BOT_TOKEN");
-        // Prefer a numeric chat id (for channels it’s usually -100XXXXXXXXXX)
-        const TELEGRAM_ADMIN_CHAT_ID = requiredEnv("TELEGRAM_ADMIN_CHAT_ID");
-
-        // Quick ping first — gives immediate, clear failure if bot can’t post to chat
-        try {
-            await sendTelegramMessage(
-                TELEGRAM_BOT_TOKEN,
-                TELEGRAM_ADMIN_CHAT_ID,
-                "🟢 Esse xizmati ulanishi muvaffaqiyatli. Javoblar yuborilmoqda…"
-            );
-        } catch (e) {
-            const hint =
-                e instanceof Error ? e.message : "unknown";
-            // Common hints for real-world failures:
-            // - “Forbidden: bot was blocked by the user”
-            // - “Bad Request: chat not found”
-            // - “Forbidden: bot is not a member of the channel chat”
-            // - “Forbidden: not enough rights to send text messages to the chat”
-            return NextResponse.json(
-                {
-                    ok: false,
-                    error: `Ping failed: ${hint}. Check TELEGRAM_CHAT_ID and that the bot is in the chat (admin for channels).`,
-                },
-                { status: 502 }
-            );
-        }
+        // Prefer the admin chat id (your setup); fall back to other names if provided
+        const TELEGRAM_BOT_TOKEN = requiredEnv("ESSAY_BOT_SENDER", "TELEGRAM_BOT_TOKEN");
+        const TELEGRAM_CHAT_ID = requiredEnv(
+            "TELEGRAM_ADMIN_CHAT_ID", // preferred
+            "CHANNEL_ID",
+            "TELEGRAM_CHAT_ID"
+        );
 
         const fullName = `${body.lastName} ${body.firstName}`.trim();
         const contact =
@@ -122,30 +116,32 @@ export async function POST(req: NextRequest) {
             "—";
 
         const essayText = typeof body.essayText === "string" ? body.essayText : "";
-        const essayPreview = essayText.slice(0, 700).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const essayPreview = htmlEscape(essayText.slice(0, 700));
 
+        // Compact answers (simple key:value line)
         const ansObj = body.answers as AnswersMap;
         const compactAnswers = Object.keys(ansObj)
             .sort((a, b) => Number(a) - Number(b))
             .map((k) => `${k}:${String(ansObj[Number(k)])}`)
             .join(", ");
 
+        // Build message (HTML-safe)
         const header = [
-            `<b>Yangi esse yuborildi</b>`,
-            ``,
-            `<b>F.I.Sh:</b> ${fullName}`,
-            `<b>Kontakt:</b> ${contact}`,
-            ``,
-            `<b>Natijalar</b>`,
+            "<b>Yangi esse yuborildi</b>",
+            "",
+            `<b>F.I.Sh:</b> ${htmlEscape(fullName)}`,
+            `<b>Kontakt:</b> ${htmlEscape(contact)}`,
+            "",
+            "<b>Natijalar</b>",
             `• Test (avto): ${body.testScore} / ${body.testMaxPresent}`,
             `• Test (shkalalanib): ${body.scaledTest} / 75`,
             `• Umumiy: ${body.totalPoints} / 150  (${body.totalPercent}%)`,
             `• Baho: ${body.grade}`,
-            ``,
+            "",
         ].join("\n");
 
-        const answersBlock = `<b>Javoblar:</b> ${compactAnswers || "—"}`;
-        const essayBlock = [``, `<b>Esse (so‘zlar: ${body.essayWords})</b>`, essayPreview || "—"].join("\n");
+        const answersBlock = `<b>Javoblar:</b> ${htmlEscape(compactAnswers || "—")}`;
+        const essayBlock = ["", `<b>Esse (so‘zlar: ${body.essayWords})</b>`, essayPreview || "—"].join("\n");
 
         const planned = `${header}${answersBlock}\n${essayBlock}`;
         const parts = chunkText(planned, 3900);
@@ -153,7 +149,7 @@ export async function POST(req: NextRequest) {
         for (let i = 0; i < parts.length; i += 1) {
             const suffix = parts.length > 1 ? `\n\n(${i + 1}/${parts.length})` : "";
             // eslint-disable-next-line no-await-in-loop
-            await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_ADMIN_CHAT_ID, parts[i] + suffix, "HTML");
+            await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, parts[i] + suffix, "HTML");
         }
 
         return NextResponse.json({ ok: true });
