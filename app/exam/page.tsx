@@ -427,20 +427,20 @@ export default function ExamPage() {
                             />
                         </div>
 
-                        <div className="mt-6 flex items-center justify-between gap-3">
+                        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div className="min-w-0 flex-1">
                                 <QuestionNav
-                                    progressTotal={progressTotal}        // = 37
+                                    progressTotal={progressTotal}
                                     current={currentQuestionIndex}
                                     answers={answers}
                                     ids={ids}
                                     onJump={setCurrentQuestion}
                                     labelMap={labelMap}
-                                    navItems={navItems}                   // includes 33,34,35 → same page
+                                    navItems={navItems}
                                     footerLeftText={footerLeftText}
                                 />
                             </div>
-                            <Button onClick={onClickFinish} className="shrink-0">
+                            <Button onClick={onClickFinish} className="w-full sm:w-auto shrink-0">
                                 Yakunlash
                             </Button>
                         </div>
