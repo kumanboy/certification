@@ -89,13 +89,13 @@ export async function POST(req: NextRequest) {
         // Use SAME token everywhere to avoid mismatches
         const TELEGRAM_BOT_TOKEN = requiredEnv("TELEGRAM_BOT_TOKEN");
         // Prefer a numeric chat id (for channels it’s usually -100XXXXXXXXXX)
-        const TELEGRAM_CHAT_ID = requiredEnv("TELEGRAM_CHAT_ID");
+        const TELEGRAM_ADMIN_CHAT_ID = requiredEnv("TELEGRAM_ADMIN_CHAT_ID");
 
         // Quick ping first — gives immediate, clear failure if bot can’t post to chat
         try {
             await sendTelegramMessage(
                 TELEGRAM_BOT_TOKEN,
-                TELEGRAM_CHAT_ID,
+                TELEGRAM_ADMIN_CHAT_ID,
                 "🟢 Esse xizmati ulanishi muvaffaqiyatli. Javoblar yuborilmoqda…"
             );
         } catch (e) {
@@ -153,7 +153,7 @@ export async function POST(req: NextRequest) {
         for (let i = 0; i < parts.length; i += 1) {
             const suffix = parts.length > 1 ? `\n\n(${i + 1}/${parts.length})` : "";
             // eslint-disable-next-line no-await-in-loop
-            await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, parts[i] + suffix, "HTML");
+            await sendTelegramMessage(TELEGRAM_BOT_TOKEN, TELEGRAM_ADMIN_CHAT_ID, parts[i] + suffix, "HTML");
         }
 
         return NextResponse.json({ ok: true });
