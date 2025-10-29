@@ -387,8 +387,8 @@ export default function ExamPage() {
                     <div className="rounded-lg border bg-white px-3 py-1.5 text-sm">
                         Vaqt:{" "}
                         <span className="font-mono">
-              {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
-            </span>
+                            {String(mins).padStart(2, "0")}:{String(secs).padStart(2, "0")}
+                        </span>
                     </div>
                 </header>
 
@@ -508,6 +508,24 @@ export default function ExamPage() {
                         </div>
                     </Card>
                 )}
+
+                {/* ===== Telegram CTA (page footer) ===== */}
+                <div className="mt-6 rounded-lg border bg-white p-4 text-center">
+                    <p className="mb-3 text-sm md:text-base">
+                        <span className="font-medium">
+                            Online Diagnostika Test tahlili bo'ladigan telegram kanalimizga qo'shiling
+                        </span>
+                    </p>
+                    <a
+                        href="https://t.me/sardortoshmuhammad_onatili"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+                    >
+                        Telegram kanalga qo‘shilish
+                    </a>
+                </div>
+                {/* ===== /Telegram CTA ===== */}
             </div>
         </main>
     );

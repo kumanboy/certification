@@ -109,7 +109,7 @@ export const QUESTIONS: Question[] = [
             "Tashviqot – g'oya, qarash yoki mahsulotlarni ko‘proq odamlar orasida yoyish, uni targ‘ib qilish.",
             "Tadrij – ish yoki holatning bosqichma-bosqich, asta-sekin, ketma-ket ravishda sodir bo‘lishi.",
         ],
-        correctAnswer: "C",
+        correctAnswer: "B",
         points: 1.7,
     },
 
@@ -126,7 +126,7 @@ export const QUESTIONS: Question[] = [
             "5. Otga xos lug‘aviy shakl yasovchi qo‘shimcha qo‘llangan;",
         questionType: "multiple_choice",
         options: ["uchtasi", "to‘rttasi", "ikkitasi", "beshtasi"],
-        correctAnswer: "B",
+        correctAnswer: "C",
         points: 1.7,
     },
     // 8) Har uchala parchada ham ishtirok etgan fe'l shakllari
@@ -144,7 +144,7 @@ export const QUESTIONS: Question[] = [
             "Har uchala gapda ham ikki xil vazifa shakli qatnashgan.",
             "Har uchala gapda ikki xil nisbat shakli qo‘llangan.",
         ],
-        correctAnswer: "A",
+        correctAnswer: "B",
         points: 2.5,
     }
     ,
@@ -162,7 +162,7 @@ export const QUESTIONS: Question[] = [
             "Har ikkala gapda asli yasama sifat qatnashgan.",
             "Har ikkala gapda qiyosiy darajadagi sifat qatnashgan.",
         ],
-        correctAnswer: "C",
+        correctAnswer: "A",
         points: 1.7,
     },
 
@@ -179,7 +179,7 @@ export const QUESTIONS: Question[] = [
             "Ushbu parchada hol kesimga to‘g‘ridan to‘g‘ri tobelangan.",
             "Ushbu parchada bir bosh bo‘lakli gaplar qatnashgan.",
         ],
-        correctAnswer: "D",
+        correctAnswer: "C",
         points: 1.7,
     },
 
@@ -348,7 +348,7 @@ export const QUESTIONS: Question[] = [
         questionType: "multiple_choice",
 
         options: ["IV", "II", "I", "III"],
-        correctAnswer: "D",
+        correctAnswer: "A",
         points: 1.7,
     },
 
@@ -380,7 +380,7 @@ export const QUESTIONS: Question[] = [
             "Uranning qoramtir qobiq hosil qilishi havo ta’sirida qolishiga sabab bo‘ladi.",
             "Uran yerdagi qisman issiqlikni ta’minlovchi vosita hisoblanadi.",
         ],
-        correctAnswer: "D",
+        correctAnswer: "A",
         points: 1.7,
     },
 
@@ -443,7 +443,7 @@ Meni kulgi qoplab ketdi, degan xayolda betiga tikildim. Hazillashayotgan odamga 
             "Hikoyada qahramonlarning ikkkisi ham jamiyat taqdiriga bepisandligi tasvirlangan.",
             "Hikoyada gazeta va jurnallarning nihoyatda rivojlanayotgani tasvirlangan.",
         ],
-        correctAnswer: "B",
+        correctAnswer: "D",
         points: 1.7,
     },
 
@@ -458,7 +458,7 @@ Meni kulgi qoplab ketdi, degan xayolda betiga tikildim. Hazillashayotgan odamga 
             "Ilmsiz bir insonning gazetadagi krossvordlarni yechishga urinayotgani tasvirlangan.",
             "Ilmsizligini yashirish uchun gazetadan bosh ko‘tarmayotgan inson holati tasvirlangan.",
         ],
-        correctAnswer: "D",
+        correctAnswer: "B",
         points: 1.7,
     },
 
@@ -488,7 +488,7 @@ Meni kulgi qoplab ketdi, degan xayolda betiga tikildim. Hazillashayotgan odamga 
             "Hikoyachining hamrohining ilmsizligiga nisbatan istehzosi tasvirlangan.",
             "Hikoyachi qahramonning o‘zini ovutishi tasvirlangan.",
         ],
-        correctAnswer: "C",
+        correctAnswer: "A",
         points: 1.7,
     }
     ,
@@ -563,7 +563,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
             "4-bayt — Oshiq yornining yoniga xuddi chaqmoq singari uchib boradi.",
             "5-bayt — Oshiqni taqvo qilishdan to‘sayotgan narsa uning nafsga qul bo‘lgani."
         ],
-        correctAnswer: "C",
+        correctAnswer: "B",
         points: 1.7,
     },
 
@@ -573,7 +573,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
         "questionText": "G‘azalda quyidagi qaysi she’riy san’atlar mavjud EMAS?\n 1. Ta’did — baytda sanash ohangi bilan kelgan she’riy san’ati.\n 2. Ishtiqoq — baytda asosdosh so‘zlarni qo‘llash san’ati.\n 3. Tardi aks — baytda so‘zlarning o‘zaro teskari tartib bilan kelish san’ati.\n 4. Tamsil — baytda biror voqeaga nisbatan hayotiy misol keltirish san’ati.",
         "questionType": "multiple_choice",
         "options": ["1, 3", "3, 4", "2, 4", "2, 3"],
-        "correctAnswer": "C",
+        "correctAnswer": "D",
         "points": 1.7
     }
     ,
@@ -692,7 +692,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
                 "label": "Javob:",
                 "placeholder": "masalan: , . ; : \" ... \"",
                 "multiline": false,
-                "correct": "« , , , » ."
+                "correct": ": « , , , » ."
             }
         ],
         "points": 1.1
