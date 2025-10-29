@@ -734,14 +734,14 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
         "parts": [
             {
                 "key": "a",
-                "label": "a) Birinchi ajratib ko‘rsatilgan so‘z qaysi so‘zga tobelanib bog‘langan?",
+                "label": "Birinchi ajratib ko‘rsatilgan so‘z qaysi so‘zga tobelanib bog‘langan?",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "IQROR BO‘LGACH"
             },
             {
                 "key": "b",
-                "label": "b) Ikkinchi ajratib ko‘rsatilgan so‘z qaysi so‘zga tobelanib bog‘langan?",
+                "label": "Ikkinchi ajratib ko‘rsatilgan so‘z qaysi so‘zga tobelanib bog‘langan?",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "YODIDA SAQLAB QOLADI"
@@ -756,14 +756,14 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
         "parts": [
             {
                 "key": "a",
-                "label": "a) Parchada qaysi yordamchi vosita bir gap bo‘lagini boshqasiga tobelantirgan?",
+                "label": "Parchada qaysi yordamchi vosita bir gap bo‘lagini boshqasiga tobelantirgan?",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "BILAN"
             },
             {
                 "key": "b",
-                "label": "b) Parchada qaysi yordamchi vosita sodda gapni bir-biriga bog‘lagan?",
+                "label": "Parchada qaysi yordamchi vosita sodda gapni bir-biriga bog‘lagan?",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "VA"
@@ -778,14 +778,14 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
         "parts": [
             {
                 "key": "a",
-                "label": "a) Parchada ta’sirchanlikni oshirgan she’riy san’atni aniqlang.",
+                "label": "Parchada ta’sirchanlikni oshirgan she’riy san’atni aniqlang.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "TA’DID"
             },
             {
                 "key": "b",
-                "label": "b) Mazkur she’riy san’atning ta’rifini yozing.",
+                "label": "Mazkur she’riy san’atning ta’rifini yozing.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "SANASH OHANGI"
@@ -800,14 +800,14 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
         "parts": [
             {
                 "key": "a",
-                "label": "a) Qofiyadosh so‘zlardagi raviy harfini yozing.",
+                "label": "Qofiyadosh so‘zlardagi raviy harfini yozing.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "R"
             },
             {
                 "key": "b",
-                "label": "b) Qofiyaning qaysi turi shakllantirgan?",
+                "label": "Qofiyaning qaysi turi shakllantirgan?",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "MUTLAQ"
@@ -822,14 +822,14 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
         "parts": [
             {
                 "key": "a",
-                "label": "a) She’riy parchaning janrini aniqlang.",
+                "label": "She’riy parchaning janrini aniqlang.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "QIT’A"
             },
             {
                 "key": "b",
-                "label": "b) Berilgan she’riy parchada qanday fazilat ulug‘langan?",
+                "label": "Berilgan she’riy parchada qanday fazilat ulug‘langan?",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
                 "correct": "SAXIYLIK"
