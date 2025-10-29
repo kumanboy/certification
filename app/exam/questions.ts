@@ -5,75 +5,81 @@ export const QUESTIONS: Question[] = [
     // 1
     {
         id: 1,
-        questionText: "Chiziqcha bilan yoziladigan so‘zlar qatorini aniqlang.",
+        questionText: "Imloviy jihatdan to‘g‘ri yozilgan so‘zlar qatorini aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "multi-media, dam-badam, kilovatt-soat",
-            "ot-ulov, video-kuzatuv, ochiq-sochiq",
-            "xatti-harakat, hisob-kitob, uzuq-yuluq",
-            "vafo-jafo, tarkib-baiid, salom-alik",
+            "tasavvur, musavvir, tasvir",
+            "muammo, mutloqo, layoqat",
+            "madanshunoslik, agranom, muarrix",
+            "maishatbozlik, dastyor, qo‘g‘alon",
         ],
-        correctAnswer: "C",
+        correctAnswer: "A",
         points: 1.7,
     },
 
-    // 2
+// 2
     {
         id: 2,
-        questionText: [
-            "Quyidagi gapda imloviy xatoliklarning qaysi turlari ishtirok etgan?",
-            "",
-            "Matn:",
-            "“Merkuriyning kometaga o‘xshash dumi bor. Uning uzunligi 2,5 uillion km.",
-            "Merkuriy tekis mintaqasi tufayli yosh deb qaraladi. Yuqori haroratga qaramay,",
-            "sayyorada suv muzlarining ulkan zaxiralari mavjud. U chuqur kraterlar va",
-            "qutbli nuqtalarning pastki qismida joylashgan. Muzlar hech qachon erimaydi,",
-            "chunki baland devorlar ularni quyosh nurlaridan to'sib turadi. Ilgari Merkuriy",
-            "Veneraning yo‘ldoshi degan gipoteza mavjud edi.”",
-            "",
-            "Kategoriya ro‘yxati:",
-            "1) Unli va undosh bilan yozish imlosiga oid",
-            "2) Chiziqcha bilan yozish imlosiga oid",
-            "3) Bosh harf bilan yozish imlosiga oid",
-            "4) Qo‘shib yoki ajratib yozish imlosiga oid",
-        ].join("\n"),
+        questionText: "Imloviy jihatdan to‘g‘ri yozilgan so‘zlar qatorini aniqlang.",
         questionType: "multiple_choice",
-        options: ["3 va 4", "1 va 3", "2 va 3", "1 va 4"],
+        options: [
+            "hazmi-taom, g‘ina-kudurat, bir narsa",
+            "umumxalq, vitse-prezident, vaqti-vaqtda",
+            "mulimedia, radioeshittirish, video-kuzatuv",
+            "ultrabinafsha, avto ulov, kinoteatr",
+        ],
         correctAnswer: "B",
         points: 1.7,
     },
-
     // 3 (diagram MCQ) — note the explicit cast to DiagramOption[]
+    // {
+    //     id: 3,
+    //     questionText:
+    //         "Nutqda o‘zaro sinonimlik hosil qila oluvchi so‘zlar qatorini aniqlang.",
+    //     questionType: "diagram_mcq",
+    //     options: [
+    //         {top: "o‘q", left: "paykon", right: "tir"},
+    //         {top: "zulmkor", left: "jobir", right: "qonxo‘r"},
+    //         {top: "ziyon", left: "futur", right: "talafot"},
+    //         {top: "yovuz", left: "dushman", right: "g‘anim"},
+    //     ] as DiagramOption[],
+    //     correctAnswer: "C",
+    //     points: 1.7,
+    // },
     {
         id: 3,
-        questionText:
-            "Nutqda o‘zaro sinonimlik hosil qila oluvchi so‘zlar qatorini aniqlang.",
-        questionType: "diagram_mcq",
+        questionText: "Qaysi javobda sinonimik qator va shu \n" +
+            "sinonimik qatorga mansub bo‘la oladigan \n" +
+            "so‘zlar TO ‘G ‘RI moslashtirib \n" +
+            "kolrsatilgan?",
+        questionType: "multiple_choice",
         options: [
-            {top: "o‘q", left: "paykon", right: "tir"},
-            {top: "zulmkor", left: "jobir", right: "qonxo‘r"},
-            {top: "ziyon", left: "futur", right: "talafot"},
-            {top: "yovuz", left: "dushman", right: "g‘anim"},
-        ] as DiagramOption[],
-        correctAnswer: "C",
+            "1a,b; 2b,c,d,e",
+            "1a,d; 2b,c,e,f",
+            "1a,e; 2b,c,d,f",
+            "1e ,f; 2a,b,c,d",
+        ],
+        correctAnswer: "B",
         points: 1.7,
+        imageUrl: "/images/q3-diagram.png",
     },
 
     // 4
+    // 4 (diagram MCQ)
     {
         id: 4,
-        questionText:
-            "Berilgan so‘zlar va ularning ma’nolari xato izohlangan javobni aniqlang.",
-        questionType: "multiple_choice",
+        questionText: "O‘zaro ma’nodosh bo‘la oladigan so‘zlarni aniqlang.",
+        questionType: "diagram_mcq",
         options: [
-            "Iqtibos — bu boshqa muallifga oid matndan to‘liq yoki qisqacha olingan fikr bo‘lib, ko‘pincha manbasi bilan birga keltiriladi.",
-            "Muqoyasa — bu ikki narsa o‘rtasidagi o‘xshashlikni aniqlash emas, balki ularning sinonim ekanini aniqlash usulidir.",
-            "Mazmun — bu matn, nutq yoki obraz orqali yetkaziladigan ichki g‘oya, fikrning semantik qatlamidir.",
-            "Ifoda — bu fikr va tuyg‘ularni til orqali aniq ifoda bilan yetkazish vositasi bo‘lib, leksik va sintaktik birliklar asosida shakllanadi.",
-        ],
-        correctAnswer: "B",
+            { top: "reja",     left: "nishon", right: "mo‘ljal" },
+            { top: "yashirin", left: "sir",    right: "berk" },
+            { top: "ta’na",    left: "nasihat", right: "ibrat" },
+            { top: "ishora",   left: "belgi",  right: "alomat" },
+        ] as DiagramOption[],
+        correctAnswer: "D",
         points: 1.7,
     },
+
 
     // 5 (“Ayon”) — plain MCQ with textual diagram labels in the stem
     {
