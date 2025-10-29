@@ -627,7 +627,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
                 },
                 {
                     "key": "34",
-                    "text": "Yana ikki ko‘zdan sirg‘ildi namlar,\nBillurin yuvdilar pokiza g‘amlar."
+                    "text": "Yana ikki ko‘zdan sirqildi namlar,\nBillurin yuvdilar pokiza g‘amlar.\nQani ul Sir, Amu mavj urgan damlar,\nEy, sen dengiz tubin dolgalatuvchi!"
                 },
                 {
                     "key": "35",
@@ -667,132 +667,186 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
 
     /* 36) Shakldosh so‘z — single input (correct: Zil) */
     {
-        id: 36,
-        questionType: "structured",
-        questionText: [
-            "Berilgan so‘zlar ma’nosini ifodalaydigan **shakldosh** so‘zni yozing.",
-            ""
-        ].join("\n"),
-        imageUrl: "/images/q36-diagram.png",
-        parts: [
-            { key: "a", label: "Javob:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "ZIL" }
+        "id": 36,
+        "questionType": "structured",
+        "questionText": "Berilgan parchada leksik shakldoshlik xususiyatiga ega so‘zni yozing.",
+        "imageUrl": "/images/q36-diagram.png",
+        "parts": [
+            {
+                "key": "a",
+                "label": "Javob:",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART",
+                "multiline": false,
+                "correct": "QATTIQ"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 37) Tinish belgilarining ketma-ketligi — single textarea */
     {
-        id: 37,
-        questionType: "structured",
-        questionText: [
-            "Berilgan gapda qo‘llanishi lozim bo‘lgan **tinish belgilarining to‘g‘ri ketma-ketligini** yozing.",
-            "",
-            "Alhosil tarbiya bizlar uchun yo hayot yo mamot yo najot yo halokat yo saodat yo falokat masalasidur",
-        ].join("\n"),
-        parts: [
-            { key: "a", label: "Javob:", multiline: true, placeholder: "masalan: , ? . - !", correct: ", - , - , - ." }
+        "id": 37,
+        "questionType": "structured",
+        "questionText": "Berilgan gapda qo‘llanishi kerak bo‘lgan tinish belgilarining to‘g‘ri ketma-ketligini yozing.\n\nSokrat shunday degan Agar inson o‘zini bilmasa u ko‘p boylikka ega bo‘lsa ham chinakam farovonlikka erisha olmaydi chunki haqiqiy farovonlik o‘z-o‘zini anglashda yotadi",
+        "parts": [
+            {
+                "key": "a",
+                "label": "Javob:",
+                "placeholder": "masalan: , . ; : \" ... \"",
+                "multiline": false,
+                "correct": "« , , , » ."
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 38) So‘z turkumi — single input (correct: Haqida) */
     {
-        id: 38,
-        questionType: "structured",
-        questionText: "Har uchala kelishik shakli bilan ham ma'nodoshlik hosil qila oluvchi ko'makchini yozing",
-        imageUrl: "/images/q38-diagram.png",
-        parts: [
-            { key: "a", label: "Javob:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "HAQIDA" }
+        "id": 38,
+        "questionType": "structured",
+        "questionText": "Gapda qaysi qo‘shimchani qo‘llash bilan bog‘liq xatolik kuzatilgan?",
+        "parts": [
+            {
+                "key": "a",
+                "label": "Javob:",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "-DA"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 39) Tilshunoslik termini — single input (correct: Kiritma) */
     {
-        id: 39,
-        questionType: "structured",
-        questionText: "Gapdagi qavs ichida berilgan birlik turini aniqlang va yozing",
-        imageUrl: "/images/q39-diagram.png",
-        parts: [
-            { key: "a", label: "Javob:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "KIRITMA" }
+        "id": 39,
+        "questionType": "structured",
+        "questionText": "Gapni sintaktik tahlil qiling va ostiga chizilgan so‘z qaysi gap bo‘lak vazifasida kelgan?\n\nYarim kecha mahal safardan qaytib,\nXonadon eshigin yopmagin qattiq;\nQo‘shnilar ko‘nglini bezovta qilib,\nOilangga qo‘rquv solishin aniq.",
+        "parts": [
+            {
+                "key": "a",
+                "label": "Javob:",
+                "placeholder": "masalan: Hol, to‘ldiruvchi, aniqlovchi ...",
+                "multiline": false,
+                "correct": "HOL"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 40) a) Talab etadi; b) Ortib borishi */
     {
-        id: 40,
-        questionType: "structured",
-        questionText: "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.",
-        imageUrl: "/images/q40-diagram.png",
-        parts: [
-            { key: "a", label: "… tobelanib bog‘langan so‘z:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TALAB ETADI" },
-            { key: "b", label: "… teng munosabatda bog‘langan so‘z:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "ORTIB BORISHI" },
+        "id": 40,
+        "questionType": "structured",
+        "questionText": "Gapdagi so‘zlarning mazmunan va grammatik jihatdan bog‘lanishini tahlil qiling.\n\nInson o‘zga kishi oldida ayblariga iqror bo‘lgach, ularni darhol unutadi, ammo o‘zga kishi uning ayblarini yodida saqlab qoladi.",
+        "parts": [
+            {
+                "key": "a",
+                "label": "a) Birinchi ajratib ko‘rsatilgan so‘z qaysi so‘zga tobelanib bog‘langan?",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "IQROR BO‘LGACH"
+            },
+            {
+                "key": "b",
+                "label": "b) Ikkinchi ajratib ko‘rsatilgan so‘z qaysi so‘zga tobelanib bog‘langan?",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "YODIDA SAQLAB QOLADI"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 41) a) Na…na ; b) Bog‘langan */
     {
-        id: 41,
-        questionType: "structured",
-        questionText: "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.",
-        imageUrl: "/images/q41-diagram.png",
-        parts: [
-            { key: "a", label: "Qanday grammatik vosita?",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "NA…NA" },
-            { key: "b", label: "Qaysi tur hosil bo‘ladi?",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "BOG'LANGAN" },
+        "id": 41,
+        "questionType": "structured",
+        "questionText": "Berilgan gaplarni grammatik jihatdan to‘g‘ri bog‘lang.\n\nHammmasi mana bunday boshlangan: yapon psixoterapevti Tamaki Saitoning huzuriga bir ota-ona xavotir bilan kelishadi va o‘z xonasidan chiqmay yashayotgan farzandlari haqida gapirib berishadi.",
+        "parts": [
+            {
+                "key": "a",
+                "label": "a) Parchada qaysi yordamchi vosita bir gap bo‘lagini boshqasiga tobelantirgan?",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "BILAN"
+            },
+            {
+                "key": "b",
+                "label": "b) Parchada qaysi yordamchi vosita sodda gapni bir-biriga bog‘lagan?",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "VA"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 42) a) Tazod ; b) Tardi aks */
     {
-        id: 42,
-        questionType: "structured",
-        questionText: "She’riy parchada aks etgan san’at(lar)ni yozing.",
-        imageUrl: "/images/q42-diagram.png",
-        parts: [
-            { key: "a", label: "1-badiiy san’at:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TAZOD" },
-            { key: "b", label: "2-badiiy san’at:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TARDI AKS" },
+        "id": 42,
+        "questionType": "structured",
+        "questionText": "She’riy parchada ifodalangan she’riy san’atlarni aniqlang va yozing.\n\nDema zohidki, taqvog‘a ne moni’durki, bordurlar,\nShabob-u bodavu ishq-u jununum sarbasar moni’.",
+        "parts": [
+            {
+                "key": "a",
+                "label": "a) Parchada ta’sirchanlikni oshirgan she’riy san’atni aniqlang.",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "TA’DID"
+            },
+            {
+                "key": "b",
+                "label": "b) Mazkur she’riy san’atning ta’rifini yozing.",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "SANASH OHANGI"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 43) a) B ; b) Mutlaq */
     {
-        id: 43,
-        questionType: "structured",
-        questionText: "She’riy parchaning qofiyasini tahlil qiling.",
-        imageUrl: "/images/q43-diagram.png",
-        parts: [
-            { key: "a", label: "Raviy:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "B" },
-            { key: "b", label: "Qofiyaning turi:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "MUTLAQ" },
+        "id": 43,
+        "questionType": "structured",
+        "questionText": "She’riy parchadagi qofiyalarni tahlil qiling.\n\nSurati devordek hayronmen ul ruxsor‘a,\nYo‘qsa g‘amzang o‘qlari tikmish meni devor‘a?",
+        "parts": [
+            {
+                "key": "a",
+                "label": "a) Qofiyadosh so‘zlardagi raviy harfini yozing.",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "R"
+            },
+            {
+                "key": "b",
+                "label": "b) Qofiyaning qaysi turi shakllantirgan?",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "MUTLAQ"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
-
-    /* 44) a) Tuyuq ; b) “Yoringa boringlar …” (buyruq ma’nosi) */
     {
-        id: 44,
-        questionType: "structured",
-        questionText: "Quyidagi she’riy parchaning mazmuni bo‘yicha javob yozing.",
-        imageUrl: "/images/q44-diagram.png",
-        parts: [
-            { key: "a", label: "Janr:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "TUYUQ" },
-            { key: "b", label: "Ajratilgan so‘zning ma’nosi:",placeholder: "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART", multiline: false, correct: "YORINGGA BORINGLAR" },
+        "id": 44,
+        "questionType": "structured",
+        "questionText": "Quyidagi parcha mazmunini tahlil qiling va savollarga javob yozing.\n\nNecha samar sochmoq esa shoz ishi,\nKoprak otar tosh anga tergan kishi.\nKon necha bazli yuhari pok etar,\nOlg‘uchi koprak yuragin chok etar.\nSham yorutub uy ich-u toshini,\nEv iyasi koprak uzub boshini.",
+        "parts": [
+            {
+                "key": "a",
+                "label": "a) She’riy parchaning janrini aniqlang.",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "QIT’A"
+            },
+            {
+                "key": "b",
+                "label": "b) Berilgan she’riy parchada qanday fazilat ulug‘langan?",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
+                "multiline": false,
+                "correct": "SAXIYLIK"
+            }
         ],
-        points: 1.1,
+        "points": 1.1
     },
 
     // 45) ESSE — long-form writing (textarea is rendered by QuestionRenderer)
     {
-        id: 45,
-        questionType: "essay",
-        questionText: [
+        "id": 45,
+        "questionType": "essay",
+        "questionText": [
             "ESSE",
             "Quyidagi vaziyat yuzasidan o‘z munosabatingizni yozma bayon qiling.",
             "",
-            "Ko‘pchilik ta’limning raqamlashtirilishiga ijobiy munosabatda bo‘lsa, boshqalar buning bir qator salbiy jihatlari borligini ta’kidlashadi.",
+            "Maktabni bitirgach qay yo‘ldan borgan ma’qulroq? Oliy ta’limda o‘qish yoki ishga kirish?",
             "",
             "• Fikr-mulohazalaringizni publitsistik uslubda bayon qiling.",
             "• Fikrlaringizni mantiqiy izchillikda, adabiy til me’yorlariga amal qilgan holda ifodalang.",
@@ -807,10 +861,11 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
             "",
             "DIQQAT! Esse uchun reja tuzilmaydi, epigraf qo‘yilmaydi.",
             "",
-            "ESLATMA: ESSE qo'lda tekshiriladi va yakunda e'lon qilinadi"
+            "ESLATMA: ESSE qo‘lda tekshiriladi va yakunda e’lon qilinadi."
         ].join("\n"),
-        points: 0, //
+        "points": 0
     }
+
 
 
 

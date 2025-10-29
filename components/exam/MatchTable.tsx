@@ -6,8 +6,8 @@ export default function MatchTable({ match }: { match: MatchMeta }) {
         <div className="rounded-xl border shadow-sm overflow-hidden">
             {/* header */}
             <div className="grid grid-cols-2 bg-gray-50 border-b font-semibold">
-                <div className="px-4 py-2">Chap ustun (ma’no)</div>
-                <div className="px-4 py-2 border-l">O‘ng ustun (misollar)</div>
+                <div className="px-4 py-2">Gaplar</div>
+                <div className="px-4 py-2 border-l">Javoblar</div>
             </div>
 
             {/* body: two columns, each with its own rows to align visually like the image */}
