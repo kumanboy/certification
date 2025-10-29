@@ -84,18 +84,16 @@ export const QUESTIONS: Question[] = [
     // 5 (“Ayon”) — plain MCQ with textual diagram labels in the stem
     {
         id: 5,
-        questionText: [
-            "“Ayon” so‘zining ma’nolari XATO izohlangan javobni aniqlang.",
-            "",
-            "Markaziy so‘z: AYON",
-            "1) Ma’nodoshi: amaldorlar",
-            "2) Paronimi: a’yon (ot)",
-            "3) Ko‘chma ma’nosi: kuchli",
-            "4) Antonimi: noaniq",
-        ].join("\n"),
+        questionText:
+            "Qaysi qatorda qo‘shimcha qo‘llash bilan bog‘liq uslubiy xatolik mavjud EMAS?",
         questionType: "multiple_choice",
-        options: ["1, 3", "2, 4", "1, 2", "3, 4"],
-        correctAnswer: "A",
+        options: [
+            "Alifbo islohoti samarali natija berish bilan birga chalasavodsizlikka ham sabab bo‘lishi mumkin.",
+            "Ishingda muvaffaqiyatsizlikka uchrasang ham, dod-faryod qilma sabrli bo‘lishga intil.",
+            "Ta’lim tizimining barcha bo‘g‘inlari hamjihatlik bilan ishlasa, samaradorlik yana oshadi.",
+            "Bugungi kunda parrandaclii ham serdaromadli sohalardan biri bo'lib kelgan."
+        ],
+        correctAnswer: "C",
         points: 1.7,
     },
 
@@ -103,15 +101,15 @@ export const QUESTIONS: Question[] = [
     {
         id: 6,
         questionText:
-            "Qaysi javobda kelishik qo‘shimchasini qo‘llash bilan bog‘liq uslubiy xatolik mavjud?",
+            "Berilgan so‘zlar va ularning ma’nolari xato izohlangan javobni aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "Yanglishish — har bir kishidai xos ish, lekin yanglishishni qaysarlik bilan inkor qilish nodonlarga xos ishdir.",
-            "O‘z uyidagilarini yaxshi qilishga o‘rgata olmaydiganlarning o‘zlari ham hech narsa o‘rgana olmaydi.",
-            "Shunday o‘qigingki, go‘yo sizga o‘z bilimlaringiz doim yetishmayotgandek tuyulsin.",
-            "Yo‘ldan adashsang, orqaga qaytishing mumkin, ammo so‘zdan adashsang, hech nima qila olmaysan.",
+            "Tasavvur – biror narsani ongda yoki xayolda tasvirlash, ko‘rish, tasavvur qilish.",
+            "Tasnif – biror narsaning xususiyatlari, ko‘rinishi, holati yoki vaziyatini so‘z bilan ifodalash.",
+            "Tashviqot – g'oya, qarash yoki mahsulotlarni ko‘proq odamlar orasida yoyish, uni targ‘ib qilish.",
+            "Tadrij – ish yoki holatning bosqichma-bosqich, asta-sekin, ketma-ket ravishda sodir bo‘lishi.",
         ],
-        correctAnswer: "A",
+        correctAnswer: "C",
         points: 1.7,
     },
 
@@ -119,297 +117,284 @@ export const QUESTIONS: Question[] = [
     {
         id: 7,
         questionText:
-            "—lar ko‘plik qo‘shimchasi haqidagi to‘g‘ri ma’lumotlarni topib moslashtiring.",
-        questionType: "match_table",
-        match: {
-            left: [
-                {key: "A", text: "Sof ko‘plik ma’nosi"},
-                {key: "B", text: "Hurmat ma’nosi"},
-                {key: "C", text: "Ta’kid ma’nosi"},
-                {key: "D", text: "Jamlash ma’nosi"},
-            ],
-            right: [
-                {key: "1", text: "Bunchalik go‘zallikni ko‘rib ko‘zlarim qamashdi."},
-                {key: "2", text: "O‘zbekistonda muzeylar juda ham ko‘p."},
-                {key: "3", text: "Dadamlar bilan aylanishga chiqdik."},
-                {key: "4", text: "Bu kishi oqsuyaklardan: biz gapirsak boshlar(i) og‘rib qoladi."},
-                {key: "5", text: "Do‘konga borib nonlardan olib kel."},
-                {key: "6", text: "Bu qizlardan kelgusida Nodiralar, Zulfiya(l)ar chiqadi."},
-            ],
-        },
-        options: [
-            "a-4; b-1; c-3; d-2,5",
-            "a-2,6; b-3; c-1; d-5,6",
-            "a-2,5; b-3; c-4; d-5,3",
-            "a-2,3; b-1; c-4; d-3,5",
-        ],
+            "Parchada qatnashgan qo‘shimchalar haqida hukmlardan nechtasi to‘g‘ri ko‘rsatilgan?\n\n" +
+            "Istiqlol yillarida kinematografiyani har tomonlama rivojlantirish, bu borada zarur moddiy va ma’naviy shart-sharoitlarni yaratish bo‘yicha amalga oshirilgan keng ko‘lamli chora-tadbirlar tufayli yangi-yangi filmlar suratga olinmoqda.\n\n" +
+            "1. Fe’lga xos lug‘aviy va sintaktik shakl yasovchi qo‘shimcha qo‘llangan;\n" +
+            "2. Shakldosh ot yasovchi qo‘shimcha qo‘llangan;\n" +
+            "3. Ravishga xos so‘z yasovchi qo‘shimcha qo‘llangan;\n" +
+            "4. Shakldosh sifat yasovchi qo‘shimcha qo‘llangan;\n" +
+            "5. Otga xos lug‘aviy shakl yasovchi qo‘shimcha qo‘llangan;",
+        questionType: "multiple_choice",
+        options: ["uchtasi", "to‘rttasi", "ikkitasi", "beshtasi"],
         correctAnswer: "B",
-        points: 2.5,
+        points: 1.7,
     },
     // 8) Har uchala parchada ham ishtirok etgan fe'l shakllari
     {
         id: 8,
         questionText:
-            "Har uchala parchada ham ishtirok etgan fe’l shakllarini aniqlang.",
+            "Har uchala parchada ham ishtirok etgan fe’l shakllarini aniqlang.\n\n" +
+            "1. Bilasizmi, uzoq mushohada qildim, oxiri qayerda xato qilganimni tushundim, endi hech qachon o‘ylamay so‘lamayman.\n\n" +
+            "2. Shunchalik xafa bo‘ldimki, bu achchiq iztirobnni hech qachon unuta olmayman.\n\n" +
+            "3. Namunchqa o‘ylayvermasang, o‘zi-ga shartta ayt-go‘yu, odam-ku tushunar axir u ham.",
         questionType: "multiple_choice",
         options: [
-            "2 va 6",
-            "1 va 3",
-            "3 va 5",
-            "1 va 4",
+            "Har uchala gapda ham sodda yasam fe’l ishtirok etgan.",
+            "Har uchala gapda fe’lning tuzilishiga ko‘ra ikki turi qatnashgan.",
+            "Har uchala gapda ham ikki xil vazifa shakli qatnashgan.",
+            "Har uchala gapda ikki xil nisbat shakli qo‘llangan.",
         ],
         correctAnswer: "A",
         points: 2.5,
-        // If later you want to show the diagram above the options, you can add:
-        imageUrl: "/images/q8-diagram.png",
-    },
+    }
+    ,
     // 9) Otlar haqidagi to‘g‘ri ma’lumot
     {
         id: 9,
-        questionText: [
-            "Bugungi dasturimizda iqtisodchilar, muhandislar, huquqshunoslar, harbiylar, dasturchilar, tibbiyot xodimlari va o‘qituvchilar ishtirok etadi.",
-            "",
-            "Mazkur gapda ishtirok etgan otlar haqidagi to‘g‘ri ma’lumotni toping."
-        ].join("\n"),
+        questionText:
+            "Har ikkala gapda qatnashgan sifatlar haqida to‘g‘ri hukmni aniqlang.\n\n" +
+            "I. Elchi o‘rnidan turib, yuzlari cho‘zinchoq, ko‘zlari katta, novchadan kelgan Siparganingizga ta’zim qildi.\n\n" +
+            "II. Manbada berilgan qimmatli dalillarga asoslangan fikrlar to‘liq yoki qisqa yozib olinadi. Bu keyingi ijodiy ish uchun asos bo‘ladi.",
         questionType: "multiple_choice",
         options: [
-            "Barcha yasama otlar bir xil so‘z turkumidan yasalgan.",
-            "Barcha shaxs otlari bir xil gap bo‘lagi vazifasida kelgan.",
-            "Barcha otlar shaxs otlari sanaladi.",
-            "Barcha shaxs otlari yasama shaxs otlari sanaladi."
+            "Har ikkala gapda nisbiy yasama sifat qatnashgan.",
+            "Har ikkala gapda ham qo‘shma sifat qatnashgan.",
+            "Har ikkala gapda asli yasama sifat qatnashgan.",
+            "Har ikkala gapda qiyosiy darajadagi sifat qatnashgan.",
         ],
-        correctAnswer: "B",
+        correctAnswer: "C",
         points: 1.7,
     },
 
 // 10) Hollar haqida to‘g‘ri ma’lumot
     {
         id: 10,
-        questionText: [
-            "Uydan chiqib ketish uchun shoshilib yurdi, birdan temir darvoza oldida kuzatib turgan shubhali kishiga ko‘zi tushdi-yu, qo‘rqqanidan orqasiga qayrildi va tez-tez yurib uyiga qaytib kirdi.",
-            "",
-            "Ushbu gapdagi hollar haqida berilgan to‘g‘ri ma’lumotni aniqlang."
-        ].join("\n"),
+        questionText:
+            "Berilgan parcha haqidagi to‘g‘ri hukmni aniqlang.\n\n" +
+            "Behi atirguldoshlar oilasiga mansub, bo‘yi o‘n ikki metrgacha boradigan serhosil daraxt. Barglari tukli, tuzumsimon yoki keng ellipssimon, bandi kalta, shoxlarda ketma-ket joylashgan.",
         questionType: "multiple_choice",
         options: [
-            "Ma’nosiga ko‘ra holning faqat 2 turi qatnashgan.",
-            "Ot, fe’l va ravish bilan ifodalangan hollar qatnashgan.",
-            "Tobe bog‘lanishlarda ham hokim, ham tobe qism vazifasini bajargan sabab holi qatnashgan.",
-            "Fe’l bilan ifodalangan hollar umumiy ma’nosiga ko‘ra o‘zaro bir turga oid."
+            "Ushbu parchada aniqlanmishlar ega va to‘ldiruvchi vazifasida kelgan.",
+            "Ushbu parchada hol ot kesimga to‘g‘ridan to‘g‘ri tobelangan.",
+            "Ushbu parchada hol kesimga to‘g‘ridan to‘g‘ri tobelangan.",
+            "Ushbu parchada bir bosh bo‘lakli gaplar qatnashgan.",
         ],
-        correctAnswer: "B",
+        correctAnswer: "D",
         points: 1.7,
     },
 
 // 11) Mazmun va grammatik bog‘lanish
+    // 11
     {
         id: 11,
-        questionText: [
-            "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishi to‘g‘ri ko‘rsatilgan javobni aniqlang.",
-            "",
-            "“Bu o‘tkir va o‘ziga xos poetik tabiatli to‘rt misrada shoir o‘z zamonlarining badiiy jihatdan yuksak, ta’sirli, umrboqiy she’rlar yozishga chaqirayotgani taassurot qoldiradi.”"
-        ].join("\n"),
-        questionType: "multiple_choice",
-        options: [
-            "o‘tkir va o‘ziga xos, ta’sirli she’rlar",
-            "badiiy jihatdan, she’rlar yozishga",
-            "poetik tabiatli, o‘z zamonlarining",
-            "taassurot qoldiradi, shoir qoldiradi"
-        ],
-        correctAnswer: "A",
-        points: 1.7,
-    },
-    // 12) Tire bir xil vazifada qo‘llangan gaplar
-    {
-        id: 12,
         questionText:
-            "Quyidagi qaysi gaplarda qatnashgan TIRE tinish belgisi punktuatsion qoidalarga ko‘ra bir xil vazifada qo‘llangan?",
+            "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishi to‘g‘ri ko‘rsatilgan javobni aniqlang.\n\n" +
+            "Buyuk bir donishmand odamzodning nopok istaklari va tuban ehtiroslarini bir uyga qamab qo‘yilgan uch maxluq: odam, to‘ng‘iz va arslonga o‘xshatgan ekan.",
         questionType: "multiple_choice",
+
         options: [
-            "1 va 2",
-            "2 va 4",
-            "2 va 6",
-            "1 va 5",
-        ],
-        correctAnswer: "A",
-        points: 2.5,
-        imageUrl: "/images/q12-diagram.png",
-    },
-    // 13) Said Ahmad – “Jimjitlik”
-    {
-        id: 13,
-        questionText:
-            "Said Ahmadning “Jimjitlik” romaniga nomutanosib bo‘lgan javobni aniqlang.",
-        questionType: "multiple_choice",
-        options: [
-            "Tolibjonning onasi Egamberdiga uyiga kelib qolgan qizingni jo'natvor, deb tanbeh bergan",
-            "Dolimboy kelinining o‘z otasi cho‘pon bo‘lganligi haqida Tolibjonning onasiga aytib beradi.",
-            "Tolibjonning onasi G‘upromiddinning xotini kichkinaligida  juda jiqildoq bo‘lganligini uning o‘ziga hashar payti aytib bergandi.",
-            "Tolibjon yaqin 30 yildan beri o‘g‘lim voyaga yetganda o‘qiydi deb, kitob yig‘ardi.",
+            "buyuk donishmand, nopok ehtiroslarini",
+            "istaklari va ehtiroslarini, uch maxluq",
+            "qamab qo‘yilgan, arslonga o‘xshatgan",
+            "nopok va tuban, donishmand istaklari",
         ],
         correctAnswer: "B",
         points: 1.7,
     },
 
-// 14) O‘tkir Hoshimov – “Tushda kechgan umrlar”
+// 12
     {
-        id: 14,
+        id: 12,
         questionText:
-            "O‘tkir Hoshimovning “Tushda kechgan umrlar” romani haqida berilgan TO‘G‘RI ma’lumotni aniqlang.",
+            "Qaysi javobda tire bir xil punktuatsion qoida asosida qo‘yilgan?\n\n" +
+            "1. «Oddiylik axloqiy barkamollikning bosh shartidir», — deb yozgan edi L.N. Tolstoy.\n" +
+            "2. Tuya mingan uzoqni ko‘zar, eshak mingan – yaqinini.\n" +
+            "3. O‘zbekiston Milliy sug‘urta kompaniyasi — «O‘zbekinvest» bugun tobora rivojlanmoqda.\n" +
+            "4. Endi nima bo‘lib shundoq bo‘lganini aytib o‘tirishga fursatim yo‘q — idorada odamlar kutib o‘tiribdi.\n" +
+            "5. Xon bo‘lmasa, bek bo‘lmasa, bor-yo‘g‘i jo‘ngina bir cho‘pon – qo‘yboqar bo‘lsa?",
         questionType: "multiple_choice",
-        options: [
-            "Tergov jarayonida Shahnoza Rustamning o‘limiga bevosita aloqasi borligini tan oladi.",
-            "Rustam talabalik davrida paxta terimida qattiq shamollab qoladi va Shahnoza qat’iyatlik bilan shifokorni olib keladi.",
-            "Komissar yosh tergovchining no'noqligini ko‘rar ekkan, xonlik davridagi tergov usullarining naqadar muvaffaqiyatli ekanligini o‘ylaydi.",
-            "Soat G'aniyevning onasi boshiga musibat tushgach, birdaniga namozxon bo‘lib qoladi va har duosida eshondan uzr so‘raydi.",
-        ],
+
+        options: ["2, 4", "1, 3", "1, 4", "3, 5"],
         correctAnswer: "D",
+        points: 2.5,
+    },
+
+// 13
+    {
+        id: 13,
+        questionText:
+            "Erkin Vohidovning «Ruhlar isyoni» dostonı haqida ma’lumot berilgan qatorni aniqlang.",
+        questionType: "multiple_choice",
+
+        options: [
+            "Urushda qahramon bo‘lib kelgan, ammo urush sabab bir oyoqdan ajrilgan kishi tasvirlangan.",
+            "Xalqni ozodlik va erk uchun kurushga chorlagan shoir tasvirlangan.",
+            "Zilzila sabab qurilishda brigadir darajasiga ko‘tarilgan shaxs tasvirlangan.",
+            "Xalqni mustaqillikka erishishga yordam bergan qahramon tasvirlangan.",
+        ],
+        correctAnswer: "B",
         points: 1.7,
     },
 
-// 15) Jorj Oruell – “Moxona”
+// 14
+    {
+        id: 14,
+        questionText: "Chexovning «Garov» hikoyasi haqida xato mulohazani aniqlang.",
+        questionType: "multiple_choice",
+
+        options: [
+            "Rohat uchun umridan kechgan huquqshunos tasvirlangan.",
+            "Boyligidan ajralib qolishni xohlamagan bankir tasvirlangan.",
+            "Ikki dunyo saodatini anglab yetgan huquqshunos tasvirlangan.",
+            "Mol-dunyoga ruju qo‘ygan, ammo vijdoni o‘lmagan bankir tasvirlangan.",
+        ],
+        correctAnswer: "A",
+        points: 1.7,
+    },
+
+// 15
     {
         id: 15,
         questionText:
-            "Jorj Oruellning “Molxona” asari voqealari xato bayon qilingan javobni aniqlang.",
+            "Abdulla Qodiriyning «O‘tkan kunlar» romanidagi qahramonlar haqida to‘g‘ri ma’lumotni aniqlang.\n\n" +
+            "1. Usta Olim – o‘zi istagan inson bilan turmush qurgan bo‘lsa-da, undan erta ajralib qolgan qahramon;\n" +
+            "2. Hasanali – avval boshqa mamlakat kelib qolgan, keyin oila qurgan bo‘lsa-da, farzandli bo‘lmagan xizmatkor;\n" +
+            "3. O‘zbekoyim – ko‘p odamlarga so‘zi o‘tadigan, lekin yaqin insoni uni ranjitib qo‘yadigan ish qilgani uchun biroz muddat zafagarchilik qilib yurgan obraz.",
         questionType: "multiple_choice",
-        options: [
-            "Asarda hayvonlar tomonidan yaratilgan jamiyat oxir-oqibat qulashiga ham duch kelamiz.",
-            "Asarda ikki oyoqda yura oladigan har bir jon – g‘anim. To‘rtta oyog'i yo qanotli bor har bir jon - do‘st, degan fikrlar aytilgan.",
-            "Tegirmonda un elashardi va u molxonaga sezilarli daromad keltiradi.",
-            "Ushbu asar oxirida ikkita cho‘chqa urushib ketadi va asar tugaydi.",
-        ],
+
+        options: ["1 va 2", "1, 2 va 3", "2 va 3", "faqat 2"],
         correctAnswer: "D",
         points: 1.7,
     },
 
-// 16) Fitrat – “Abulfayzxon”
+// 16
     {
         id: 16,
         questionText:
-            'Fitratning "Abulfayzxon" dramasi qahramonlari haqida to‘g‘ri talqin qilingan javob(lar)ni aniqlang.\n\n' +
-            '1. Mir Vafo – Rahimxonning hukmronlik tarixiga bag‘ishlangan "Tuhfayi xoniy" asarining muallifi. Hakimbiyning odami chamasi ellik-oltmish yoshlarda edi.\n' +
-            '2. Ulfat – xonning xo‘jasaroyi (haram boshlig‘i) edi.\n' +
-            '3. Rahimbiy – Abulfayzxonning o‘g‘li Abdulmo‘minni zaharlab o‘ldiradi.',
+            "Sharof Boshbekovning «Temir xotin» komediyasi haqida berilgan to‘g‘ri hukmni aniqlang.",
         questionType: "multiple_choice",
+
         options: [
-            "1, 2, 3",
-            "2, 3",
-            "faqat 3",
-            "1, 3",
+            "Qo‘chqor misolida sodda va mehnatkash aholining tinimsiz mehnat qilishi, lekin turmush tarzining hech yaxshilanmayotgani ochib berilgan.",
+            "Olimjon kabi yetuk olimlar yetishib chiqayotgan mamlakatda ilm-fanga yuksak darajada e’tibor qaratilganidan darak beradi.",
+            "O‘sha davrdagi oilaviy munosabatlarning keskinlashuvi, buning oqibatida farzandlarning sarson bo‘lishi kabi jamiyatdagi illatlar aks ettirilgan.",
+            "Alomat singari temir robotlarning ko‘payishi kelgusida ishsizlikka olib kelishi mumkinligi haqidagi fikrlar ilgari surilgan.",
         ],
         correctAnswer: "A",
-        points: 1.7, // your weighting scheme
+        points: 1.7,
     },
 
-// 17) Pirimqul Qodirov – “Yulduzli tunlar”
+// 17
     {
         id: 17,
         questionText:
-            "Pirimqul Qodirovning “Yulduzli tunlar” romani qahramonlari haqida to‘g‘ri talqin qilingan javob(lar)ni toping.\n1. Bayda – Panipat jangida halok bo‘lgan Ibrohim Lodining onasi, ya’ni malika edi.\n2. Bahodir – yosh bo‘lishiga qaramasdan forscha va sanskritni yaxshi bilar, Bobur uchun zarur bo‘lgan ba’zi hujjatlarni tarjima qilar edi.\n3. Xo‘ja Kalonbek – Boburning yonida yurgan ustozlik qilgan yaqin insonlardan biri bo‘lgan.",
+            "O‘tkir Hoshimov qalamiga mansub «Tushda kechgan umrlar» asarida Soatning otasi o‘ldirilgach masjid buzilib o‘rniga klub qurilishi orqali qanday badiiy maqsad ifodalangan?",
         questionType: "multiple_choice",
-        options: ["1,3", "1,2,3", "1,2", "2,3"],
+
+        options: [
+            "Hukumatning jinoyatlarga qarshi ayovsiz kurashi ifodalangan.",
+            "Hukumatning islom dinini bu zaminda yo‘q qilish harakati ifodalangan.",
+            "Hukumatning agar davlat amaldoriga suiqasd qilmoqchi bo‘lsa qanday holatga tushishi ifodalangan.",
+            "Hukumatning adolatsiz tuzuminini aks ettirish ifodalangan.",
+        ],
         correctAnswer: "B",
         points: 1.7,
     },
     // app/exam/questions.ts (append right after the object with id: 17)
 
     {
-        id: 100,                          // any id not used in scoring; it won’t be shown
+        id: 100,
         questionType: "passage",
         questionText: [
-            "VIRUSLAR",
+            "URAN",
             "",
-            "Viruslar tabiatdagi eng g‘aroyib va sirli mavjudotlardan biridir. [1] Ular na to‘liq tirik, na butunlay o‘lik hisoblanadi. ",
-            "Viruslar mustaqil yashay olmaydi — ular faqat tirik hujayraga kirgachgina ko‘payish va yashash qobiliyatiga ega bo‘ladi. ",
-            "Ularning o‘lchami nihoyatda kichik bo‘lib, oddiy ko‘z bilan ko‘rib bo‘lmaydi. Masalan, eng kichik virus atigi 20 nanometr liq jamda bo‘ladi. ",
-            "Viruslar faqat odamlar va hayvonlargina emas, balki o‘simliklar, bakteriyalar va hatto boshqa viruslarni ham zararlashi ilmiy fakt.",
+            "I",
+            "Uranning kashf etilishi XVIII asr oxiriga to‘g‘ri keladi. Nemis kimyogari Martin Genrix Klaprot o‘sha vaqtlarda radiy olish uchun qo‘llanilgan nasturanddan “yangi” elementni ajratib oldi. U bu elementni yaqinda kashf etilgan Uran sayyorasi sharafiga “uran” deb ataydi. E’tiborlisi jihati, kumush qazib oluvchi konchilar uran mavjudligini Klaprotdan bir necha yil oldin payqagan, ammo bunga ahamiyat bermagan. Klaprot uranni ajratib olgandan keyingina olimlar uni batafsil o‘rganishga muvaffaq bo‘ladi.",
             "",
-            "[2] Bakteriyalami nishonga oladigan viruslar bakteriofaglar deb ataladi. Ular bakteriyaga kirib, uni ichkaridan yemirib yuboradi. ",
-            "Virus va bakteriyalar hujayralardagi farqlari tufayli ular boshqa-boshqa mikroorganizmlar sifatida qaraladi; masalan, bakteriyalar esa bir hujayrali organizm hisoblanadi.",
+            "II",
+            "Vaqt o‘tishi bilan yer qobig‘ida ko‘p uchraydigan bu element radioaktiv ekani ma’lum bo‘ldi. Bu mazkur modda o‘zidan radiatsiya chiqaradi degan ma’noni anglatadi. Bundan tashqari, uning sekin radioaktiv parchalanishi Yerdagi issiqlikning asosiy manbai bo‘lib, konveksiya va kontinental siljishlar rag‘batlantiradi. Uran sirli xususiyatlarga ega va insoniyatni atomning hayratga soluvchi energiyasi bilan ta’minlaydigan metallidir. Uranning tabiiy radioaktivligi undan tibbiyot, qishloq xo‘jaligi, sanoat va biologiyada keng, ba’zan hayratlanarli tarzda foydalanishning asosidir.",
             "",
-            "Viruslar juda xilma-xil bo‘lib, ularning har biri o‘ziga xos xususiyatlarga ega. Masalan, gripp virusi odamlar orasida mashhur kasallikni keltirib chiqaradi. ",
-            "Ushbu virus har yili shaklini o‘zgartirishi tufayli doimiy ravishda yangi vaksinalar tayyorlash ehtiyoji tug‘iladi. ",
-            "Polio virusi esa markaziy asab tizimini zararlaydi va qo‘l-oyoq mushaklarini zaiflashtiradi.",
+            "III",
+            "Reaktor ichida uran atomlarining yadrosi neytronlar bilan bombardimon qilinadi, bu ularning bir nechta kichik yadrolarga bo‘linishiga olib keladi. Bunday yadroviy bo‘linish paytida chiqarilgan energiya kuchli issiqlik paydo bo‘lishiga olib keladi. Bo‘linib ketgan yadro ham ko‘proq neytronlar chiqaradi, bu esa ko‘proq bo‘linish reaksiyalariga sabab bo‘ladi va undan ham ko‘proq energiya hosil bo‘ladi. Uranni rudalardan ajratib olish juda uzoq va murakkab jarayon. Zavodlar kuniga yuzlab tonna rudani qayta ishlaydi, ammo har bir tonnadan atigi bir necha kilogramm uran olinadi. Dastlab ruda maydalanib, elakdan o‘tkaziladi. Keyin chiqindilardan tozalash uchun turli xil kimyoviy moddalar bilan ishlov beriladi.",
             "",
-            "Viruslar oziq-ovqatni boshqa organdan olmaydi. [3] Ular tirik hujayralarni o‘zlarining “oziq-ovqat manbayi” sifatida ishlatadilar: ",
-            "genetik materialini hujayraga joylashtiradi, so‘ngra hujayra virus nusxalarini ko‘paytirishni boshlaydi. ",
-            "Hujayra o‘z faoliyatini viruslarning ko‘payishiga bag‘ishlaydi va shuning natijasida zararlanadi.",
-            "",
-            "[4] Viruslar faqat tirik hujayralarda yashashi mumkin. Shunday bo‘lsa-da, ba’zi viruslar yuzalarda ham bir necha soat, hatto bir necha kungacha yashay oladi. ",
-            "Viruslar sharoit tanlamaydi: issiq, sovuq, kislorodli yoki kislorodsiz muhitlarda ham xavfli zonalarda yashab qoladi.",
-            "",
-            "Insondagi immun tizimi viruslarga qarshi tabiiy holatda kurashadi. Viruslarga qarshi kurashishda emlash (vaksina), ",
-            "antiviral dorilar va maxsus profilaktik choralar qo‘llanadi. Shunga qaramay, viruslarning mutatsiyaga uchrashi xususiyati ularni doimiy o‘rganib, yangidan yechimlar topishni talab etadi."
+            "IV",
+            "Zanjir reaksiyasi natijasida hosil bo‘lgan issiqlikdan keyinchalik bug‘ ishlab chiqarishda foydalaniladi, bu esa elektr generatorini boshqaradigan turbinani aylantiradi. Uran juda yuqori energiya zichligiga ega. Bu degani, oz miqdorda uran katta miqdorda energiya ishlab chiqarishi mumkin. Shu tufayli yadro yoqilg‘isi eng tejjamkor energiya hisoblanadi. Uran o‘zidan radiatsiya chiqaradi. Kimyoviy jihatdan uran juda faolidir. Havo ta’sirida qolgan uran bo‘lagi tezda qoramtir qobiq hosil qiladi. Ushbu qobiq uran va havodagi kislorod birikmasidir. Shuningdek, uran boshqa ko‘plab elementlar bilan ham muhim birikmalar hosil qiladi. Uran oz miqdorda keng tarqalgan, ammo global miqyosda u energetika va fan-texnika sohalarida beqiyos ahamiyatga ega element hisoblanadi."
         ].join("\n"),
     },
 
     // 18) VIRUSLAR – mos bo‘lmagan ma'lumot
+    // 18
     {
         id: 18,
-        questionText: "Matn mazmuniga mos bo‘lmagan ma'lumotni aniqlang.",
+        questionText:
+            "Matn mazmunida noto‘g‘ri ifodalangan ma’lumotni aniqlang.",
         questionType: "multiple_choice",
+
         options: [
-            "Gripp kasalligini yuzaga chiqaruvchi virus har yili mutatsiyaga uchraydi.",
-            "Viruslarni faqat maxsus uskunalar yordamida ko‘rish mumkin.",
-            "Polio virusi inson harakatlanish tizimiga zarar yetkazadi.",
-            "Viruslarga qarshi kurashishning tabiiy va sun’iy shakllari mavjud.",
+            "Kumush qazib oluvchilar Uranni oldinroq payqashgan.",
+            "Uranning sharafiga yangi topilgan sayyoraga shunday nom berilgan.",
+            "Zanjir reaksiyasida bug‘ issiqlikdan keyin hosil bo‘ladi.",
+            "Neytronlar yadrolarning bo‘linishidan hosil bo‘ladigan moddalardir.",
         ],
+        correctAnswer: "B",
+        points: 1.7,
+    },
+
+// 19
+    {
+        id: 19,
+        questionText:
+            "Raqamlab ko‘rsatilgan qaysi parchada matnning mazmuniy tuzilishida uslubiy xatolikni yuzaga keltirgan gap berilgan?",
+        questionType: "multiple_choice",
+
+        options: ["IV", "II", "I", "III"],
         correctAnswer: "D",
         points: 1.7,
     },
 
-// 19) Matn mazmunida aks etgan ma'lumot
+// 20
     {
-        id: 19,
-        questionText: "Matn mazmunida aks etgan ma'lumotni aniqlang.",
+        id: 20,
+        questionText: "Matnning mazmunida aks etgan ma’lumotni aniqlang.",
         questionType: "multiple_choice",
+
         options: [
-            "Viruslar tirik organizmlarning o‘lik hujayralari bilan oziqlanadi.",
-            "Vaksinatsiya virus mutatsiyasiga qarshi samarali usul hisoblanadi.",
-            "Viruslarning ko‘payishi hujayra ichida sodir bo‘ladi.",
-            "Tashqi yuzalarda ham viruslarning ko‘payish xususiyati mavjud.",
+            "Insoniyatni hayratga soluvchi atom faqat urandan tashkil topgan.",
+            "Urandan qishloq xo‘jaligida foydalanilgani uchun unda radioaktivlik kuchlidir.",
+            "Reaktor ichidagi atomlarning portlashi natijasida kichik yadrolar hosil bo‘ladi.",
+            "Uran dastlab topilgandayoq uning radioaktiv nur ekanligi aniq bo‘lgandi.",
         ],
         correctAnswer: "C",
         points: 1.7,
     },
 
-// 20) Raqamlangan gaplardan uslubiy xatolik keltirgani
-    {
-        id: 20,
-        questionText:
-            "Raqamlab ko‘rsatilgan qaysi gap matnning mazmuniy tuzilishida uslubiy xatolikni yuzaga keltirgan?",
-        questionType: "multiple_choice",
-        options: ["4", "2", "1", "3"], // A)4  B)2  C)1  D)3
-        correctAnswer: "A",
-        points: 1.7,
-    },
-
-// 21) Noto‘g‘ri ma'lumot
+// 21
     {
         id: 21,
-        questionText: "Matn mazmuniga oid noto‘g‘ri ma'lumot berilgan javobni aniqlang.",
+        questionText: "Matn mazmunida to‘g‘ri ifodalangan ma’lumotni aniqlang.",
         questionType: "multiple_choice",
+
         options: [
-            "Virus va bakteriya bir hujayrali organizm hisoblanadi.",
-            "Inson sochida ham juda kichik hajmdagi viruslar uchraydi.",
-            "Viruslar a’lo mal sharoitlarda ham barqaror hayot shakliga ega.",
-            "Tanada ularning ko‘payishi insonning immun tizimini ishdan chiqaradi.",
+            "Uranning kashf etilishi va u haqidagi dastlabki ma’lumotlar bir asrda uchraydi.",
+            "Uran fizik jihatdan juda faol element bo‘lganligi uchun qimmatdir.",
+            "Uranning qoramtir qobiq hosil qilishi havo ta’sirida qolishiga sabab bo‘ladi.",
+            "Uran yerdagi qisman issiqlikni ta’minlovchi vosita hisoblanadi.",
         ],
         correctAnswer: "D",
         points: 1.7,
     },
 
-// 22) Matn mazmuniga oid bo‘lmagan ma'lumot
+// 22
     {
         id: 22,
-        questionText: "Matn mazmuniga oid bo‘lmagan ma'lumotni aniqlang.",
+        questionText: "Matn mazmunida noto‘g‘ri ifodalangan ma’lumotni aniqlang.",
         questionType: "multiple_choice",
+
         options: [
-            "Viruslar o‘simliklar dunyosiga ham zarar yetkazishi mumkin.",
-            "Mikroorganizmlar bir-birini zararlashi ilmiy dalillangan.",
-            "Viruslar o‘zining yangilanayotgan avlodlarini hujayralar ichida yaratadi.",
-            "Ba’zi viruslardan antiviral dori vositalarini tayyorlash mumkin.",
+            "Boshqa moddalar tarkibidan uranni ajratib olish murakkab jarayon hisoblanadi.",
+            "Urandan turli sohalarda foydalanish mumkin.",
+            "Uranning hajmi va ishlab chiqarayotgan energiyasi o‘zaro nomutanosibdir.",
+            "Uran katta miqdorda energiya ishlab chiqarganidan tarkibi zich joylashgan bo‘ladi.",
         ],
         correctAnswer: "D",
         points: 1.7,
@@ -421,152 +406,95 @@ export const QUESTIONS: Question[] = [
         id: 2301, // Navigator “M” sifatida ko‘rsatiladi (questionType: "passage")
         questionType: "passage",
         questionText: `
-“Kattalar” oqshomi (hikoya)
+«ALIFBENING BIRINCHI HARFI»
 
-Menimcha, har bir kishini ertalabki yig‘inlar o‘rniga turli kechalarga taklif qila boshlashgan paytdan boshlab “katta” deb hisoblasa bo‘ladi. 
-Bir kuni dadam meni kasalxonadagi bayram kechasiga taklif qildi, ya’ni o‘zi ishxonasi­ga... Men rozi bo‘ldim — o‘sha onda o‘zimni qandaydir kuchliroq va kattarog‘dek his qildim. 
-Xayrlashgach, or­timizdan qarab qolgan oyim va buvim mendan kasalxonada hech qanday ahmoqona gap gapirib qo‘ymasligimni va har doim men allaqachon oltinchi sinfga ko‘chganimni doimo yodda saqlashni qat’iy iltimos qilgan edilar. O‘sha kuni buni o‘zim istasam ham unutolmagan bo‘lar edim, chunki dadamning har bir hamkasbi mendan: 
-— Xo‘sh, nechanchi sinfdasan? — deb so‘rardi. 
-— Oltinchida, — derdim men. 
-— Qo‘yasangchi! Bo‘lishi mumkin emas! 
-Keyin har biri albatta dadamga qarab: 
-— O‘g'ling katta bo‘lib qolibdi-ku! Ishonish qiyin... Lekin juda o‘xshab turibdi! Juda! — derdi. 
-Oyimgayam doim unga o‘xshashimni aytishardi. Shuning uchun men o‘z tashqi ko‘rinishim borasida aniq bir fikrga kelolmas edim. 
-Oyim chiroyli edi, dadam haqida esa buvim bir gal: 
-— Endi, albatta, uni ko‘rkam yigit, deb bo‘lmaydi... 
-— Demay qo'yaqoling! — degan edim men. Iltimos... Uni baribir hamma yaxshi ko‘radi! 
-— Men buni tan olaman, — dedi buvim. — Buncha asabiylashding? Erkaklar uchun tashqi ko‘rinish umuman katta ahamiyat kasb qilmaydi. 
+Miyam biroz dam ola qolsin, degan maqsadda poyezdda o‘zim bilan gazeta ham, kitob ham olib chiqmadi. Niyatim — kupedagi hamrohlar bilan o‘rtamashlab ketish. Goh pirdan, goh muriddan deganlardek, navbatma-navbat shakarqultorlik qilib ketamiz, qiziq-qiziq voqealardan aytishib, manzilga yetib qolganimizni ham bilmay qolamiz. Yo‘lda har xil odamlar bilan tanishib ketish juda maza bo‘la-di-da! Siz mutlaqo notanish kishilarning ichki olamiga kirasiz. Go‘yo yangi bir mamlakatni kashf qilgandek zavqlanib ketasiz. Yangi orttirgan tanishingiz bilan besh soatmi, o‘n soatmi, bir kunmi, ikki kunmi ko‘ngil ochib gaplashib ketasiz. Keyin biror stansiyada kelib, u bilan xayrlashasiz. Shundan keyin ikkovingiz ham bir umr qayta uchrashmaysiz. Mabodo, uchrashib qolsang, bir-biringizni tanimaysiz. Lekin tasodifan eshitilgan bir gap, tasodifan eshitilgan bir voqea butun umr yodda saqlanib qoladi. Shu orzu bilan poyezdga chiqdim. To‘rt kishilik kupeda atigi ikki yo‘lovchimiz. Shunisi ham ma’qul. Odam tezroq topishib keta-di. Yurakdagi gaplar ham ancha erkinroq, bemalolroq chiqadi. Biz ikkivoyiz ham deraza yonida yuz-u yuz o‘tiribmiz. Ham kupega kirgach, semiz odam bilan salomlashdim. Javob o‘rniga allaqanday pishillagan ovoz eshitildi. (1) Joyimga o‘tirib ham ulgurmagan edim, u ko‘zoynagini burniga qo‘ndirib, gazeta o‘qishga tushib ketdi. Uning sariq badrangi o‘zlashgan so‘layomadigandek shunday qotib turganidaki, chetdan qaragan odam uni gazetani o‘qiyatgandemas, iskapyot deb o‘ylashi mumkin. Qo‘lda avturchkalik ham bor. Gazetani o‘qir ekan, yo‘loqlakay allanqanday belgilar chizadi. Aftidan, muhim joylarini qora lab ketayotgan bo‘lsa kerak. Yon tomonda bir quchoq gazeta qalashib yotibdi. O‘ziyam o‘n besh kunlikning yig‘ig‘idir shekilli. Gazeta o‘qishni yashko‘radigan odamligi bilinib turibdi. Kattaroq olim, professor bo‘lsa ehtimol. Balki siyosatchidir. Gazetani burib, hozirgi siyosiy ahvolni iskab ko‘rayotgan bo‘lsa ham ajab emas. Poyezd yurib ketgan edi, uni gapga tortmoqchi bo‘ldim:
 
-“Rostdan ham, kasb etmaydi”, — deb o‘yladim men zaldagi ayollar navbati bilan dadamning oldiga kelib, unga xushomad qilish maqsadida men unga juda­yam o‘xshashimni aytishayotganini ko‘rib. 
-O‘sha kungi kechada ham hamma menga e’tibor berdi. Dadam bilan birga kelganimning uchungina emas... Adabiyot o‘qituvchim doim hammamiz o‘z imkoniyatimizdan kelib chiqib “yorqin shaxs” bo‘lishimizni so‘r­aydi. O‘sha plakatlar va gullar bilan bezalgan zalda birinchi bor o‘zimni shunday his qildim: mendan boshlab birorta oltinchi sinf bolasi yo‘q edi zald­a. Shuning uchun men o‘zimni haqiqiy yorqin shaxs deb his qilar edim. 
+— Safaringiz bexatar bo‘lsin, beyafandim! — dedim. Burnini gazetadan ko‘tarmay, yana allalnima deb po‘ng‘illadi. Poyezd birinchi stansiyada to‘xtab, yana yurib ketdi. Uchinchi, to‘rtinchi stansiyalar ham orqada qoldi. Bizning kupe esa suv quygandek jim. Bunga­qada yuragim tars yorilib ketishi hech gap emas! Kupedan chiqib ketay desam, poyezdda odam tiqilib yotib-di, qimirlashga imkon yo‘q. (2) Qolaversa, shuncha kitob to‘g‘ri. Nima, gapirgan bilan gapning yo‘g‘i chiqarmidi? Odam degan vaqtning qadriga yetishi kerak. Ha, tinmay o‘qish kerak. Yo‘lda ulfatlashib ketish yassiz narsaku-ya, lekin ezma odam jonning egovii bo‘ladi. Ming‘ullayerib miyangani qopib qo‘lingga beradi. Bu odam chakka­gi ochiq hamrohlariga uchrab, rosa ta’ziri­ni yegan bo‘lsa ham ajab emas. Lekin bir narsaga hayron bo‘lib o‘tiribman, semiz hamroh­im bitta sahifaga tikilganicha ketayotgan edi. Ikki ko‘zi gazet­aning bir joyiga qadalgandi. U miq etmadi. Kechirasiz, sizdan bir narsa so‘ramoqchi edim,— deb qoldi hamrohim. Miyamga: “Xayriyat, endi suhbatlashadigan bo‘libmiz”, degan fikr keldi. — Marhamat, afandim. — Bemor nimadan qo‘rqadi?
 
-Nihoyat hamma o‘z o‘rniga joylashdi... Men o‘z familiyamni eshitib, xuddi darsda o‘tirgandek, o‘rnimdan turib ketishimga sal qoldi. Lekin ma’lum bo‘lishicha, dadamni prezidiumga saylashgan ekan. 
-— To‘g‘ri... — dedi yonimda o‘tirgan kampir. Yuzlari tajang, ko‘zlari ildirakday edi. Bunga odamlar o‘rtasida maqtov eshitish boshqacha yoqimli bo‘lar ekan. Boshqalar dadam ikkining familiyasini aytganda hech narsa gapirishmadi, lekin qattiq qarsak chalishdi. Tushundimki, ular kampirning fikriga qo‘shilishdi: 
-“Eh, oyim bilan buvim shuni ko‘rishgandami! — deb o‘ylardim men. — Albatta, o‘zim aytib beraman...” 
-Ammo birinchidan, dadam albatta so‘zini inkor qildi. Hatto minbardan kamaytirib aytsam ham,oshirib yuboryapsan, deydi.Ikkinchidan , yuz marta eshitgandan, bir marta ko'rgan yaxshi.Buni hamma biladi!” 
-Umrimda birinchi marta nutq eshitdim! Qisqa nutq. 
-— Barakalla! — dedi yonimda o‘tirgan boshqa kampir. Notiq tark etgan minbarga qarab: — O‘zini tez qo‘lga oldi, — deb qo‘ydi. 
-Men esa yana eshitishga tayyor edim! 
-— Hozir biz kasalxonamizning eng yaxshi odam­lari haqida gaplashamiz, — dedi rais. 
-Zalda hamma birdan jim bo‘lib, sergak tortdi. Men ham hayajonlanib turar edim. O‘zim uchun emas, albatta... Dadam uchun. 
-— Biz bu yerga sobiq bemorlarimizni taklif qildik, — davom etdi rais. — O‘zlari aytsin... 
-— Men yaxshi­la­b razm solib ham sobiq bemorlarning shunchalari ko‘p insonlardan ajrata olmadim. 
-— Bu yerda kim... bemor edi? — so‘radim yonimdagi kampirdan. 
-— Ajratolmayapsanmi? 
-— Hamma gap shunda-da! — dedi u. Jimib qoldi. Keyin lablari biroz yoyildi: bu uning kulgani bo‘lsa kerak. 
-Bir bahaybat odam minbar tomoniga qadam bosib kelardi. Zalda undan ham so‘g‘lomroq odam yo‘qdek ko‘rinar edi menga. 
-— Bu Andryusha... — dedi kampir boyagi­dek kulib. 
-Zalning turli burchaklaridan “Andryusha, Andryusha” degan shivirlar eshitildi. 
-— Uni bu yerda hamma taniydimi? — so‘radim kampirdan. 
-— Bo‘lmasam-chi! U juda­yam zaif edi. Judayam... 
-Men ham bu dadamning sobiq bemorini tanir edim. 
-“Eh, uni oyoqqa turg‘izib yuborsak edi!” — derdi dadam. — Qani endi uddalasam... Uddaladi... Sobiq bemor oyoqqa turdi! 
-Minbar Andryushaning belidan keladi. U ikkala qo‘li bilan go‘yo minbarni ko‘tarib otib yubormoqchidek ushladi. 
-— Ishlayapman! — dedi sahnadan turib Andryusha. — Xokkey o‘ynamayman! Hamma­si dunyoda shunday insonlar borligidan... Shunday inson borligidan... 
-Prezidiumga qarab, kim haqida so‘z ketayotganini tushundim: dadam ko‘rinmas edi. U oldin ham, sahnada, eng oxirgi qator­da o‘tirgan edi, hozir esa kimningdir ortiga berkinib, umuman ko‘rinmay qolibdi. 
-Yana ikkita sobiq kasal, chiqib dadamning sharofati bilan “qayta tug‘ilishganini” aytishdi. Boshqa bunday “tug‘ilish” istashmasligi aniq... Lekin ham­malari dadamga shunday qarashar edi, go‘yo uning yaxshi xotiralari eslangandek edi. U esa ularni operatsiya qilgan edi... 
-Men o‘sha yerda o‘tirib, turli aql bovar qilmas hayollar qilardim. “Mana agar faqat beshga o‘qiganimda — hech qachon amalga oshmaydigan xomhayol! — va agar meni maktab majlisida maqtashganda, ko‘p bolalarga bu yoqmagan bo‘lardi. Aniq bilaman...” Bu yerda bo‘lsa ham­ma shifokorlar, hamshiralari va enagalar shunday jilmayishdi-ki, go‘yo ularning o‘zini e’tirof etishgandek. “Nega? — deb o‘ylardim men. — Dadamni yaxshi ko‘rishgani uchun bo‘lsa kerak...” 
-Keyin kontsert bo‘ldi. Keyin rasmlar... Yana dadamning oldiga ayollar kelib, raqsga taklif qila boshlashdi. Men esa yana bularning hammasini oyim bilan buvim ko‘rmayotganiga achinib o‘tir­d­im. 
-— Men raqsga tushishni bilmayman... — derdi dadam aybdorona. Yaxshisi Andryushani taklif qilinglar! 
-— Unga yetib bo‘lmaydi hozir! — deb javob berdi bir oq xalatli ayol. Aftidan, u o‘sha kuni navbatchi bo‘lgan-u, bir daqiqaga tadbirga bosh suqqan. 
-Andryusha rostdan ham yetib bo‘lmasdi. Hammadan ko‘p o‘ynardi, hamma­dan baland kulardi va gaplashardi. 
-— Go‘yo bularning hammasi qo'lidan kelishinini ko‘rsatib qo‘ymoqchi­dek... 
-Dadam meni kamsitmadi: biror marta soatiga qaramadi, biror marta uxlab olishing yoki darslaringni tayyorlashing kerak, deb uyga ketishga chaqirmadi. Biz garderobga hamma bilan birga kirib bordik. 
-Pastga tushib, dadam nomerini uzatishi bilan bir oq xalatli erkak yugurib kelib, dadamning qulog‘iga nimadir dedi. 
-— Iltimos, o‘g‘limni kuzatib qo‘ysangiz… — deb iltimos qildi dadam kimdandir. 
-Hamma meni kuzatib qo‘yishga rozi bo‘ldi. 
-— Men qoldim... ko‘pga emas, — dedi dadam va oq xalatli erkakning ortidan yugurib ketdi. 
-— U nega... qoldi? — deb so‘radim men. 
-— O‘z ishini qilib uchun, — dedi tajang kampir. 
-— Qanaqa... ishi?! 
-— Kimnidir qutqaradi-da... 
-
-Hali uch kun bor bo‘lishiga qaramay, allaqachon bayramga tayyor bo‘lgan ko‘chalardan ketayapman. 
-Dadamning sobiq bemori Andryusha ham yonimda ketardi. U rangi-barang bezak­larga shunday quvonch bilan qaradiki, xuddi bir paytlar ularni boshqa ko‘rishga umid qilmagandek edi. 
-Uyimizga yaqinlashganda, Andryusha ham o‘zi uchun tutib turolmadi. 
-— Sen dadangga o‘xsharkansan! Chin so‘zim... O‘xsharkansan! — dedi. 
-Shunday gapirdi­ki, bu bilan meni tabriklagandek bo‘ldi. 
-Men esa u paytda dadamga faqat bir qarashda o‘xshasam kerak, deb o‘yladim. Tashqi ko‘rinish tarafdan, dermidi? “Haqiqatdan unga o‘xshash uchun esa, — o‘yladim men, — menga hali ancha bor... Oson ish emas bu — boshqalarni baxtli qilish!”
-`.trim(),
+Meni kulgi qoplab ketdi, degan xayolda betiga tikildim. Hazillashayotgan odamga o‘xshamaydi. — Bemor nimadan qo‘rqadi, deysizmi? — savolini qaytarily so‘radi. — Shundoq. Doktordan. Uqazeta betiga imnimdir yozdi-da, keyin dedi: — To‘g‘ri kelmas ekan! Bemor kasalxonadan qo‘rqadi. Qaytadan gazeta betiga nimanidir yozib, to‘ng‘illadi: — Bu ham emas! Doktorga beriladigan puldan! — Yo‘q. Birinchi harfi “o“, ikkinchisi “p“ bo‘lishi kerak. hammasi bo‘lib sakkizta harf. — Operatsiya! — Xuddi o‘zi! Uyqana gazetaga shoshning ketdi. Allav­agacha ikkivoyiz ham jim o‘tiribmiz. Keyin yana o‘zi gap boshladi: — Kechirasiz, beyafandim, sizni yana bezovta qil­yapman. — Zarari yo‘q... Biror malakani, aholi ko‘paysa, nima oshishi kerak? — Deputatlar soni. — Yo‘q,— deb to‘ng‘illadi u. — Qamoqxona! Yana ruchkasini bilan nimanidir yozib ko‘rdi. — To‘g‘ri kelmapti! — Qahvaychilar! Ikkinchi harfi “s“, oxirgisi “i“. — Iste’mol! — hm! Yana ancha vaqt jim ketdik. Bir payt to‘satdan uning ovozi eshitildi: — Assalomu alaykum. Men ham alik oldim: — Va alaykum assalom! — To‘g‘ri, to‘g‘ri, — deb yubordi u. Nimasi to‘g‘ri? — Assalomu alaykumga beriladigan javob-da. Bu semiz odam jinning o‘xshash ishqib­ilib, jazavasi tutib, bo‘lg‘imga yopishmasa bo‘lgani. — Beyafandim, sizdan bir narsa so‘ramoqchiman. — Bemalol. Bir notaning nomini aytib berolmaysizmi? Do! — Yo‘q, u emas. Re! — To‘g‘ri kelmaydi! Mil! — Yo‘q! Fa! — Boshqacharoq. Birinchi harfi “s“. O‘zi ikki harfdan iborat. — Si! — Otangizga rahmat-e! Ikki soatdan beri topolmay garang edim. Sizni yetkazganiga shukur, muzi­kadan ancha boxabar ekansiz. — Ha, ancha xabarman bor musiqadan. Sol, lya degan boshqa notalarni ham bilaman. Yana orqaga uzoq jimlik cho‘kdi. — Beyafandim! Labbay, taqsir! — Kurash tushiladigan joyga nima deyiladi? Maydoncha deyiladi. E, salomat bo‘ling! — “Bo‘zaqir“ degan so‘zni yozib, nega chiqmaydi, deb o‘tirgan edim. Qo‘lidagi gazetani uloqtirib, boshqa birini oldi. Yana menga savol yo‘lladi: — Osmondan nima yog‘iladi? Tosh, deb yozgan edim, to‘g‘ri- Yomg‘ir! — Xuddi o‘zi! Balo ekansiz! Yana jimib qoldik. Poyezd uch-to‘rt stansiyada to‘xtab o‘tdi. Semiz hamrohim so‘rab qoldi: — Beyafandim, markazning turkchasi qanday bo‘ladi? — Eshak! — Buni qarang, ayni o‘zi! — Ya!.. Bo‘lmasam, chi!.. Ovqat arabi tilida nima deyiladi? — Qanaqa ovqat? O‘zimizning o‘naki ovqat-da. — zonaki ovqatning nomi boshqa, yonda kompoti bo‘lsa yana boshqa. Uch harfdan iborat ekan! — Aql! — Voy, quvib qo‘ygan dek! “A“ ga Anqaraga yetib keldik. Semiz odam kela­guncha krossvord yechish bilan band bo‘ldi. Lekin krossvordning har bir so‘zini mendan so‘rab turdi. Men har kuni hamma gazetalarni olib turaman,— dedi u. Gazetani o‘qib turish ma’qul gap! — deb javob berdim unga. — E, qayoqda deysiz,— deya e’tiroz bildirdi u,— bir satrini ham o‘qimayman. Gazetalarda chiqqan jami­ki krossvordni topmagunimcha ko‘nglim joyiga tushmaydi. Juda g‘alati ermakk- da bu! Hali­gacha mening tishim o‘tmagan birorta krossvord bosilgan yo‘q! Birpasda qo‘ltig‘imdagi chamadonimni oldim. Men shu stansiyada tushadiganman, u o‘tib ketadi. — Xo‘p, xayr! Semiz odam gazetadan boshini ko‘tardi. Alifbening birinchi harfi nimaydi? — so‘radi u ko‘zlarini baqraytirib. — “A“,— deb javob berdim. — Qoyil! Xuddi o‘zi!
+  `.trim(),
     },
 
 // 23) Bola o‘zini “katta” deb his qilishi nimada aks etgan?
+    // 23
     {
         id: 23,
+        questionText: "Matn mazmunida to‘g‘ri ifodalangan ma’lumotni aniqlang.",
         questionType: "multiple_choice",
-        questionText: "Bola o‘zini “katta” deb his qilishi nimada aks etgan?",
         options: [
-            "Dadam bilan bemorlarni kuzatishi bilan.",
-            "Kattalar tadbiriga taklif etilishi bilan.",
-            "Darsdan keyin ko‘p maqtov eshitishi bilan.",
-            "Uyida unga alohida e’tibor qaratilishi bilan."
-        ],
-        correctAnswer: "B",
-        points: 1.1,
-    },
-
-// 24) Andryushaning minbarda gapirishi qanday hisni ifodalagan?
-    {
-        id: 24,
-        questionType: "multiple_choice",
-        questionText: "Dada obraziga mos javobni aniqlang ?",
-        options: [
-            "Maqtanchoq va qattiqqo’l",
-            "O’z kuchiga ishonuvchan shifokor",
-            "Qilgan  ishlarini hamma tomonidan e’tirof etilganidan hijolat chekadigan obraz",
-            "Bemorlarning ijtimoiy holatiga qarab munosabatda bo’ladigan shifokor"
+            "Hikoyada hukumatning xalq ustidan o‘rnatgan siyosiy nazorati tasvirlangan.",
+            "Hikoyada hukumatning jamiyat taqdiriga bepisandligi tasvirlangan.",
+            "Hikoyada ilmsiz insonlarning qadri past ekanligi tasvirlangan.",
+            "Hikoyada hukumat vakillarining aholini taqdirini o‘ylashi tasvirlangan.",
         ],
         correctAnswer: "C",
-        points: 1.1,
+        points: 1.7,
     },
 
-// 25) Andryushaning minbarda gapirishi qanday hisni ifodalagan? (keyga ko‘ra)
+// 24
+    {
+        id: 24,
+        questionText: "Matn mazmunida to‘g‘ri ifodalangan ma’lumotni aniqlang.",
+        questionType: "multiple_choice",
+        options: [
+            "Hikoyada ommaviy axborot vositalar o‘z vazifasini unutib har xil ko‘ngilochar dasturlarga o‘tib ketgani tasvirlangan.",
+            "Hikoyada ikki ilmsiz yo‘lovchi holati tasvirlangan.",
+            "Hikoyada qahramonlarning ikkkisi ham jamiyat taqdiriga bepisandligi tasvirlangan.",
+            "Hikoyada gazeta va jurnallarning nihoyatda rivojlanayotgani tasvirlangan.",
+        ],
+        correctAnswer: "B",
+        points: 1.7,
+    },
+
+// 25
     {
         id: 25,
+        questionText: "Berilgan parchada qanday badiiy maqsad ifodalangan?",
         questionType: "multiple_choice",
-        questionText: "Andryushaning minbarda gapirishi qanday hisni ifodalagan?",
         options: [
-            "Kechirilmagan xatolaridan pushaymonni.",
-            "O‘z kuchini ko‘rsatish istagini.",
-            "Minnatdorchilik va quvonch hislarini.",
-            "Bemorlikdagi og‘riq iztiroblarini."
+            "Gazeta o‘qiyotgan ilmli insonning holati tasvirlangan.",
+            "Ilm-fanga sho‘ng‘ib ketganidan atrofdagi voqealarga befarq inson tasvirlangan.",
+            "Ilmsiz bir insonning gazetadagi krossvordlarni yechishga urinayotgani tasvirlangan.",
+            "Ilmsizligini yashirish uchun gazetadan bosh ko‘tarmayotgan inson holati tasvirlangan.",
         ],
         correctAnswer: "D",
-        points: 1.1,
+        points: 1.7,
     },
 
-// 26) Dadamning shaxsiyati hikoyada qanday ko‘rsatilgan?
+// 26
     {
         id: 26,
+        questionText: "Matn mazmunida to‘g‘ri ifodalangan ma’lumotni aniqlang.",
         questionType: "multiple_choice",
-        questionText: "Dadamning shaxsiyati hikoyada qanday ko‘rsatilgan?",
         options: [
-            "Kasbiga sodiq va odamlar uchun jonboz inson sifatida.",
-            "Qattiqqo‘l, oilasiga ko‘proq e’tibor beruvchi sifatida.",
-            "O‘z manfaatini yaxshi ko‘radigan inson sifatida.",
-            "Har doim shaxsiy ishlarini birinchi o‘ringa qo‘yadigan inson sifatida."
+            "Ilmsizlik jamiyatda avj olib ketganligi tasvirlangan.",
+            "Hukumatning xalqni ilmli qilishga intilayotganligi tasvirlangan.",
+            "Ilmsizligida uyalayotgan inson holati tasvirlangan.",
+            "Jamiyatdagi barcha ziyoli insonlar holati tasvirlangan.",
         ],
         correctAnswer: "A",
-        points: 1.1,
+        points: 1.7,
     },
 
-// 27) Bola uchun dadaga o‘xshash bo‘lish nimani anglatadi?
+// 27
     {
         id: 27,
+        questionText: "Berilgan parchada qanday badiiy maqsad ifodalangan?",
         questionType: "multiple_choice",
-        questionText: "Bola uchun dadaga o‘xshash bo‘lish nimani anglatadi?",
         options: [
-            "Odamlarni baxtli qilishga intilishi degani.",
-            "Shifokor bo‘lishni orzu qilishi degani.",
-            "Dadasiga o‘xshash gapirish degani.",
-            "Dadasiga o‘xshash kiyinish degani."
+            "Hikoyachining hamrohi qilgan hurmatsizlikka bo‘lgan noroziligi aks ettirilgan.",
+            "Hikoyachining hamrohiga bo‘lgan pisandsizligi tasvirlangan.",
+            "Hikoyachining hamrohining ilmsizligiga nisbatan istehzosi tasvirlangan.",
+            "Hikoyachi qahramonning o‘zini ovutishi tasvirlangan.",
         ],
-        correctAnswer: "A",
-        points: 1.1,
-    },
+        correctAnswer: "C",
+        points: 1.7,
+    }
+    ,
     /* =======================
-    G‘AZAL — passage (label G)
-    ======================= */
+   G‘AZAL — passage (label G)
+   ======================= */
 
     {
         id: 2800, // special id used for paginator label "G"
@@ -574,88 +502,107 @@ Men esa u paytda dadamga faqat bir qarashda o‘xshasam kerak, deb o‘yladim. T
         questionText: `
 G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
 
-1. Furqatingda, ey pari, tan kuydi-yu jon yig‘ladi,
-   Dambadam xud qayg‘udin ikki ko‘zum qon yig‘ladi.
+1. Yuziga ko‘zguni har dam qilur ul siymbar moni’,
+   Aningdekkim quyosh ruxsorig‘a bo‘lg‘ay qamar moni’.
 
-2. Hech davo yo‘q dardkim, jonimda bor, oni ko‘rub
-   To‘nih chok etti tabibu doru darmon yig‘ladi.
+2. Jahonni ul quyoshning barqi husni o‘rtagay erdi,
+   Karonsiz bahri ashkim bo‘lmasa erdi agar moni’.
 
-3. Dur tishingga gul yuzung vasfidin kechti hadis,
-   Sham’ hayrat o‘tina yondi-yu so‘zon yig‘ladi.
+3. Quruq jismimni g‘am tiyg‘idin asrar dardi ila shavqung,
+   Yig‘ochqa kesmagidin o‘ylakim bo‘lg‘ay samar moni’.
 
-4. Eshikingda it bikin bostim necha yil qovrulub,
-   Ushbu holimni ko‘rub kofir, musulmon yig‘ladi.
+4. Qabul etman qanot egnim uza chiqsa og‘ir debkim,
+   Yo‘lunda barqdek po‘yamg‘a bo‘lg‘ay bolu par moni’.
 
-5. Yi‘ladu hatto raqibning kelg‘ondan rahmi manga,
-   Bori ul qattiq ko‘ngulluk chinmu yolg‘on yig‘ladi.
+5. Ko‘zum uzra hubobī ashk ul yuz moni’iy ermas,
+   Biaynih shishadekkim, bo‘lmas aylarga nazar moni’.
 
-6. Bildilar yuzin ko‘rub Sakkokiy holin so‘rmayin,
-   Xosu omu shahru deh, donovu nodon yig‘ladi.
-    `.trim(),
-    },
+6. Dema zohidki, taqvog‘a ne moni’durki, bordurlar
+   Shabobu bodavu ishqu jununum sarbasar moni’.
+
+7. O‘qqa birla qadu qoshu ko‘zung zuhdumg‘a qo‘ymaslar,
+   Nechuk qilg‘ay kishi bir ishki, bo‘lg‘ay bu qadar moni’.
+
+8. Ko‘ngul baytulharomi tavfig‘a moni’ xavotirdur,
+   Safarga Ka’ba sari o‘ylakim bo‘lg‘ay xatar moni’.
+
+9. Navoyi jonig’a tan gardi ermish moni’yi maqsud,
+   Nasimi vasl eskach fayz bog‘idin ketar moni’. n\n\
+
+LUG‘AT:
+siymbar¹ — go‘zal; karonsiz² — chegara; hubobī⁴ — pufakcha; biaynīh⁵ — o‘ziday, xuddi;
+sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
+  `.trim(),
+    }
+    ,
 
     // 28–32: savollar (g‘azal bo‘yicha)
+    // 28
     {
         id: 28,
-        questionText: "1-bayt mazmuniga mos kelmaydigan fikrni aniqlang.",
+        questionText: "G‘azal matla’si haqidagi XATO hukmni aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "Oshiqa tan va jon azobida qolgan.",
-            "Har bir nafasda ko‘z yoshlari qon kabi to‘kkan.",
-            "Oshiqa kechasi va kunduzi tinimsiz yig‘lagan.",
-            "Oshiq jonini berishga tayyor bo‘lmagan.",
-        ],
-        correctAnswer: "D",
-    },
-    {
-        id: 29,
-        questionText: "2-baytdagi asosiy badiiy tasvirni aniqlang.",
-        questionType: "multiple_choice",
-        options: [
-            "Tabib ojiz, darmon ojiz bo‘lib taslim bo‘lgan.",
-            "Oshiq dardini hech kim tushunmagan.",
-            "Jon azobini faqat dushmanlar seza olgan.",
-            "Oshiq yuragidagi dardga tabib befarq bo‘lgan.",
-        ],
-        correctAnswer: "A",
-    },
-    {
-        id: 30,
-        questionText: "4-baytda aks etmagan fikrni belgilang.",
-        questionType: "multiple_choice",
-        options: [
-            "Oshiqqa o‘zini sevgilining eshigida itdek tutgan.",
-            "Raqib ham oshiq holatiga achingan.",
-            "Oshiqqa yillar davomida sadoqat bilan kutgan.",
-            "Dushmanlar oshiqni masxara qilgan.",
-        ],
-        correctAnswer: "D",
-    },
-    {
-        id: 31,
-        questionText: "3-bayt mazmunini to‘g‘ri izohlangan javobni tanlang.",
-        questionType: "multiple_choice",
-        options: [
-            "Sham’ nurini oshiqqa yo‘ndirgan, yuzini emas.",
-            "Yuz va tishing go‘zalligidan sham’ hayratda yongan.",
-            "Hadislar chiroyli ayolni doimo yomon ko‘rgan.",
-            "Sham’ hayratdan kulgan, ammo ko‘z yosh to‘kmagan.",
+            "Ma’shuqaning yuzi quyoshga nisbatan tashbihlangan.",
+            "Ma’shuqaning ko‘zgusi yulduzga nisbatan tashbihlangan.",
+            "Ma’shuqaning yuzini ko‘rsatmasligi tamsil bilan ifodalangan.",
+            "Ma’shuqaning ko‘zgusi oyga nisbatan tashbihlangan."
         ],
         correctAnswer: "B",
+        points: 1.7,
     },
+
+// 29
     {
-        id: 32,
-        questionText:
-            "6-baytda Sakkokiy holatiga nisbatan noto‘g‘ri hukmni aniqlang.",
+        id: 29,
+        questionText: "G‘azal baytlari to‘g‘ri tahlil qilingan qatorni aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "Shahr ahlining barchasi oshiqning holiga yig‘ladi.",
-            "Sakkokiyning holini yuzidan o‘qish mumkin edi.",
-            "Yiqil fagat donolarni ta’sirlangttan.",
-            "Xalqdan tortib olimlargacha unga achingan.",
+            "2-bayt — Oshiqning ko‘z yoshi butun dunyoni ishqdan g‘arq qiladi.",
+            "3-bayt — Oshiqni bu hayotda ushlab turgan narsa muhabbat bo‘ladi.",
+            "4-bayt — Oshiq yornining yoniga xuddi chaqmoq singari uchib boradi.",
+            "5-bayt — Oshiqni taqvo qilishdan to‘sayotgan narsa uning nafsga qul bo‘lgani."
         ],
         correctAnswer: "C",
+        points: 1.7,
     },
+
+// 30
+    {
+        "id": 30,
+        "questionText": "G‘azalda quyidagi qaysi she’riy san’atlar mavjud EMAS?\n 1. Ta’did — baytda sanash ohangi bilan kelgan she’riy san’ati.\n 2. Ishtiqoq — baytda asosdosh so‘zlarni qo‘llash san’ati.\n 3. Tardi aks — baytda so‘zlarning o‘zaro teskari tartib bilan kelish san’ati.\n 4. Tamsil — baytda biror voqeaga nisbatan hayotiy misol keltirish san’ati.",
+        "questionType": "multiple_choice",
+        "options": ["1, 3", "3, 4", "2, 4", "2, 3"],
+        "correctAnswer": "C",
+        "points": 1.7
+    }
+    ,
+
+// 31
+    {
+        id: 31,
+        questionText: "G‘azalda quyida berilgan qaysi o‘xshatish mavjud EMAS?",
+        questionType: "multiple_choice",
+        options: [
+            "Oshiq ma’shuqasini quyoshga tashbehlantirgan.",
+            "Oshiq o‘zini muhabbat azobidan qurigan daraxtga o‘xshatgan.",
+            "Oshiq o‘z yurishini chaqmoq tezligiga o‘xshatgan.",
+            "Oshiq ko‘z yoshlarini ko‘piklari shishaga o‘xshatilgan."
+        ],
+        correctAnswer: "B",
+        points: 1.7,
+    },
+
+// 32
+    {
+        id: 32,
+        questionText: "Berilgan qaysi baytda mubolag‘a she’riy san’ati qo‘llangan?",
+        questionType: "multiple_choice",
+        options: ["1", "2", "3", "4"],
+        correctAnswer: "B",
+        points: 1.7,
+    }
+    ,
     /* ========== 33–37 (new sheet) ========== */
 
     /**
@@ -669,34 +616,41 @@ G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
      * If your key differs, just change `correctAnswer`.
      */
     {
-        id: 33,
-        questionText:
-            "Quyidagi gaplar va sintaktik tahlilga oid izohlar (A–F)ni o‘zaro to‘g‘ri moslashtiring.",
-        questionType: "match_table",
-        match: {
-            left: [
-                { key: "33", text: "O hissiz tabiat, shafqatsiz hayot, shunday go‘zallikni bekiting qayerga?" },
-                { key: "34", text: "Tirik ulki, undan keyin qolsa joy – hovuz, ko‘l-u ko‘plikla karvonsaroy." },
-                { key: "35", text: "Mehnat iqodga aylangan joyda, tabiiyki, o‘lim yo‘q bo‘lib ketadi." },
+        "id": 33,
+        "questionText": "Quyidagi gaplar va sintaktik tahlilga oid izohlar (A–F)ni o‘zaro to‘g‘ri moslashtiring.",
+        "questionType": "match_table",
+        "match": {
+            "left": [
+                {
+                    "key": "33",
+                    "text": "Kechqurun qirg‘oqda aylanib tanho,\nSevdim, sevib qoldim to‘lqinlaringni.\nOyni cho‘miltirgan tinch tunlaringni\nTushimda ko‘rganda ne qilarman, o."
+                },
+                {
+                    "key": "34",
+                    "text": "Yana ikki ko‘zdan sirg‘ildi namlar,\nBillurin yuvdilar pokiza g‘amlar."
+                },
+                {
+                    "key": "35",
+                    "text": "Bolalik! Men seni bir umr qalbda\nOna sut’i kabi saqlay muqaddas\nVa lekin ertangi kunimdan kechib,\nSenga qaytmoqni hech qilmayman havas."
+                }
             ],
-            right: [
-                { key: "A", text: "atov gap" },
-                { key: "B", text: "kiritmali gap" },
-                { key: "C", text: "to‘liqsiz gap" },
-                { key: "D", text: "undalinali gap" },
-                { key: "E", text: "shaxsi (egasi) noma’lum gap" },
-                { key: "F", text: "ajratilgan bo‘lakli gap" },
-            ],
+            "right": [
+                { "key": "A", "text": "undalmalı gap" },
+                { "key": "B", "text": "shaxsi (egasi) umumlashgan gap" },
+                { "key": "C", "text": "uyushgan bo‘lakli gap" },
+                { "key": "D", "text": "ajratilgan bo‘lakli gap" },
+                { "key": "E", "text": "to‘liqsiz gap" },
+                { "key": "F", "text": "bir bosh bo‘lakli gap" }
+            ]
         },
-        // MCQ variants for the mapping above
-        options: [
+        "options": [
             "33–D; 34–F; 35–B",
-            "33–F; 34–C; 35–B",
-            "33–D; 34–F; 35–E",
-            "33–E; 34–A; 35–B",
+            "33–F; 34–C; 35–A",
+            "33–D; 34–C; 35–E",
+            "33–E; 34–A; 35–B"
         ],
-        correctAnswer: "A",
-        points: 2.5,
+        "correctAnswer": "B",
+        "points": 2.5
     },
 
     /**
