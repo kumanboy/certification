@@ -692,7 +692,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
                 "label": "Javob:",
                 "placeholder": "masalan: , . ; : \" ... \"",
                 "multiline": false,
-                "correct": ": « , , , » ."
+                "correct": ": << , , , >> ."
             }
         ],
         "points": 1.1
