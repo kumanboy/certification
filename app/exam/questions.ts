@@ -11,7 +11,7 @@ export const QUESTIONS: Question[] = [
             "tasavvur, musavvir, tasvir",
             "muammo, mutloqo, layoqat",
             "madanshunoslik, agranom, muarrix",
-            "maishatbozlik, dastyor, qo‘g‘alon",
+            "maishatbozlik, dastyor, qo‘zg‘alon",
         ],
         correctAnswer: "A",
         points: 1.7,
@@ -23,7 +23,7 @@ export const QUESTIONS: Question[] = [
         questionText: "Imloviy jihatdan to‘g‘ri yozilgan so‘zlar qatorini aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "hazmi-taom, g‘ina-kudurat, bir narsa",
+            "hazmi-taom, gina-kudurat, bir narsa",
             "umumxalq, vitse-prezident, vaqti-vaqtda",
             "mulimedia, radioeshittirish, video-kuzatuv",
             "ultrabinafsha, avto ulov, kinoteatr",
@@ -91,7 +91,7 @@ export const QUESTIONS: Question[] = [
             "Alifbo islohoti samarali natija berish bilan birga chalasavodsizlikka ham sabab bo‘lishi mumkin.",
             "Ishingda muvaffaqiyatsizlikka uchrasang ham, dod-faryod qilma sabrli bo‘lishga intil.",
             "Ta’lim tizimining barcha bo‘g‘inlari hamjihatlik bilan ishlasa, samaradorlik yana oshadi.",
-            "Bugungi kunda parrandaclii ham serdaromadli sohalardan biri bo'lib kelgan."
+            "Bugungi kunda parrandachilik ham serdaromadli sohalardan biri bo'lib kelgan."
         ],
         correctAnswer: "C",
         points: 1.7,
@@ -134,9 +134,9 @@ export const QUESTIONS: Question[] = [
         id: 8,
         questionText:
             "Har uchala parchada ham ishtirok etgan fe’l shakllarini aniqlang.\n\n" +
-            "1. Bilasizmi, uzoq mushohada qildim, oxiri qayerda xato qilganimni tushundim, endi hech qachon o‘ylamay so‘lamayman.\n\n" +
+            "1. Bilasizmi, uzoq mushohada qildim, oxiri qayerda xato qilganimni tushundim, endi hech qachon o‘ylamay so‘zlamayman.\n\n" +
             "2. Shunchalik xafa bo‘ldimki, bu achchiq iztirobnni hech qachon unuta olmayman.\n\n" +
-            "3. Namunchqa o‘ylayvermasang, o‘zi-ga shartta ayt-go‘yu, odam-ku tushunar axir u ham.",
+            "3. Namuncha o‘ylayvermasang, o‘zi-ga shartta ayt-qo‘y, odam-ku tushunar axir u ham.",
         questionType: "multiple_choice",
         options: [
             "Har uchala gapda ham sodda yasam fe’l ishtirok etgan.",
@@ -153,7 +153,7 @@ export const QUESTIONS: Question[] = [
         id: 9,
         questionText:
             "Har ikkala gapda qatnashgan sifatlar haqida to‘g‘ri hukmni aniqlang.\n\n" +
-            "I. Elchi o‘rnidan turib, yuzlari cho‘zinchoq, ko‘zlari katta, novchadan kelgan Siparganingizga ta’zim qildi.\n\n" +
+            "I. Elchi o‘rnidan turib, yuzlari cho‘zinchoq, ko‘zlari katta, novchadan kelgan Siparganizga ta’zim qildi.\n\n" +
             "II. Manbada berilgan qimmatli dalillarga asoslangan fikrlar to‘liq yoki qisqa yozib olinadi. Bu keyingi ijodiy ish uchun asos bo‘ladi.",
         questionType: "multiple_choice",
         options: [
@@ -171,7 +171,7 @@ export const QUESTIONS: Question[] = [
         id: 10,
         questionText:
             "Berilgan parcha haqidagi to‘g‘ri hukmni aniqlang.\n\n" +
-            "Behi atirguldoshlar oilasiga mansub, bo‘yi o‘n ikki metrgacha boradigan serhosil daraxt. Barglari tukli, tuzumsimon yoki keng ellipssimon, bandi kalta, shoxlarda ketma-ket joylashgan.",
+            "Behi atirguldoshlar oilasiga mansub, bo‘yi o‘n ikki metrgacha boradigan serhosil daraxt. Barglari tukli, tuxumsimon yoki keng ellipssimon, bandi kalta, shoxlarda ketma-ket joylashgan.",
         questionType: "multiple_choice",
         options: [
             "Ushbu parchada aniqlanmishlar ega va to‘ldiruvchi vazifasida kelgan.",
@@ -208,7 +208,7 @@ export const QUESTIONS: Question[] = [
         questionText:
             "Qaysi javobda tire bir xil punktuatsion qoida asosida qo‘yilgan?\n\n" +
             "1. «Oddiylik axloqiy barkamollikning bosh shartidir», — deb yozgan edi L.N. Tolstoy.\n" +
-            "2. Tuya mingan uzoqni ko‘zar, eshak mingan – yaqinini.\n" +
+            "2. Tuya mingan uzoqni ko‘zlar, eshak mingan – yaqinni.\n" +
             "3. O‘zbekiston Milliy sug‘urta kompaniyasi — «O‘zbekinvest» bugun tobora rivojlanmoqda.\n" +
             "4. Endi nima bo‘lib shundoq bo‘lganini aytib o‘tirishga fursatim yo‘q — idorada odamlar kutib o‘tiribdi.\n" +
             "5. Xon bo‘lmasa, bek bo‘lmasa, bor-yo‘g‘i jo‘ngina bir cho‘pon – qo‘yboqar bo‘lsa?",
@@ -259,7 +259,7 @@ export const QUESTIONS: Question[] = [
             "Abdulla Qodiriyning «O‘tkan kunlar» romanidagi qahramonlar haqida to‘g‘ri ma’lumotni aniqlang.\n\n" +
             "1. Usta Olim – o‘zi istagan inson bilan turmush qurgan bo‘lsa-da, undan erta ajralib qolgan qahramon;\n" +
             "2. Hasanali – avval boshqa mamlakat kelib qolgan, keyin oila qurgan bo‘lsa-da, farzandli bo‘lmagan xizmatkor;\n" +
-            "3. O‘zbekoyim – ko‘p odamlarga so‘zi o‘tadigan, lekin yaqin insoni uni ranjitib qo‘yadigan ish qilgani uchun biroz muddat zafagarchilik qilib yurgan obraz.",
+            "3. O‘zbekoyim – ko‘p odamlarga so‘zi o‘tadigan, lekin yaqin insoni uni ranjitib qo‘yadigan ish qilgani uchun biroz muddat xafagarchilik qilib yurgan obraz.",
         questionType: "multiple_choice",
 
         options: ["1 va 2", "1, 2 va 3", "2 va 3", "faqat 2"],
@@ -635,7 +635,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
                 }
             ],
             "right": [
-                { "key": "A", "text": "undalmalı gap" },
+                { "key": "A", "text": "undalmali gap" },
                 { "key": "B", "text": "shaxsi (egasi) umumlashgan gap" },
                 { "key": "C", "text": "uyushgan bo‘lakli gap" },
                 { "key": "D", "text": "ajratilgan bo‘lakli gap" },
@@ -700,7 +700,9 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
     {
         "id": 38,
         "questionType": "structured",
-        "questionText": "Gapda qaysi qo‘shimchani qo‘llash bilan bog‘liq xatolik kuzatilgan?",
+        "questionText": "Gapda qaysi qo‘shimchani qo‘llash bilan bog‘liq xatolik kuzatilgan?" +
+            "Tabiat insoniyatning dunyoda kelgan kunidan to hayotining so‘nggi kuniga qadar odamzod\n" +
+            "qalbiga mana shu buyuk ikki hisni - orzular va umidlar dunyosini oshufta qilgan.",
         "parts": [
             {
                 "key": "a",
@@ -715,7 +717,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
     {
         "id": 39,
         "questionType": "structured",
-        "questionText": "Gapni sintaktik tahlil qiling va ostiga chizilgan so‘z qaysi gap bo‘lak vazifasida kelgan?\n\nYarim kecha mahal safardan qaytib,\nXonadon eshigin yopmagin qattiq;\nQo‘shnilar ko‘nglini bezovta qilib,\nOilangga qo‘rquv solishin aniq.",
+        "questionText": "Gapni sintaktik tahlil qiling va ostiga chizilgan so‘z qaysi gap bo‘lak vazifasida kelgan?\n\nYarim kecha mahal safardan qaytib,\nXonadon eshigin yopmagin qattiq;\nQo‘shnilar ko‘nglini bezovta qilib,\nOilangga qo‘rquv solishing aniq.",
         "parts": [
             {
                 "key": "a",
@@ -818,7 +820,7 @@ sarbasar⁶ — butunlay; zuhd⁷ — taqvodorlik; tavf⁸ — aylanish.
     {
         "id": 44,
         "questionType": "structured",
-        "questionText": "Quyidagi parcha mazmunini tahlil qiling va savollarga javob yozing.\n\nNecha samar sochmoq esa shoz ishi,\nKoprak otar tosh anga tergan kishi.\nKon necha bazli yuhari pok etar,\nOlg‘uchi koprak yuragin chok etar.\nSham yorutub uy ich-u toshini,\nEv iyasi koprak uzub boshini.",
+        "questionText": "Quyidagi parcha mazmunini tahlil qiling va savollarga javob yozing.\n\nNecha samar sochmoq esa shox ishi,\nKo'prak otar tosh anga tergan kishi.\nKo'n necha bazli guhari pok etar,\nOlg‘uchi ko'prak yuragin chok etar.\nSham yorutub uy ich-u toshini,\nEv iyasi ko'prak uzub boshini.",
         "parts": [
             {
                 "key": "a",
