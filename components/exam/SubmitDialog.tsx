@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -49,8 +49,8 @@ export default function SubmitDialog({ open, onClose, onSubmit }: Props) {
         onSubmit({
             firstName: firstName.trim(),
             lastName: lastName.trim(),
-            telegram: telegram.trim() || undefined,
-            phone: phone.trim() || undefined,
+            telegram: telegram.trim(),
+            phone: phone.trim(),
         });
     }
 
@@ -108,6 +108,7 @@ export default function SubmitDialog({ open, onClose, onSubmit }: Props) {
                                 value={telegram}
                                 onChange={(e) => setTelegram(e.target.value)}
                                 placeholder="@username"
+                                required
                             />
                         </div>
                         <div>
@@ -116,6 +117,7 @@ export default function SubmitDialog({ open, onClose, onSubmit }: Props) {
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                                 placeholder="+99890 123 45 67"
+                                required
                             />
                         </div>
                     </div>
