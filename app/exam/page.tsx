@@ -9,13 +9,13 @@ import QuestionRenderer from "@/components/exam/QuestionRenderer";
 import QuestionNav from "@/components/exam/QuestionNav";
 import SubmitDialog, { SubmitDetails } from "@/components/exam/SubmitDialog";
 import { QUESTIONS } from "./questions";
-import { getQuestionPoints, TEST_MAX, ESSAY_MAX, wordCount } from "@/lib/scoring";
+import { getQuestionPoints, TEST_MAX, ESSAY_MAX, } from "@/lib/scoring";
 import { letterGradeFromTotal } from "@/lib/grading";
 import type { StructuredPart } from "@/types";
 import Link from "next/link";
 
-const EXAM_MINUTES = 180;
-const STORAGE_KEY = "exam_state_v1";
+const EXAM_MINUTES = 120;
+const STORAGE_KEY = "exam_state_v2";
 
 /** passages → special labels (excluded from numbering & progress) */
 const SPECIAL_LABELS: Record<number, "M" | "G"> = {
@@ -40,26 +40,15 @@ type RowsItem = {
 };
 
 export default function ExamPage() {
-    const {
-        currentQuestionIndex,
-        setCurrentQuestion,
-        answers,
-        setAnswer,
-        resetExam,
-    } = useExamStore();
+    const { currentQuestionIndex, setCurrentQuestion, answers, setAnswer, resetExam } = useExamStore();
 
     const [timeLeft, setTimeLeft] = useState(EXAM_MINUTES * 60);
     const [submitted, setSubmitted] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
     const [userInfo, setUserInfo] = useState<SubmitDetails | null>(null);
 
+    // ✅ Only what you want to show: Name + Percent + Grade
     const [calc, setCalc] = useState<{
-        testScore: number;
-        testMaxPresent: number;
-        scaledTest: number;
-        essayWords: number;
-        essayScore: number;
-        totalPoints: number;
         totalPercent: number;
         grade: string;
     } | null>(null);
@@ -67,7 +56,7 @@ export default function ExamPage() {
     const [rows, setRows] = useState<RowsItem[]>([]);
 
     // ids in render order
-    const ids = useMemo(() => QUESTIONS.map((q) => q.id), []);
+    const ids = useMemo(() => QUESTIONS.map((qq) => qq.id), []);
 
     /**
      * Build labels + navigator items:
@@ -80,21 +69,21 @@ export default function ExamPage() {
         const map: Record<number, string> = {};
         const items: { label: string; index: number; isPassage?: boolean }[] = [];
 
-        QUESTIONS.forEach((q, index) => {
+        QUESTIONS.forEach((qq, index) => {
             // passages: M / G
-            if (q.id in SPECIAL_LABELS) {
-                const lab = SPECIAL_LABELS[q.id];
-                map[q.id] = lab;
+            if (qq.id in SPECIAL_LABELS) {
+                const lab = SPECIAL_LABELS[qq.id];
+                map[qq.id] = lab;
                 items.push({ label: lab, index, isPassage: true });
                 return;
             }
 
             // numeric labels with overrides
-            if (q.id in SPECIAL_NUMBERS) {
-                run = SPECIAL_NUMBERS[q.id];
-                map[q.id] = String(run);
+            if (qq.id in SPECIAL_NUMBERS) {
+                run = SPECIAL_NUMBERS[qq.id];
+                map[qq.id] = String(run);
 
-                if (q.id === 33) {
+                if (qq.id === 33) {
                     items.push({ label: "33", index });
                     items.push({ label: "34", index });
                     items.push({ label: "35", index });
@@ -107,7 +96,7 @@ export default function ExamPage() {
 
             // default numbering
             run += 1;
-            map[q.id] = String(run);
+            map[qq.id] = String(run);
             items.push({ label: String(run), index });
         });
 
@@ -137,9 +126,7 @@ export default function ExamPage() {
                         // apply saved answers (including essay id 45)
                         Object.entries(parsed.answers).forEach(([k, v]) => {
                             const idNum = Number(k);
-                            if (Number.isFinite(idNum)) {
-                                setAnswer(idNum, String(v));
-                            }
+                            if (Number.isFinite(idNum)) setAnswer(idNum, String(v));
                         });
                     }
                 }
@@ -161,11 +148,9 @@ export default function ExamPage() {
     // autosave answers to localStorage
     useEffect(() => {
         try {
-            if (typeof window !== "undefined") {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers }));
-            }
+            if (typeof window !== "undefined") localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers }));
         } catch {
-            // quota/cookies disabled → ignore
+            // ignore
         }
     }, [answers]);
 
@@ -181,7 +166,7 @@ export default function ExamPage() {
         if (timeLeft === 0 && !submitted) setShowDialog(true);
     }, [timeLeft, submitted]);
 
-    // compute + table + telegram (called after user fills dialog)
+    // compute + table + save to DB (called after user fills dialog)
     async function finalizeAndScore(info: SubmitDetails) {
         setUserInfo(info);
 
@@ -189,24 +174,12 @@ export default function ExamPage() {
         let testMaxPresent = 0;
         const newRows: RowsItem[] = [];
 
-        // small helpers
         function normalize(s: string): string {
-            // canonicalize unicode, trim
             let v = s.normalize("NFKC").trim();
-
-            // unify apostrophes (’, ‘, ʼ, ʻ, `, ´ → ')
             v = v.replace(/[`´ʻ’‘ʹʼ]/g, "'");
-
-            // unify ellipsis (… or 2+ dots → ...)
             v = v.replace(/\u2026/g, "...").replace(/\.{2,}/g, "...");
-
-            // unify dashes (– — → -)
             v = v.replace(/[–—]/g, "-");
-
-            // collapse internal whitespace
             v = v.replace(/\s+/g, " ");
-
-            // compare case-insensitively
             return v.toUpperCase();
         }
 
@@ -232,8 +205,7 @@ export default function ExamPage() {
                 item.questionType === "match_table"
             ) {
                 const correct = (item.correctAnswer ?? "").toUpperCase();
-                const verdict: "✔" | "✘" | "-" =
-                    userAns ? (userAns.toUpperCase() === correct ? "✔" : "✘") : "-";
+                const verdict: "✔" | "✘" | "-" = userAns ? (userAns.toUpperCase() === correct ? "✔" : "✘") : "-";
                 if (verdict === "✔") testScore += pts;
 
                 newRows.push({
@@ -256,9 +228,7 @@ export default function ExamPage() {
                 if (correctParts.some((c) => c.length > 0)) {
                     const allOk =
                         correctParts.length > 0 &&
-                        correctParts.every(
-                            (c, i) => c.length > 0 && normalize(c) === normalize(userParts[i] ?? "")
-                        );
+                        correctParts.every((c, i) => c.length > 0 && normalize(c) === normalize(userParts[i] ?? ""));
                     verdict = allOk ? "✔" : "✘";
                     if (verdict === "✔") testScore += pts;
                 }
@@ -273,7 +243,7 @@ export default function ExamPage() {
                 continue;
             }
 
-            // Fallback (unknown types just echo user answer)
+            // Fallback
             newRows.push({
                 label,
                 qid: item.id,
@@ -283,66 +253,47 @@ export default function ExamPage() {
             });
         }
 
-        // Essay
-        const essayText = String(answers[45] ?? "");
-        const essayWords = wordCount(essayText);
-        const essayScore = 0; // manual grading later
+        // Essay (still counted for wordCount but score is manual = 0)
+        const essayScore = 0;
 
-        // Totals
+
+        // Totals (0..150)
         const scaledTest = testMaxPresent > 0 ? (testScore / testMaxPresent) * TEST_MAX : 0;
         const totalPoints = scaledTest + essayScore;
         const totalPercent = Math.round((totalPoints / (TEST_MAX + ESSAY_MAX)) * 100);
         const grade = letterGradeFromTotal(totalPoints, TEST_MAX + ESSAY_MAX);
 
-        // Send to Telegram via API (best-effort, but with useful error logging)
+        // ✅ Save ONLY: firstName, lastName, percent, grade
         try {
-            const payload = {
-                firstName: info.firstName,
-                lastName: info.lastName,
-                telegram: info.telegram,
-                phone: info.phone,
-                answers, // Record<number, string> from the store (includes essay at 45)
-                essayText,
-                essayWords,
-                testScore,
-                testMaxPresent,
-                scaledTest,
-                totalPoints,
-                totalPercent,
-                grade,
-            };
-
-            const r = await fetch("/api/send-essay", {
+            const r = await fetch("/api/attempts/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload),
+                body: JSON.stringify({
+                    firstName: info.firstName,
+                    lastName: info.lastName,
+                    totalPercent,
+                    grade,
+                    answersJson: Object.fromEntries(
+                        Object.entries(answers).map(([k, v]) => [String(k), String(v ?? "")])
+                    ),
+                }),
                 cache: "no-store",
             });
 
             const j = (await r.json()) as { ok?: boolean; error?: string };
             if (!r.ok || !j.ok) {
-                const msg = j?.error ? `Send failed: ${j.error}` : `Send failed (HTTP ${r.status})`;
+                const msg = j?.error ? `DB save failed: ${j.error}` : `DB save failed (HTTP ${r.status})`;
                 console.error(msg);
-                // Optional: notify user on failure
                 alert(msg);
             }
         } catch (e) {
-            console.error("Send essay threw:", e);
-            alert("Javoblarni yuborishda xatolik yuz berdi.");
+            console.error("DB save threw:", e);
+            alert("Natijani bazaga yozishda xatolik yuz berdi.");
         }
 
         setRows(newRows);
         setSubmitted(true);
-        setCalc({
-            testScore: Number(testScore.toFixed(2)),
-            testMaxPresent: Number(testMaxPresent.toFixed(2)),
-            scaledTest: Number(scaledTest.toFixed(2)),
-            essayWords,
-            essayScore: Number(essayScore.toFixed(2)),
-            totalPoints: Number(totalPoints.toFixed(2)),
-            totalPercent,
-            grade,
-        });
+        setCalc({ totalPercent, grade });
     }
 
     function onClickFinish() {
@@ -405,9 +356,7 @@ export default function ExamPage() {
                                 </Button>
                                 <Button
                                     variant="outline"
-                                    onClick={() =>
-                                        setCurrentQuestion(Math.min(QUESTIONS.length - 1, currentQuestionIndex + 1))
-                                    }
+                                    onClick={() => setCurrentQuestion(Math.min(QUESTIONS.length - 1, currentQuestionIndex + 1))}
                                     disabled={currentQuestionIndex === QUESTIONS.length - 1}
                                     className="whitespace-nowrap"
                                 >
@@ -417,11 +366,7 @@ export default function ExamPage() {
                         </div>
 
                         <div className="mt-4">
-                            <QuestionRenderer
-                                q={q}
-                                answer={answers[q.id]}
-                                onAnswer={handleAnswerForCurrent}
-                            />
+                            <QuestionRenderer q={q} answer={answers[q.id]} onAnswer={handleAnswerForCurrent} />
                         </div>
 
                         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -437,7 +382,7 @@ export default function ExamPage() {
                                     footerLeftText={footerLeftText}
                                 />
                             </div>
-                            <Button onClick={onClickFinish} className="w-full sm:w-auto shrink-0">
+                            <Button onClick={onClickFinish} className="w-full shrink-0 sm:w-auto">
                                 Yakunlash
                             </Button>
                         </div>
@@ -455,27 +400,29 @@ export default function ExamPage() {
                 ) : (
                     <Card className="p-4">
                         <h2 className="text-xl font-semibold">Natija</h2>
+
                         {calc && (
                             <div className="mt-3 space-y-1">
                                 {userInfo && (
                                     <p className="text-sm text-gray-600">
-                                        Ism-familiya: <b>{userInfo.firstName} {userInfo.lastName}</b> · Telegram:{" "}
-                                        <b>{userInfo.telegram}</b>
+                                        Ism-familiya:{" "}
+                                        <b>
+                                            {userInfo.firstName} {userInfo.lastName}
+                                        </b>
                                     </p>
                                 )}
-                                <p>Test (avto): <b>{calc.testScore}</b> / {calc.testMaxPresent}</p>
-                                <p>Test (shkalalanib): <b>{calc.scaledTest}</b> / {TEST_MAX}</p>
-                                <p>Esse so‘zlar: <b>{calc.essayWords}</b> (ball {calc.essayScore} / {ESSAY_MAX})</p>
-                                <hr className="my-2" />
-                                <p>Umumiy ball: <b>{calc.totalPoints}</b> / {TEST_MAX + ESSAY_MAX}</p>
-                                <p>Umumiy foiz: <b>{calc.totalPercent}%</b></p>
-                                <p>Baholash: <b>{calc.grade}</b></p>
+                                <p>
+                                    Umumiy foiz: <b>{calc.totalPercent}%</b>
+                                </p>
+                                <p>
+                                    Daraja: <b>{calc.grade}</b>
+                                </p>
                             </div>
                         )}
 
-                        {/* Answers table */}
+                        {/* Answers table (optional; you can remove if you don’t want users to see it) */}
                         <div className="mt-4 overflow-x-auto">
-                            <table className="min-w-full text-sm border">
+                            <table className="min-w-full border text-sm">
                                 <thead className="bg-gray-50">
                                 <tr>
                                     <th className="border px-2 py-1 text-left">#</th>
@@ -518,7 +465,7 @@ export default function ExamPage() {
                         href="https://t.me/sardortoshmuhammad_onatili"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
+                        className="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
                     >
                         Telegram kanalga qo&#39;shilish
                     </Link>

@@ -6,7 +6,7 @@ export default function Home() {
             <div className="w-full max-w-xl rounded-2xl border bg-white p-6 shadow">
                 <h1 className="text-2xl font-semibold">Sardor Toshmuhammadovning Ona tili va adabiyotdan Diagnostika Testi</h1>
                 <Link
-                    href="/login"
+                    href="/exam"
                     className="mt-4 inline-flex rounded-lg bg-blue-600 px-4 py-2 font-medium text-white"
                 >
                     Boshlash

@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { Question } from '@/types';
 
 interface ExamState {
     currentQuestionIndex: number;

@@ -20,7 +20,7 @@ export function letterGradeFromTotal(totalPoints: number, maxPoints = 150): stri
     if (percent >= B)     return "B";
     if (percent >= CPLUS) return "C+";
     if (percent >= C)     return "C";
-    return "F";
+    return "C Darajadan past";
 }
 
 // ---- Convenience: test-only grading (raw score out of 75) ----
@@ -31,7 +31,7 @@ export function letterGradeFromTestScore(scoreOutOf75: number): string {
     if (scoreOutOf75 >= 55) return "B";
     if (scoreOutOf75 >= 50) return "C+";
     if (scoreOutOf75 >= 45) return "C";
-    return "F";
+    return "C darajadan past";
 }
 
 // ---- If you still want a percent-only helper, keep this thin wrapper ----
@@ -50,5 +50,5 @@ export function letterGrade(percent: number): string {
     if (percent >= B)     return "B";
     if (percent >= CPLUS) return "C+";
     if (percent >= C)     return "C";
-    return "F";
+    return "C darajadan past";
 }

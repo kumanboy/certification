@@ -214,15 +214,7 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
                 </div>
             )}
 
-            {/* essay */}
-            {q.questionType === "essay" && (
-                <textarea
-                    className="min-h-60 w-full rounded-lg border p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Kamida 250 so‘z yozing..."
-                    value={answer ?? ""}
-                    onChange={(e) => onAnswer(e.target.value)}
-                />
-            )}
+
         </div>
     );
 }

@@ -1,12 +1,5 @@
 // types/index.ts
 
-export interface User {
-    id: string;
-    sessionToken: string;
-    createdAt: Date;
-    expiresAt: Date;
-}
-
 /** Matching table meta (Q7 style) */
 export interface MatchMeta {
     left: { key: string; text: string }[];   // e.g., A–D
@@ -82,20 +75,4 @@ export interface Question {
 
     /** Legacy optional multi-input API (not used by current renderer). */
     subInputs?: Array<{ key: string; label: string; textarea?: boolean }>;
-}
-
-export interface ExamAttempt {
-    id: string;
-    userId: string;
-    startedAt: Date;
-    completedAt?: Date;
-    answers: Record<number, string>;
-    score?: number;
-    grade?: string;
-    timeSpent?: number;
-}
-
-export interface AccessCode {
-    code: string;
-    expiresAt: Date;
 }
