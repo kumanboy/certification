@@ -1,17 +1,17 @@
 // app/exam/page.tsx
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useExamStore } from "@/store/exam-store";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import {useEffect, useMemo, useRef, useState} from "react";
+import {useExamStore} from "@/store/exam-store";
+import {Button} from "@/components/ui/button";
+import {Card} from "@/components/ui/card";
 import QuestionRenderer from "@/components/exam/QuestionRenderer";
 import QuestionNav from "@/components/exam/QuestionNav";
-import SubmitDialog, { SubmitDetails } from "@/components/exam/SubmitDialog";
-import { QUESTIONS } from "./questions";
-import { getQuestionPoints, TEST_MAX, ESSAY_MAX, } from "@/lib/scoring";
-import { letterGradeFromTotal } from "@/lib/grading";
-import type { StructuredPart } from "@/types";
+import SubmitDialog, {SubmitDetails} from "@/components/exam/SubmitDialog";
+import {QUESTIONS} from "./questions";
+import {getQuestionPoints, TEST_MAX,} from "@/lib/scoring";
+import {letterGradeFromTotal} from "@/lib/grading";
+import type {StructuredPart} from "@/types";
 import Link from "next/link";
 
 const EXAM_MINUTES = 120;
@@ -254,14 +254,12 @@ export default function ExamPage() {
         }
 
         // Essay (still counted for wordCount but score is manual = 0)
-        const essayScore = 0;
 
 
         // Totals (0..150)
-        const scaledTest = testMaxPresent > 0 ? (testScore / testMaxPresent) * TEST_MAX : 0;
-        const totalPoints = scaledTest + essayScore;
-        const totalPercent = Math.round((totalPoints / (TEST_MAX + ESSAY_MAX)) * 100);
-        const grade = letterGradeFromTotal(totalPoints, TEST_MAX + ESSAY_MAX);
+        const totalPoints = testMaxPresent > 0 ? (testScore / testMaxPresent) * TEST_MAX : 0 ;
+        const totalPercent = testMaxPresent > 0 ? Math.round((testScore / testMaxPresent) * 100) : 0;
+        const grade = letterGradeFromTotal(totalPoints, TEST_MAX);
 
         // ✅ Save ONLY: firstName, lastName, percent, grade
         try {
