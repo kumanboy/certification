@@ -1,28 +1,33 @@
 // app/exam/questions.ts
-import type {Question, DiagramOption} from "@/types";
+import type {Question} from "@/types";
 
 export const QUESTIONS: Question[] = [
     // 1
     {
         id: 1,
-        questionText: "Imloviy jihatdan to‘g‘ri yozilgan so‘zlar qatorini aniqlang.",
+        questionText: "Imlo jihatdan to‘g‘ri yozilgan so‘zlar qatorini aniqlang.",
         questionType: "multiple_choice",
         options: [
-            "mas’uliyat, murojat, tashabbus",
-            "e’tibor, ma’lumot, qoidabuzarlik",
-            "deklaratsiya, dekoratsiya, delegetsiya",
-            "tavsilot, tavsif, tavsiyanoma",
+            "yengil-yelpi, saranjom-sarishta, har-xil",
+            "qop-qora, ko‘p-marta, yengil-yelpi",
+            "yengil-yelpi, saranjom-sarishta, qop-qora",
+            "saranjom-sarishta, bir-necha, qop-qora"
         ],
-        correctAnswer: "B",
-        points: 1.7,
+        correctAnswer: "C",
+        points: 1.7
     },
 
 // 2
     {
         "id": 2,
-        "questionText": "Quyidagi gapda qanday turdagi imloviy xatolik(lar) yuz berganini aniqlang.\n\nYangi yil arafasida Zebo uch marta pulini sanabdi: “Bir millionu sakson yetti ming so‘m…” U sovg‘a olish uchun harxil do‘konlarni aylanibdi. Shu payt ikki qo‘shni tortishib qolibdi. Biri: “Zebo, sen qimat sovg‘a olmoqchisanmi, puling yetmaydi-ku”, – desa, ikkinchisi: “Yo‘q, u yillik jamg‘arma qilib yuripti, o‘zi biladi”, – debdi. Zebo esa: “Mayli, bir biringizni gapga solmang, avval aniq bilib olay”, – debdi.\n\n1) Unli tovush bilan bog‘liq xatolik;\n2) Chiziqcha bilan bog‘liq xatolik.\n3) Qo‘shib yozish bilan bog‘liq xatolik;\n4) Undosh tovush bilan bog‘liq xatolik;\n5) Asos va qo‘shimchalar bilan bog‘liq xatolik;\n6) Tutuq belgisi bilan bog‘liq xatolik;",
+        "questionText": "Quyida berilgan matnda IMLOVIY XATOLIKNING qaysi turlari kuzatilgan?\n\nBugungi kunda sog‘lom turmush tarzini targ‘ib qilish masalasi dolzarb bo‘lib bormoqda. Shifokorlar ta’kidlashicha, muntazam jismoniy faollik yurakqon tomir tizimini mustahkamlaydi, stressni kamaytiradi va uyqu sifatini yaxshilaydi. Shu bois ko‘pchilik ertalabki badantarbiyani odat qilishga urinadi, ammo ba’zan noto‘g‘ri ovqatlanish hamda vaqtni rejalashtirmaslik bu niyatni sustlashtiradi. Shuningdek, toshkent shahar bo‘ylab o‘tkaziladigan ommaviy yugurish tadbirlariga qiziqish ortib borayotgani quvonarli, chunki bunday tadbirlar insonlarni birlashtiradi va motivatsiya beradi. Mutaxassislar esa kun davomida har qanday qulay fursatda kamida 20–30 daqiqa piyoda yurishni tavsiya etadilar.\n\n1. Unli va undosh bilan yozish imlosiga oid\n2. Asos va qo‘shimchalar imlosiga oid\n3. Bosh harf bilan yozish imlosiga oid\n4. Qo‘shib yoki ajratib yozish imlosiga oid",
         "questionType": "multiple_choice",
-        "options": ["2,3,4", "1,3,5", "2,4,6", "3,4,5"],
+        "options": [
+            "3 va 4",
+            "1 va 3",
+            "2 va 3",
+            "2 va 4"
+        ],
         "correctAnswer": "A",
         "points": 1.7
     }
@@ -43,85 +48,95 @@ export const QUESTIONS: Question[] = [
     //     points: 1.7,
     // },
     {
-        id: 3,
-        questionText: "Quyida berilgan so‘zning mazmuni xato\n" +
-            "izohlangan javobni aniqlang.",
-        questionType: "multiple_choice",
-        options: ["A", "B", "C", "D"],
-        correctAnswer: "B",
-        points: 1.7,
-        imageUrl: "/images/q3-diagram.png",
-    },
+        "id": 3,
+        "questionText": "Nutqda o‘zaro sinonimlik hosil qila oluvchi so‘zlar qatorini aniqlang.",
+        "questionType": "multiple_choice",
+        "options": [
+            "mashaqqat — azob — uqubat",
+            "mard — qo‘rqoq — jasur",
+            "sahifa — daftar — varaq",
+            "sharq — mashriq — farang"
+        ],
+        "correctAnswer": "A",
+        "points": 1.7,
+    }
+    ,
 
     // 4
     // 4 (diagram MCQ)
     {
-        id: 4,
-        questionText: "O‘zaro ma’nodosh bo‘la oladigan so‘zlarni aniqlang.",
-        questionType: "diagram_mcq",
-        options: [
-            {top: "g‘ayrat", left: "shijoat", right: "jo‘shqin"},
-            {top: "sahih", left: "ishonchli", right: "aniq"},
-            {top: "barqaror", left: "turg‘un", right: "mustahkam"},
-            {top: "e’tiborli", left: "nufuzli", right: "ehtiyotkor"},
-        ] as DiagramOption[],
-        correctAnswer: "B",
-        points: 1.7,
-    },
-
-
-    // 5 (“Ayon”) — plain MCQ with textual diagram labels in the stem
-    {
-        "id": 5,
-        "questionText": "Qaysi gapda qo‘shimcha qo‘llash bilan bog‘liq uslubiy xatolik mavjud?\n\nA) Ustozning maslahatlari o‘quvchilarni yangi maqsadlarga ruhlantirdi.\nB) Tadbirga kelgan mehmonlar tashkilotchilarga minnatdorlik bildirishdi.\nC) Bu masalada u kishining fikrlari biznikiga mos kelishmaydi.\nD) Yig‘ilishdan so‘ng rahbar barcha xodimlarni tabrikladi.",
+        "id": 4,
+        "questionText": "Berilgan so‘zlar va ularning ma’nolari xato izohlangan javobni aniqlang.",
         "questionType": "multiple_choice",
         "options": [
-            "Ustozning maslahatlari o‘quvchilarni yangi maqsadlarga ruhlantirdi.",
-            "Tadbirga kelgan mehmonlar tashkilotchilarga minnatdorlik bildirishdi.",
-            "Bu masalada u kishining fikrlari biznikiga mos kelishmaydi.",
-            "Yig‘ilishdan so‘ng rahbar barcha xodimlarni tabrikladi."
-        ],
-        "correctAnswer": "C",
-        "points": 1.7
-    },
-
-    // 6
-    {
-        "id": 6,
-        "questionText": "So‘zning izohi xato berilgan javobni aniqlang.",
-        "questionType": "multiple_choice",
-        "options": [
-            "TAQRIZ – asar, maqola yoki ilmiy ish haqida beriladigan baholovchi-analitik yozma fikr.",
-            "TAHLIL – hodisa, matn yoki jarayonni qismlarga ajratib, mazmunan tekshirib o‘rganish jarayoni.",
-            "TADQIQOT – ma’lum masalani ilmiy asosda o‘rganish, izlanish va natijaga kelish jarayoni.",
-            "TARJIMA – muayyan mavzu bo‘yicha tinglovchilar oldida og‘zaki bayon qilinadigan ilmiy nutq."
+            "Yulduz — osmon jismlaridan biri; tunda yorug‘ ko‘rinadigan katta gaz sharidir.",
+            "Yelkan — kema yoki qayiqni shamol kuchi bilan harakatlantiruvchi mato qismi.",
+            "Yog‘du — yorug‘lik, shu’la, nur.",
+            "Yomg‘ir — atmosferadagi muz bo‘laklarining yerga qattiq holda tushishi."
         ],
         "correctAnswer": "D",
         "points": 1.7
     },
 
 
+    // 5 (“Ayon”) — plain MCQ with textual diagram labels in the stem
+    {
+        "id": 5,
+        "questionText": "“Kalit” so‘zining ma’nolari to‘g‘ri izohlangan javobni aniqlang.\n\n 1)kalit (ot)\n\n 2)Shakldoshining sinonimi: yechim\n\n 3)Sinonimi: qulf ochqich\n\n 4)Antonimi: qulf\n\n 5)Ko‘chma ma’nosi: muammoning kaliti (yechim, yo‘l)",
+        "questionType": "multiple_choice",
+        "options": [
+            "faqat 1",
+            "2, 4",
+            "faqat 2",
+            "1, 3"
+        ],
+        "correctAnswer": "B",
+        "points": 1.7
+    },
+
+    // 6
+    {
+        "id": 6,
+        "questionText": "Qaysi javobda qo‘shimcha qo‘llash bilan bog‘liq uslubiy xatolik mavjud?",
+        "questionType": "multiple_choice",
+        "options": [
+            "Qat’iyatli inson sinovdan cho‘chimaydi, chunki u natijaga mehnat bilan erishadi.",
+            "Majlis yakunida kotib bayonnomani rasmiylashtirdi va ishtirokchilarga nusxa tarqatdi.",
+            "Ustoz shogirdining xatosini ko‘rsatdi, so‘ng uni qanday tuzatishni batafsil tushuntirdi.",
+            "Jamoa a’zolari rahbar topshirig‘ini do‘stlarning iltimos qilishlarigacha cho‘zib yubormaslikka kelishdi."
+        ],
+        "correctAnswer": "D",
+        "points": 1.7
+    }
+    ,
+
+
     // 7 (match-table)
     {
         "id": 7,
-        "questionText": "Quyidagi gapda ishtirok etgan so‘zlarning morfem tarkibi haqidagi xato hukmni aniqlang.\n\nQorong‘ilikdan bezib, umidsizlangan yigit kichik yozuvchini izlab topdi. U yaxshilanib borayotgan holatiga qaramay, ichidagi bezovtalikni yenga olmadi. Shu sababli u yana sukutga cho‘mib, bo‘layotgan voqealarni kuzatib turdi.",
+        "questionText": "–gacha qo‘shimchasi haqidagi to‘g‘ri ma’lumotlarni topib moslashtiring.\n\nA) Vaqt\nB) Masofa/makon\nC) Miqdor\nD) Daraja/holat\n\n1. Dars soat beshgacha davom etadi.\n2. Biz metro bekatigacha piyoda bordik.\n3. Bu aksiya faqat yuz ming so‘mgacha amal qiladi.\n4. U kulib yuborgancha, hech kim gapning tagiga yetmadi.\n5. Bugun kechgacha shu yerda bo‘laman.",
         "questionType": "multiple_choice",
         "options": [
-            "Sifat va ot asoslarga fe’l yasovchi qo‘shimchalar qo‘shilgan.",
-            "So‘z yasovchi qo‘shimchalardan ayrimlari turli asoslarga qo‘shilgan.",
-            "Ravish yasovchi qo‘shimchalar gapda fe’l asoslarga qo‘shilgan.",
-            "Ot yasovchi qo‘shimchalar sifat va fe’l asoslarga qo‘shilgan."
+            "a–1,5; b–2; c–3; d–4",
+            "a–1; b–2,5; c–3; d–4",
+            "a–5; b–1,2; c–3; d–4",
+            "a–1,2; b–5; c–3; d–4"
         ],
-        "correctAnswer": "C",
+        "correctAnswer": "A",
         "points": 1.7
     }
     ,
     // 8) Har uchala parchada ham ishtirok etgan fe'l shakllari
     {
         "id": 8,
-        "questionText": "Quyidagi parchada ishtirok etgan fe’llar haqidagi hukmlardan nechtasi to‘g‘ri?\n\nCho‘lponning tongi kabi ko‘nglimga nur keldi, Kitobni ochdim, satrlarni jim o‘qidim.\nSen ham bir lahza to‘xta, yel, shovqin qilma, Dardimni aytib qo‘yma, yurakda qoladi.\nMen izlab topgan haqiqatni yozib qo‘ydim, Ko‘ngilni asrash uchun kurashish kerak. Ketayotgan umidga qarab kulib,\nYashash, sevish — insonning yo‘li ekan.\n\n1) Fe’lning uch xil vazifa shakli qatnashgan.\n2) Sof fe’llar ikki xil maylda qo‘llangan.\n3) Faqat o‘timsiz fe’llar ishtirok etgan.\n4) Fe’lning ikki xil tuzilish shakli qatnashgan.\n5) Ko‘makchi fe’l ishtirok etgan.\n6) Sof fe’llar ikki xil shaxs-sonda qo‘llangan.",
+        "questionText": "Har uchala parchada ham ishtirok etgan fe’l shakllarini aniqlang.\n\nI. U eshikni sekin ochib, ichkariga kirar ekan, hech kimga bildirmay chetga o‘tib oldi.\nII. Ko‘ngli to‘lmay qolsa, u jim turib, bir muddat hammani kuzatib o‘tirar edi.\nIII. U yo‘lga chiqishdan oldin bir zum to‘xtab, atrofga qarab, keyin yana tez yurib ketdi.\n\nFe’l shakllari:\n\n1) sodda yasama fe’l\n2) ravishdosh\n3) shart mayli shaklidagi fe’l\n4) qo‘shma fe’l\n5) o‘zlik nisbatdagi fe’l\n6) o‘timli va o‘timsiz fe’llar",
         "questionType": "multiple_choice",
-        "options": ["ikkitasi", "uchtasi", "to‘rttasi", "beshtasi"],
+        "options": [
+            "4 va 6",
+            "2 va 6",
+            "1 va 5",
+            "3 va 4"
+        ],
         "correctAnswer": "B",
         "points": 2.5
     }
@@ -129,30 +144,31 @@ export const QUESTIONS: Question[] = [
     // 9) Otlar haqidagi to‘g‘ri ma’lumot
     {
         "id": 9,
-        "questionText": "Quyidagi parchada qatnashgan otlar haqida xato hukmni aniqlang.\n\nBir kuni ustoz kutubxonada eski qo‘lyozmani varaqlab o‘tirar ekan, shu payt javonda chang bosgan daftar ko‘ziga tashlandi. U daftarni qo‘liga olib, sahifalaridagi yozuvlarga tikildi. Bir ozdan keyin ustoz bu topilmani ilmiy tadqiqotga kiritishni rejalashtirdi, chunki bunday qo‘lyozmalar xalqning tarixini eslatib turardi.",
+        "questionText": "“Mehnatkash odamlarni qadrlang: ular shovqin solmaydilar, maqtanmaydilar, ammo ularning tinmay qilgan sa’y-harakatlari tufayli, afsuski, ishlar baribir izga tushadi.”\n\nUshbu gapda qatnashgan mustaqil so‘zlar haqidagi qaysi ma’lumot to‘g‘ri emas?",
         "questionType": "multiple_choice",
         "options": [
-            "Parchada narsa oti va faoliyat-jarayon oti ishtirok etgan.",
-            "Ikki bosh bo‘lakli gaplarning ayrimlarida otlar ega vazifasida qo‘llangan.",
-            "“Daftar” so‘zi bir o‘rinda narsa oti, boshqa o‘rinda faoliyat-jarayon otini ifodalagan.",
-            "Sodda yasama otlar ikki xil turkumdan hosil qilingan."
+            "Kesim vazifasida kelgan so'zlar faqat bir xil so'z turkumiga oid so'zlar.",
+            "Sifatlovchi aniqlovchi vazifasida kelgan qo‘shma sifat qatnashgan.",
+            "Kesim vazifasida kelgan sodda yasama fe’l qatnashgan.",
+            "Juft so'z sabab holi vazifasida qo'llangan."
         ],
-        "correctAnswer": "C",
+        "correctAnswer": "B",
         "points": 1.7
-    },
+    }
+    ,
 
 // 10) Hollar haqida to‘g‘ri ma’lumot
     {
         "id": 10,
-        "questionText": "Quyidagi gapda alohida ajratib ko‘rsatilgan so‘zga tobelanib bog‘langan so‘z haqidagi to‘g‘ri hukmni aniqlang.\n\nTong saharda yo‘l chetida yotgan g‘ishtlarni **terish** bilan ovora bo‘lgan yigit uzoqdan kelayotgan mashinani sezmay qoldi.",
+        "questionText": "Quyidagi gap haqida berilgan to‘g‘ri hukmni toping.\n\nBugungi kunda eng katta boyligimiz — tinchlik va osoyishtalikdir, bunday ne’matni qadrlaydigan insonlar esa hamisha ko‘p bo‘lavermaydi.",
         "questionType": "multiple_choice",
         "options": [
-            "Ushbu so‘z yasovchi qo‘shimcha bilan shakllangan.",
-            "Ushbu so‘z ko‘makchi yordamida to‘ldiruvchini shakllantirgan.",
-            "Ushbu so‘z bosh bo‘lakni shakllantirishga xizmat qilgan.",
-            "Ushbu so‘z qo‘shma fe’l bilan ifodalangan sifatdoshni shakllantirgan."
+            "Ega, aniqlovchi va holning kesimga to‘g‘ridan to‘g‘ri tobelanishi kuzatilgan.",
+            "To‘ldiruvchining ikki xil ma’no turi ishtirok etgan.",
+            "Ot kesim ham, fe’l kesim ham ishtirok etgan.",
+            "Egalar ikki xil so‘z turkumi bilan ifodalangan."
         ],
-        "correctAnswer": "B",
+        "correctAnswer": "C",
         "points": 1.7
     }
     ,
@@ -161,13 +177,13 @@ export const QUESTIONS: Question[] = [
     // 11
     {
         "id": 11,
-        "questionText": "Quyidagi parcha haqida to‘g‘ri hukm berilgan javobni aniqlang.\n\nUstoz sinfga kirishi bilan o‘quvchilar darhol o‘rinlaridan turdi, shundan so‘ng daftarlar ochildi va dars boshlandi. Tashqarida esa yomg‘ir tinmay yog‘ardi, shamol biroz kuchaydi.",
+        "questionText": "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishi to‘g‘ri ko‘rsatilgan javobni aniqlang.\n\nYoshlarning bilimini mustahkamlash uchun ustozlarning tajribasi va shu tajribani amalda qo‘llash uchun samarali ta’lim muhiti zarur hisoblanadi.",
         "questionType": "multiple_choice",
         "options": [
-            "Holning ikki ma’no turi ishtirok etgan.",
-            "Egalar turli turkum bilan ifodalangan.",
-            "Faqat sodda yasama kesimlar ishtirok etgan.",
-            "Payt holi fe’l kesimga tobelangan."
+            "zarur hisoblanadi, mustahkamlash uchun",
+            "amalda qo‘llash, tajribasi va muhiti",
+            "yoshlarning bilimini, ustozlarning muhit",
+            "ta’lim muhiti, bilimini mustahkamlash"
         ],
         "correctAnswer": "D",
         "points": 1.7
@@ -177,15 +193,15 @@ export const QUESTIONS: Question[] = [
 // 12
     {
         "id": 12,
-        "questionText": "Quyidagi gapda qatnashgan tinish belgilari haqidagi to‘g‘ri hukmni aniqlang.\n\n— Doktor! — dedi hamshira shoshilib.\n— Ha, eshitaman.\n— Bemorning ahvoli og‘irlashdi.\n— Darhol palataga kiring! — dedingiz (tezkorlik bilan daftarga qayd qilib).\n— Aziza, — deb chaqirdingiz.\n— Ha, doktor!\n— Rentgen natijasini olib keling.\n— Xo‘p, — dedi Aziza.",
+        "questionText": "Quyidagi qaysi gaplarda qatnashgan TIRE tinish belgisi punktuatsion qoidalarga ko‘ra bir xil vazifada qo‘llangan?\n\n1. Pulni inson beradi, barakani - Alloh.\n2. Sadoqat — insonning bezagi.\n3. “Mehnat — deydi donolar, — baxt kaliti.”\n4. Kitob — bilim manbai, ustoz — yo‘l ko‘rsatkich.\n5. Yurting tinch - sen tinch.",
         "questionType": "multiple_choice",
         "options": [
-            "Vergul tinish belgisidan bir xil maqsadda foydalanilgan.",
-            "Tire tinish belgisidan bir xil maqsadda foydalanilgan.",
-            "Qavs tinish belgisi ajratilgan bo‘lakni shakllantirish uchun qo‘llangan.",
-            "Undov belgisidan bir xil sintaksis birliklarni ajratish maqsad qilingan."
+            "1 va 3",
+            "2 va 4",
+            "2 va 5",
+            "1 va 4"
         ],
-        "correctAnswer": "D",
+        "correctAnswer": "B",
         "points": 2.5
     }
     ,
@@ -193,15 +209,15 @@ export const QUESTIONS: Question[] = [
 // 13
     {
         "id": 13,
-        "questionText": "Abdulla Qodiriyning “O‘tkan kunlar” romanida qaysi tarixiy voqea qalamga olinmagan?",
+        "questionText": "“O'zbekning o'zini tanitishi uchun xizmat qiladurgan bir asar yozmoqqa niyat qildim. Zero, dunyo xalqlari orasida bizning ham tariximiz, madaniyatimiz borligini ko'rsatmoq lozimdir. Toki avlodlar o'tmishda kimlar o'tganini bilsinlar.”\n\nUshbu fikrlar muallif tomonidan o'zining qaysi shoh asari haqida aytilgan?",
         "questionType": "multiple_choice",
         "options": [
-            "Qo‘qon xonligi va Buxoro amirligi o‘rtasidagi siyosiy ziddiyatlar.",
-            "Otabek va Kumush taqdiri bilan bog‘liq ijtimoiy hayot manzaralari.",
-            "Savdo-sotiq va karvon yo‘llari bilan bog‘liq voqealar.",
-            "Rossiya va Turkiya o‘rtasidagi urushlar, shiddatli janglar."
+            "Abdulla Qodiriy \"Mehrobdan chayon\"",
+            "Abdulla Qodiriy \"O'tkan kunlar\"",
+            "Cho'lpon \"Kecha va kunduz\"",
+            "Oybek \"Navoiy\""
         ],
-        "correctAnswer": "D",
+        "correctAnswer": "B",
         "points": 1.7
     }
     ,
@@ -209,15 +225,15 @@ export const QUESTIONS: Question[] = [
 // 14
     {
         "id": 14,
-        "questionText": "Asar qahramonlariga to‘g‘ri ta’rif berilgan javobni aniqlang.\n\n1) Snovboll – cho‘chqa; fermadan haydalganidan so‘ng odamlar bilan ochiq ittifoq tuzib, qurolli qo‘shin bilan qaytib kelishga uringan obraz.\n2) Skviler – cho‘chqa; raqam-u “hisobotlar” va so‘z o‘yinlari orqali Napoleon qarorlarini “mantiqan to‘g‘ri” qilib ko‘rsatadigan targ‘ibotchi.\n3) Boksyor – eshak; “Napoleon doimo haq” shiorini asosan u aytib yuradi va boshqalarga ham o‘rgatadi.\n4) Mozes – qarg‘a; hayvonlarni “Shakarqamish tog‘i” haqidagi afsona bilan ovutib, ularni hozirgi og‘ir mehnatga chidashga undaydigan obraz.",
+        "questionText": "Pirimqul Qodirovning \"Yulduzli tunlar\" romaniga oid to'g'ri shakllantirilgan mazmun berilgan qatorni toping.",
         "questionType": "multiple_choice",
         "options": [
-            "2, 4",
-            "faqat 2",
-            "1, 3, 4",
-            "faqat 4"
+            "Bobur Andijon taxtini tashlab chiqishga majbur bo'lganida, unga sadoqat ko'rsatgan yagona inson Qosimbek edi; qolgan barcha beklar uni tark etib, Shayboniyxon tomoniga o'tib ketgan edilar.",
+            "Samarkand qamalida qolgan Bobur shahar xalqi ochlikdan qiynalayotganini ko'rib, o'zining sevimli oti \"Gulyori\"ni so'yib, go'shtini beva-bechoralarga tarqatishni buyuradi.",
+            "Shayboniyxon shartiga ko'ra, Bobur o'z singlisi Xonzodabegimni unga qoldirib Samarqandni tark etadi; bu voqea Boburning butun umri davomidagi eng og'ir va bitmas yurak yarasiga aylanadi.",
+            "Hindiston safari oldidan Bobur o'zining \"Baburnoma\" asarini yakunlaydi va uni o'g'li Humoyunga topshirib, saltanatni adolat bilan boshqarishni vasiyat qiladi."
         ],
-        "correctAnswer": "A",
+        "correctAnswer": "C",
         "points": 1.7
     }
     ,
@@ -225,15 +241,15 @@ export const QUESTIONS: Question[] = [
 // 15
     {
         "id": 15,
-        "questionText": "Abdulhamid Cho‘lponning “Kecha va kunduz” romanida voqealar to‘g‘ri bayon etilgan javobni aniqlang.",
+        "questionText": "“Sarvqomat dilbarim” qissasidagi voqealar rivojiga oid to'g'ri hukmni aniqlang.",
         "questionType": "multiple_choice",
         "options": [
-            "Zebi taqdiri orqali ayolning huquqsizligi va jamiyat bosimi yoritiladi; Miryoqub mingboshi atrofida yurib, uning ishlarida vositachilik qiladi, Zebi esa majburan mingboshi xonadoniga kelin bo‘lib tushadi.",
-            "Zebi o‘z xohishi bilan boy xonadonga kelin bo‘lib boradi, keyin esa o‘qish uchun shahar tashqarisiga jo‘nab ketadi; Miryoqub buning uchun hammani ishontirib, uni himoya qiladi.",
-            "Asarda barcha voqealar faqat “kunduz” qismida berilib, qahramonlarning “kecha”dagi ruhiy kechinmalari umuman tasvirlanmaydi.",
-            "Zebi va Miryoqub birgalikda chet elga ketib, roman oxirida yangi hayotni boshlaydi; mingboshi esa pushaymon bo‘lib, ularni qaytaradi."
+            "Ilyos o'zining \"Dovon\"ni zabt etish haqidagi o'ylamasdan qilgan harakati va xiyonati tufayli nafaqat sevgilisidan, balki o'zining qadrdon do'sti Alibekdan ham butunlay yuz o'giradi.",
+            "Asel Ilyosning xiyonatini bilganidan so'ng, uni kechiradi va o'g'li Samatning kelajagi uchun u bilan birga qolishga qaror qiladi, biroq Ilyos o'z aybi bilan oilani tark etadi.",
+            "Qissa qahramoni Ilyos uzoq ayriliqdan so'ng Asel bilan uchrashganida, Aselning boshqa insonga (Boytemirga) turmushga chiqqanini va o'g'li Samat uni \"ota\" deb chaqirayotganini ko'rib, o'z baxtini qo'ldan boy berganini anglaydi.",
+            "Boytemir Ilyosni ko'rgan zahoti uni tanib oladi va Aselni qaytarib berishini aytadi, chunki u Asel hamon Ilyosni sevishini yaxshi bilar edi."
         ],
-        "correctAnswer": "A",
+        "correctAnswer": "C",
         "points": 1.7
     }
     ,
@@ -241,15 +257,15 @@ export const QUESTIONS: Question[] = [
 // 16
     {
         "id": 16,
-        "questionText": "Abdulla Qahhorning “Ming bir jon” hikoyasida Mirrahimov avval tutaqib, hamshiraga dag‘allashib gapiradi, lekin Mastura Alievaning palatasidan chiqqach, kechgacha indamay qoladi. Mirrahimovdagi bu o‘zgarishning eng asosli sababi nima?",
+        "questionText": "“Chinor” romani qahramonlari haqida to'g'ri ko'rsatilgan javoblarni aniqlang:\n\n1) Erkin — Ochil buvaning nabirasi, u bobosining o'gitlariga qarshi chiqadi va shaharga ketib, o'z ildizlaridan butunlay uzilib ketadi.\n\n2) Bektemir — Tog'-kon ishchisi, og'ir mehnat sharoitida ham o'z insoniy g'ururini saqlab qolgan, \"Chinor\"ning baquvvat shoxlaridan birini ifodalovchi qahramon.\n\n3) Saodat — Ishq-muhabbatda sadoqatli, hayotning qiyinchiliklariga qaramay o'z pokligini saqlab qolgan, ayol matonati timsoli.",
         "questionType": "multiple_choice",
         "options": [
-            "Bahorning yoqimli havosi uni o‘z-o‘zidan tinchlantirib, kasallikdan shikoyat qilishni uyat deb bildirdi.",
-            "Hamshiraning “dardni bardosh yengadi” degan nasihati Mirrahimovga kuchli ta’sir qilib, u o‘zini tiyishga majbur bo‘ldi.",
-            "Masturaning o‘limga taslim bo‘lmaydigan umidi va hazil-mutoyibasi, shuningdek Akramjonning vafodorligi Mirrahimovda ichki larzani uyg‘otib, uni o‘ziga qaytardi.",
-            "Hoji akaning Masturani ko‘rib qo‘rqib chiqib ketgani Mirrahimovga kulgili tuyulib, u shundan keyin jilmayibgina yuradigan bo‘ldi."
+            "1, 2",
+            "2, 3",
+            "1, 3",
+            "barchasi to'g'ri"
         ],
-        "correctAnswer": "C",
+        "correctAnswer": "B",
         "points": 1.7
     }
     ,
@@ -257,13 +273,13 @@ export const QUESTIONS: Question[] = [
 // 17
     {
         "id": 17,
-        "questionText": "Chingiz Aytmatovning “Asrga tatigulik kun” asari haqida to‘g‘ri hukmni aniqlang.",
+        "questionText": "Mirmuhsinning \"Me'mor\" romaniga oid to'g'ri shakllantirilgan mazmun berilgan qatorni toping.",
         "questionType": "multiple_choice",
         "options": [
-            "Edigey Kazangapni Ona-Bayit qabristoniga dafn etish uchun yo‘lga chiqadi, biroq qabriston tomoni kosmodrom hududi deb yopilgani sababli ularni yo‘ldan qaytarishadi.",
-            "Asarda manqurt afsonasida Nayman ona o‘g‘lini eslatib uyg‘otadi va o‘g‘il onasini tanib, qochib ketadi.",
-            "Edigey va Kazangap yoshligidan birga o‘sgan aka-uka bo‘lib, asar voqealari ularning bolalik xotiralari atrofida quriladi.",
-            "Asarda kosmosga uchgan ekipaj Yer bilan aloqa o‘rnatgach, darhol xalq oldida e’lon qilinadi va ular tantanali ravishda qaytarib olinadi."
+            "Najmiddin Buxoriy o'zining shogirdi va o'g'li bo'lmish Musoni Samarqanddagi Bibixonim masjidi qurilishiga yuborar ekan, unga faqat mahoratni emas, balki binoga jon bag'ishlaydigan \"ishq\"ni ham o'rganishni vasiyat qiladi.",
+            "Romanda tasvirlanishicha, me'mor Najmiddin Buxoriy kofirlar hujumi paytida o'zining so'nggi asari — \"Kalon\" minorasini dushmanlardan himoya qilib, minora poyida mardona halok bo'ladi.",
+            "Muso o'zining ustozi va otasining chizmalarini o'g'irlab, begona yurtda shuhrat qozonishni ko'zlaydi, biroq vijdon azobi uni vataniga qaytishga va tavba qilishga majbur qiladi.",
+            "Xon tomonidan ko'zlari ko'r qilingan Najmiddin Buxoriy baribir tushkunlikka tushmaydi va qorong'ulikda bo'lsa-da, faqat barmoqlari yordamida loydan muhtasham saroy maketini yasashda davom etadi."
         ],
         "correctAnswer": "A",
         "points": 1.7
@@ -275,21 +291,9 @@ export const QUESTIONS: Question[] = [
         id: 100,
         questionType: "passage",
         questionText: [
-            "HUJAYRA",
+            "O'rgimchaklar",
             "",
-            "I",
-            "Hujayra nazariyasi - barcha organizmlarning tuzilishi, rivojlanishi va kelib chiqishidagi umumiylikni koʻrsatuvchi yirik biologik nazariyalardan biri boʻlib, unga binoan hujayra bakteriyalar, zamburugʻlar, oʻsimliklar va hayvonlarning eng kichik tuzilish birligi. Hujayra nazariyasi tiriklik olamining birligi va uning tarixiy rivojlanishi haqidagi evolyutsion tasavvurni tasdiqlaydi. Hujayra nazariyasi Ch.Darvinning evolyutsion taʼlimoti va energiyaning oʻzgarishi qonuni bilan bir qatorda 19-asrda tabiatshunoslik sohasida qilingan 3 buyuk kashfiyotdan biridir. Hujayralarning kashf etilishi va hujayra nazariyasining yaratilishi tarixan bir davrga toʻgʻri kelmaydi. Oʻsimlik hujayrasi tuzilishini dastlab tirik oʻsimlik poyasi va poʻkaklardan tayyorlangan kesmada ingliz olimi Robert Guk oʻzi yasagan mikroskop orqali kuzatgan va tadqiqot xulosalarini “Mikrografiya” nomli asarida bayon etgan (1665). Ingliz botanigi N.Gryu hujayra qobigʻi xuddi mato (gazlama)ga oʻxshash tolalardan\ttashkil\ttopganligini\ttaxmin\tqilgan.",
-            "",
-            "II",
-            "18-asrda falsafiy gʻoyalar taʼsirida fanda tirik tabiatning birligi haqidagi fikrlar paydo boʻla boshladi. K.Volf oʻsimlik va hayvonlarning tuzilishidagi qandaydir umumiylikni aniqlashga harakat qildi. Uning “hujayra”, “donachalar” va “pufakchalar” kabi tushunchalari, shuningdek, nemis olimi L.Okenning organizmlar “pufakchalar” yoki “infuzoriyalar”dan tashkil topgan, degan fikrlari fanda hujayra nazariyasi toʻgʻrisidagi dastlabki tushunchalar boʻlgan. 19 asr boshlarida oʻsimliklarni mikroskop yordamida oʻrganish borasida erishilgan yutuqlar tufayli hujayra — oʻsimlik moddalari umumiy massasining boʻshliq qismi emas, balki oʻz qobigʻiga ega boʻlgan va bir-biridan ajralib turadigan strukturaviy tuzilma ekanligi aniqlandi. 19-asrning 30 yillari oxirida oʻsimliklarning deyarli barcha organlari hujayraviy tuzilishga ega ekanligi aniqlandi va nemis olimi F.Meyenning “Botanika” (1830) kitobida hujayra oʻsimlik toʻqimalarining umumiy tuzilish birligi sifatida eʼtirof etildi. Lekin shundan keyin ham hujayra bu bir boʻshliq, asosiy qismini qobiq tashkil qiladi; uning ichidagi narsalar esa ikkinchi darajali ahamiyatga ega ekanligi toʻgʻrisidagi tushuncha uzoq vaqt saqlanib qoldi.",
-            "",
-            "III",
-            "Oʻsimlik hujayrasi yadrosi ingliz olimi R.Braun tomonidan kashf etilgan (1831), ammo nemis olimi M.Shleyden yadroni hujayrani hosil qiluvchi, yaʼni sitoblast deb hisoblagan. Shleyden taʼbiricha donador substansiyadan yadrocha hosil boʻlib, uning atrofida esa hujayra vujudga keladi; keyinchalik hujayraning hosil boʻlishi jarayonida yadro yoʻq boʻlib ketadi. 19-asrning 2-choragi boshlarida chex olimi\n" +
-            "\n" +
-            "Ya.Purkine maktabining tadqiqotlari hayvon organizmi toʻqimalarining mikroskopik tuzilishi boʻyicha juda koʻp maʼlumotlar berdi. Lekin Ya.Purkine oʻzining “donachalar nazariyasi”da “donachalar” (u hujayrani shunday deb atagan edi), yadro va boshqa qismlardan tashkil topganligini yozadi. Hujayra nazariyasini rasmiylashtirishda T.Shvann (1839) xizmatlari juda katta. U oʻzi olgan maʼlumotlar, Shleyden va Ya.Purkine maktabi va boshqa olimlarning tadqiqotlariga asoslanib, hujayra nazariyasini yaratdi; oʻsimlik va hayvon toʻqimalari tuzilishini taqqoslab ular uchun umumiy hisoblangan hujayraviy tuzilish tamoyillarini koʻrsatib berdi. Ammo Shvann ham xuddi Shleyden singari hujayraning asosiy qismi uning poʻsti va hujayra strukturasiz shiradan hosil boʻladi, deb hisoblagan.",
-            "",
-            "IV",
-            "Hujayra nazariyasining bundan keyingi rivojlanishi protoplazma va hujayra boʻlinishining kashf etilishi bilan bogʻliq. Hujayra ichidagi viruslar mustaqil hayot kechirishga moslashmagan bo’ladi.Nemis olimi R.Virxov (1958) “Hujayra patologiyasi” asarida hujayra nazariyasini patologik hodisalarga tatbiq etib, yadro hujayrada yetakchi ahamiyatga ega ekanligiga eʼtibor qaratdi va hujayraning boʻlinish yoʻli bilan koʻpayish tamoyilini (har bir hujayra hujayradan hosil boʻladi) asoslab berdi. 19-asrning 70—80 yillarida barcha hujayraviy tuzilishga ega boʻlgan organlar uchun universal hisoblangan hujayraning boʻlinish usuli, yaʼni mitoz, asr oxirida esa hujayra organoidlari kashf etiladi; hujayra protoplazmaning oddiy yigʻindisi emasligi tan olinadi. Organizm qancha murakkab tuzilgan boʻlsa, uning bir butunligi shuncha aniq namoyon boʻladi. Hujayraning asosiy strukturaviy elementlari shakllangan yadroga ega boʻlgan eukariot organizmlar hamda yadrosiz prokariotlar uchun ham tegishli. Mustaqil hayot kechirishga moslashmagan hujayra parazitlari hisoblangan viruslarning mavjudligi tirik organizmlarning hujayraviy tuzilishi universal ekanligini koʻrsatadi. Tirik organizmlar hujayraviy tuzilishining mushtarakligi hujayralarning kimyoviy tarkibi va metabolitik jarayonlarning oʻxshashligi bilan ham tasdiqlanadi. Nuklein kislotalar va oqsillar kabi muhim hayotiy komponentlar, ularning hosil boʻlishi va almashinib turishi barcha tirik organizmlar hujayralari uchun universal xarakterga ega."
+            "O’rgimchaklar ko’p odamlarda qo’rquv va fobiyani keltirib chiqarsa-da, ularning aksariyati odamlar uchun zararsizdir. Shunga qaramay, ba’zi o’rgimchaklar bilan noto’g’ri “muloqot qilish” inson salomatligi uchun tahdid solishi mumkin. Yer yuzida ma’lum bo’lgan 43 000 xil o’rgimchak 6urning deyarli hammasida zaharli bezlar mavjud. Ular bu bezlardan o’ljasini harakatsizlantirish va hazm qilish uchun foydalanadi. Zahar boshning old qismida joylashgan xelitser - kichik ilgakka o’xshash tuzilmalar yordamida yuboriladi. Zahar tarkibida ovqat hazm qilish fermentlari, neyrotoksin yoki antikoagulyant kabi turli xil moddalar bo’lishi mumkin. Ular o’rgimchakka o’ljani boshqarish va osonroq so’rishga yordam beradi.O’rgimchak turlarining aksariyati odamga tajovuz qilmaydi. O’rgimchakning ayrim turlarigina o’ta xavfli hisoblanadi Bularga Atrax, Latrodestus. Phoneutria, Loxosseles deb ataluvchi o’rgimchak turlari kiradi. Mazkur ro’yxatdagi eng xavfli o’rgimchak voronkasimon Atrax o’rgimchaklari bo’lib, ular Agelenidae oilasiga mansub. Atrax o’rgimchaklari hayot uchun xavf tug’diruvchi ta’sirlarni keltirib chiqarishi mumkin. Avstraliyada yashovchi dahshatli Sidney o’rgimchagi, ya’ni Atrax robustus bunga misol bo’la oladi Uning o’ta kuchli zahari tarkibidagi neyrotoksin hayot uchun xavfli bo’lgan alomatlarni paydo qiladi. Agar zudlik bilan tibbiy yordam ko’rsatilmasa, bunday o’rgimchak kichkina bolani atigi besh daqiqada, besh yoshli bolani esa ikki soat ichida o’ldirishi mumkin. Biroq Sidney o’rgimchagi chaqishi natijasida yuzaga kelgan o’lim holatlari juda kam kuzatiladi. Masalan, Avstraliyada 1980-yillardan beri hech qanday o’lim holati qayd etilmagan.Yevropa va AQSHda yashovchi Tegenaria turiga mansub o’ rgimchaklar ham zaharining toksikligi tufayli potensial xavfli tur hisoblanadi. Ularning zahari odatda Sidney o’rgimchaklari kabi kuchli bo’lmasa- da, ba’zi o’ta sezuvchan odamlarda nojo’ya mahalliy reaksiya va boshqa tizimli alomatlarga olib kelishi mumkin. Latrodestus deb ataluvchi o’rgimchak zahari bo’g‘ma ilon zaharidan o’n besh baravar kuchliroqdir. Ammo faktlar shuni ko’rsatmoqdaki, 1980-yillarning boshidan beri bu o’rgimchaklar chaqishi natijasida hech qanday o’lim holati qayd etilmagan. O’rgimchak turlarining aksariyati odamga tajovuz qilmaydi.Braziliyadagi Phoneutria o’rgimchaklari barcha o’rgimchak turlari ichida nevrologik jihatdan o’ta faol zaharga egaligi bilan ajralib turadi. Ammo uning zahari tanaga juda sekin tarqalgani uchun tibbiy yordam xodimlari jarohatlangan insonga yordam ko’rsatish uchun yetarlicha vaqtga ega. Eng xavfli Loxosceles reslusa deb ataluvchi o’rgimchak turini, asosan, AQSHda uchratish mumkin. Uning zahari ogriq va isitmani keltirib chiqarish ehtimoli mavjud. Zahar hatto arteriya va tomirlarga ham ta’sir ko`rsatib, zararlangan to’qimalar nekrozi va turli infeksion kasalliklarga olib kelishi mumkin. Biroq bu o’gimchak chaqishi juda kam hollardagina o’limga sabab bo’ladi"
         ].join("\n"),
     },
 
@@ -297,62 +301,67 @@ export const QUESTIONS: Question[] = [
     // 18
     {
         "id": 18,
-        "questionText": "Matn mazmuniga mos to‘g‘ri shakllantirilgan gapni aniqlang.",
+        "questionText": "Quyidagi qaysi ma’lumot matnda aks etgan?",
         "questionType": "multiple_choice",
         "options": [
-            "Hujayra nazariyasi hujayrani bakteriyalar, zamburug‘lar, o‘simliklar va hayvonlar uchun eng kichik tuzilish birligi deb e’tirof etadi.",
-            "Hujayra nazariyasi hujayraning asosiy qismi faqat qobiqdan iboratligini isbotlaydi.",
-            "Hujayra nazariyasi faqat o‘simlik to‘qimalari uchun ishlab chiqilgan nazariyadir.",
-            "Hujayra nazariyasi viruslarning ham to‘liq hujayraviy tuzilishga ega ekanini ko‘rsatadi."
+            "hazm qilish fermentlari tarkidagi zahar bezlari o’ljani yaxshi hazm qilishga yordam beradi.",
+            "XIX asrning oxirgi choragidan buyon o’rgimchak zaharida zaharlanib o’lish holatlari deyarli kuzatilmagan",
+            "Latrodestus o’rgimchaklarining zahari zaharli ilonlar zaharidan ham kuchli hiosblanadi.",
+            "nevrologik jihatdan kuchli zaharga ega bo’lgan o’rgamchakning zahar inson tanasiga sekinlik bilan tarqaladi."
         ],
-        "correctAnswer": "A",
-        "points": 1.7
-    },
-    {
-        "id": 19,
-        "questionText": "Matnning qaysi qismida ishtirok etgan gap matn mazmuni tuzilishida uslubiy xatolikni yuzaga keltirgan?",
-        "questionType": "multiple_choice",
-        "options": ["I", "II", "III", "IV"],
         "correctAnswer": "D",
         "points": 1.7
     },
     {
-        "id": 20,
-        "questionText": "Matn mazmunida aks etmagan ma’lumotni aniqlang.",
+        "id": 19,
+        "questionText": "Atrax turiga mansub o’rgimchaklar haqida TO’G’RI ma’lumotni toping?",
         "questionType": "multiple_choice",
         "options": [
-            "70–80-yillarda hujayraning bo‘linish usuli — mitoz universal usul sifatida e’tirof etilgani aytiladi.",
-            "Viruslar mustaqil hayotga moslashmagan hujayra parazitlari sifatida tilga olinadi.",
-            "“Mikrografiya” asarida mikroskop orqali kuzatuv natijalari bayon qilingani keltiriladi.",
-            "Hujayra organoidlari topilgach, hujayra faqat “bo‘shliq” ekanligi yana tasdiqlangani aytiladi."
+            "bu o’rgimchakni AQSHda uchratamiz.",
+            "mahalliy reaksiyalarni vujudga keltiradi.",
+            "bu turga kiruvchi o’rgimchak zahari tarkibidagi modda inson hayoti uchun xavli bo’lgan belgilarni paydo qiladi.",
+            "bu turga kiruvch o’rgimchaklar tarkibidagi zahar moddasi to’qimlarning nekroz holatini keltirib chiqaradi."
+        ],
+        "correctAnswer": "C",
+        "points": 1.7
+    },
+    {
+        "id": 20,
+        "questionText": "Quyidagi qaysi ma’lumot matnda TO’G’RI?",
+        "questionType": "multiple_choice",
+        "options": [
+            "zaharining toksikligi tufayli Sindney o’rgimchagi chaqishi natijasida insonlarda o’lim holati kuzatilgan.",
+            "43 000 ta o’rgimchakning barchasida zahar bezlari mavjudligi aniqlangan.",
+            "Yevropa davlatlaridagi o’rgimchaklar zahari insonlar uchun xavli hisoblanadi.",
+            "Atrax turiga kiruvchi o’rgimchaklardagi zahar moddasi boshqa turdagi ayrim o’rgamchaklardagidan yuqori."
         ],
         "correctAnswer": "D",
         "points": 1.7
     },
     {
         "id": 21,
-        "questionText": "Matn mazmuniga mos to‘g‘ri ifodalangan ma’lumotni aniqlang.",
+        "questionText": "Quyidagi qaysi ma’lumot matnda NOTO’G’RI?",
         "questionType": "multiple_choice",
         "options": [
-            "Hujayra nazariyasi faqat 18-asrda to‘liq shakllangan va keyin o‘zgarmagan.",
-            "Nuklein kislotalar va oqsillar faqat eukariot hujayralar uchun universal komponent hisoblanadi.",
-            "Tirik organizmlarda hujayralarning kimyoviy tarkibi va metabolitik jarayonlar o‘xshashligi mushtaraklikni tasdiqlaydi.",
-            "Prokariot hujayralarda yadro mavjud bo‘lgani uchun ular eukariotlarga kiradi."
+            "o’rgimchak tanasidagi zahar ning vazifasi o’ljasini harkatsizlantirishdan iborat.",
+            "Sidney o’rgamchagi Tegenaria o’rgimchagidan zahrining kuchliligi bilan ustundir.",
+            "Sidney o’rgimchagi zahari inson organizimiga sekin tarqalganligi inson hayotini asrab qolish imkoniyati yana-da oshiradi.",
+            "o’rgimchakka o’ljani boshqarish va uni so’rishga zahar tarkibidagi moddalar yordam beradi."
         ],
         "correctAnswer": "C",
         "points": 1.7
     },
     {
         "id": 22,
-        "questionText": "Matn mazmunida aks etgan ma’lumotni aniqlang.",
+        "questionText": "Quyidagi qaysi ma’lumot barcha o’rgamchaklarga xos bo’lgan xususiyat?",
         "questionType": "multiple_choice",
         "options": [
-            "Robert Guk hujayralarni mikroskop orqali kuzatib, xulosalarini “Mikrografiya” asarida bayon etgan (1665).",
-            "R. Braun hujayra nazariyasini yaratib, 1839-yilda uni rasmiylashtirgan.",
-            "F. Meyen hujayra bo‘linishi — mitozni kashf etgan olim sifatida keltiriladi.",
-            "Ya. Purkine “sitoblast” atamasini kiritib, yadro keyin yo‘q bo‘lib ketishini isbotlagan."
+            "o’rgimchak insonga zarar berganda darhol davolamaslik o’limga olib kelishi;",
+            "o’rgimchaklarning zahri yosh bolalarga tez ta’sirini o’tkazishi;",
+            "zahar bezlari o’rgimchaklar organizimida bo’lishi;",
+            "o’rgimchakdan zaharlangan insonlarda infeksion kasalliklarning vujudga kelishi"
         ],
-        "correctAnswer": "A",
+        "correctAnswer": "C",
         "points": 1.7
     }
     ,
@@ -363,54 +372,56 @@ export const QUESTIONS: Question[] = [
         id: 2301, // Navigator “M” sifatida ko‘rsatiladi (questionType: "passage")
         questionType: "passage",
         questionText: `
-«ALIFBENING BIRINCHI HARFI»
+MEHROBDAN CHAYON
+Qo‘rqinch bir jasorat
 
-Qutbiddinovga ovchi oshnasi ikkita tustovuq in’om qildi. Tustovuqlar tozalanib, tuzlanayotganda Qutbiddinovning fe’li aynidi, ya’ni bironta shinavanda ulfat bilan birpas dilkashlik qilg‘usi keldi. Unint qo‘shnisi Zargarov yaqin bir oy bo‘ladi, chorakam bir litr xushbo‘y vinoni dumba-jigar bilan ichgani asrab yurar edi, semiz tustovuqning daragini eshitib: «Xayr, qo‘y so‘ysak, yana vino topilar», dedi. Bu ikki ulfat ahyonda mana shunday dilkashlik qilgan-larida suhbat boshdan-oyoq ikki mavzudan chetga chiqmas edi: biri — shu ketishda shaharimiz yana ellik yildan keyin qanday bo‘lar ekan; ikkinchisi— so‘nggi vaqtlarda fan ki-shilarni yoshartirish to‘g‘risida nega indamay qo‘ydi?
-Qutbiddinovning o‘g‘li Suyar ovqatdan keyin pionerlar saroyiga ketgan edi, soat oltidan o‘tib borayotir
-—daragi bo‘lmadi. Shu vajdan Qutbiddinov suhbatning boshlanishida jinday tashvishmand bo‘lganidanmi, bu safar mavzu shaharning kelajagi, fanning jimib ketgani emas, bola tarbiyasi bo‘lib qoldi. Zargarovning ham o‘g‘li bor. Ikki ota hozirgi tarbiyani xo‘p maqtashdi. Zargarov uzun so‘zdan xulosa chi-qarib, «men yoshligimda shunday tarbiya ko‘rgan bo‘lsam, hozir yerda turib oyda chorvachilik qilar edim», dedi.
-—Men ham, — dedi Qutbiddinov,— men ham ko‘p hikmatlar ko‘rsatar edim. Lekin birodar... Qani, ichaylik! Auf... Lekin, birodar, har yomonning bir «ammo»si bo‘lishi kerak, har yaxshinint bir «lekin»i. Hozirgi tarbiya yaxshi. Hech shubhasiz yaxshi! Lekin kamchiligi yo‘qmi? Bor, albatta, bor! Masalan, bolalarga shaxmat o‘ynatishni olaylik. Bolaning miyasi shunday miyaki, chunonchi... bizning moliya tili bilan aytganda, alohida paragraf!
-—Oh-oh-oh! Otangizga rahmat! Kamol toping, do‘stim! Men ham xuddi mana shuni aytaman, deb turgan edim. Shundoq, do‘stim, bola deganingizning miyasi... Ie, siz nega oqichmadingiz? Fikrlar bir joydan chiqib, ikki tanqidchi ko‘p mamnun bo‘lishdi. Suhbat yana ham jonlanib ketdi. Hozirgi tarbiyani olib shaxmatga urildi, shaxmatni olib tarbiyaga; ikkovining ham dabdalasi chiqarildi. Qutbiddinov ryumkalarni yana to‘ldirdi, vilka bilan iyagini qashlab davom etdi:
-—Shaxmatning yana bir zarari shuki, agar g‘irrom odam bilan o‘ynasangiz, asabingiz buziladi. O’ttiz to‘rtinchi yilda Bobojonov bilan o‘ynagan edim, g‘irromlik qilib shohimni olib qo‘ydi. Shohimni ber, men senga bo‘lak narsa beray, desam ko‘nmadi, cho‘ntagiga solib qo‘ydi. Jahlim chiqib qolgan ekan, shohsiz o‘ynay berdim, baribir qoldirdim. Shundan beri o‘ynamaydigan bo‘lib ketdim. Nima keragi bor? Xo‘sh, ana qoldirdim, nima bo‘pti?
-—Shuni ayting, poezddan qoliptimi?
-Soat sakkizda o‘tganda Suyar keldi. U, eshikdan juda hovliqib kirgan edi, bularni ko‘rib shashti qaytdi; sekin ichkarigi uyga kirib ketayotganida Zargarov ko‘rib qoldi.
-—E, e, yigitcha! Qani, bu yoqqa keling-chi! Ho‘, barakalla, mulla Suyar! Otasini suyarmi, onasini suyarmi, a? Yo ikkalalarini ham suyarmi?
-Qutbiddinovning otalik mehri jo‘sh urib ketdi. Suyarning boshidan, yuzidan o‘pdi,
-quchoqladi.
-—Albatta, otasini suyar-da, a, o‘glim? Bizning o‘g‘il ko‘p yaxshi-da: birov bilan urishmaydi, papiros chekmaydi, onasidan otasini yaxshi ko‘radi,shaxmat o‘ynamaydi...
-Suyar o‘zining quvonchini tantana bilan e’lon qildi:
-—Bugun instruktorimizni qoldirdim, dada!
-—E, ana endi! Ko‘p bema’ni ish qilibsiz-da, o‘g‘lim! Shaxmat o‘ynamagin, demabmidim? Qara, burningdan suv oqyapti, miyang suyulibdi!
-Suyar bo‘shashib ketdi.
-—Shaxmat o‘ynagandan emas,— dedi burnini artib, — kecha o‘zingiz ariqdan ko‘zoynag‘ingizni izlatdingiz...
-Qutbiddinov labini burdi.
-
-
-—Ko‘zoynak izlasa burundan suv oqar emishmi? Ming la’nat! Bor, uyga kir, darsingga qara! Suyar ta’bi xira bo‘lib, kirib ketdi. Qutbiddinov o‘g‘lining noqobilligidan, andishasizligidan qattiqxafa bo‘ldi; nahot otasi shaxmat o‘ynamagin degan bo‘lsa-yu, o‘ynasa; o‘ynaganini yana, ayniqsa mehmonning oldida, bu qadar tantana bilan e’lon qilsa. Zargarov ko‘p bolalar shunaqa ekanligi va Suyar eslik bola bo‘lgani uchun bu xildagi qusurlarini yo‘qotish qiyin emasligini aytib, ranjigan otaning ko‘nglini ko‘targan bo‘ldi.
-—Mening o‘g‘lim-chi, bundan ham battar. Men unga tog‘ injeneri bo‘lgin desam, «yo‘q, dada, bilmaysiz, men uchuvchi bo‘laman» deydi. Xa-xa-xa... voy, itvachcha-ey, men bilmas emishman! Ikki tanqidchi bolalarning otalarga gap qaytarishla-rini, otacharning so‘zlarini ba’zan yerda qoldirishlarini hozirgi tarbiyada bo‘lgan eng katta kamchilikning natijasi hisoblashdi va buni har kuni, har soatda ko‘rib turganlari holda bunga qarshi jamoat fikrini qo‘zg‘aguday bir ish qilolmaganlari uchun o‘zlarini ham ayblashdi.
-—Men shu to‘g‘rida gazetaga bir maqola yozsammi deb ham o‘ylagan edim,— dedi Zargarov, — lekin kelishtirolmasman deb qunt qilmadim. Chala-chulpa yozib birovning oldiga «shu to‘g‘rimi?» deb borgani nomus qilaman. Rostini aytsam, ellik oltiga kirib ham birovdan aql o‘rganishni o‘zimga ep ko‘rmayman. Endi, men sizga aytsam, biz birovga aql o‘rgatsak tuzuk. Nima dedingiz?
-—Albatta. Lekin men ham maqola yozishga yo‘qman, birodar. Endi biz-ku, o‘tdik, bolalarimiz ham bizday bo‘lmasin deng. Buning uchun bolalarga har xil adabiyotlardan o‘qitish kerak. Bu to‘g‘rida ham hozirgi tarbiya o‘choqlarimizning beparvoligi bor. Chunonchi, men u kuni o‘glingizni imtihon qilib ko‘rdim. Mazasi yo‘q! Hatto Saltikov bilan Shchedrin, degan mashhur yozuvchilarni bir-biridan farq qilolmaydi, ikkovi bitta odam deydi. Kula-kula o‘libman. Sizga aytaman deb esimdan chiqibdi. Zargarov «o‘g‘lim a’lochi» deb hech kimga so‘z bermas edi, Qutbiddinovning bu kulgisi uni tamom o‘ldirdi.
-—Rosti bilan shunday dedimi? Adabiyotdan ham a’lo baho olgan edi-ku.
-—Adabiyot muallimi oshnangizdir.
-—Be, Saltikov bilan kim dedingiz hali, Shchedrinmi? Shuni bilmasa men qulog‘ini tagi bilan sug‘urib olaman. Qutbiddinov hamon kular edi.
-—Bilmaydi, bahazur sug‘urib ola bering, azbaroyi xudo, ikkovi bir odam deydi. Kugbiddinovning me’yordan ortiq kulgisi Zargarovning g‘ashini keltirdi. Nima bo‘lib uning og‘zidan
-«meningo‘g‘lim bilmasa, sening o‘g‘ling ham bilmaydi» degan mazmunda so‘z chiqib ketdi. Qutbiddinov ham o‘zining o‘g‘liga ishontanliti uchun, Zargarovning bu bo‘htoniga darrov, issig‘ida zarba bergisi keldi.
-—Hozir, hozir,- dedi,- Suyar! Ho, Suyar! Bu yoqqa chiq, o‘g‘lim! E, yotganmiding? Mayli, bu yoqqa o‘tir. Bizga bir narsani hal qilib ber: Saltikov katta yozuvchimi, Shchedrin katta yozuvchimi? Suyar goh otasiga, goh Zargarovga qarar va hayron edi.
-—[1]Yo‘q, siz savolni noto‘g‘ri qo‘ydingiz,— dedi Zargarov. — Bunday: Saltikov ilgari o‘lganmi, Shchedrin?
-—Ikkovi bitta odam-ku!— dedi Suyar, nima gap ekanini bilolmay.
-Zargarov qiyqirib kuldi, chapak chaldi va bunga ham qanoat qilmay o‘rnidan turib o‘yinga tushdi. Qutbiddinov do‘q urdi:
+Shunda o‘rda arbobi bukun peshindan biroz ilgariroq mujassam bir vijdon, tog‘yurak bir yigit va o‘lim sari kulib keluvchi bir arslonni o‘z tarixida birinchi martaba ko‘rdi va tong ajabda qoldi. Bu ulug‘ jasorat bir necha daqiqalargacha zulm itlarini sukutga soldi, ularni ishdan to‘xtatdi. O‘rda arboblarining mahkamada o‘tirganlari eshik yoniga chiqib, yo‘lda borganlari harakatsiz qolib, parvosiz, har kim yonidan salomlashib o‘tguvchi arslonni tomosha qildilar.
+Anvar devonxona qarshisiga yetganda, nima maqsad bilandir darichalar va eshik yonida mo‘ralashuvchi mirzolarga umumiy bir ta’zim ifoda qildi va zinalarga sobitqadam oyoq qo‘yib, yuqoriga, xon huzuriga chiqib ketdi. Poytaxt bo‘sag‘asidagi doimiy yasovullardan o‘tib, dahlizda to‘xtadi. Chunki bundan o‘tish uchun hudaychi vositasida xondan ruxsat oldirish lozimdir. Birinchi eshik yonida qo‘l qovushtirib turuvchi Darvesh hudaychi taajjub va hayrat ichida Anvarni qarshilab, ikkinchi xonadagi «janob» huzuriga ketdi.
+Taxtiga takya qilgan Xudoyor ikki ko‘zi to‘g‘risida ikki jallodni qo‘yib, yonidagi domla shig‘ovul, Tursun otaliq va g‘ayri bir necha a’yonlar bilan suhbatlashar edi.
+–Pushti panoho! – dedi hudaychi. – Xiyonatkor o‘z ixtiyori bilan kelib, domi adolatingizga taslim bo‘lmoqchi.
+–Xiyonatkoring kim?
+–Mirzo Anvar!
+[1]Xon seskanib ketdi, hamnishinlari ham alang-jalang bo‘ldilar.
+–Keltir!
+Hudaychi qulluq qilib, orqasiga qaytdi. Dahlizdagi Anvar birinchi xonadagi a’yonni hayratga solib, ikkinchi tanobiyning bo‘sag‘asida, jallodlar o‘rtasida to‘xtadi va xonga ta’zim ado qildi. Raqibni bu qadar jasoratda ko‘rgan Xudoyorning kiprik ostlari uchib, soqol tuklari silkindi va biroz so‘z topolmagandek tamshanib turdi.
+–Sen bizga xiyonat qilding, it uvli! Anvar bosh irg‘atdi.
+–Iqrorman.
+–Tuzumni unutding!
+–Tonmayman!
+–Iqrorsan, tonmaysan, o‘bdan ish, – dedi zaharxanda qilib xon, – o‘luvdan ham qaytmaysan!
+–Men sizdan marhamat so‘rab kelgan emasman! – dedi iljayib Anvar. – O‘zimni o‘limga berib, bir gunohsizni qutqarish uchun kelganman!
+Hamnishinlar lablarini tishladilar. Xudoyor istehzoli kuldi.
+–Pusulmonchilik qilg‘onsan-da!
+–Albatta! – dedi Anvar.
+–Boshqalar kishi gunohi uchun gunohsizni tutib, pusulmonchilikdan chiqqach, men pusulmonlik bilan o‘lishni o‘bdan bildim!
+Bu javob Xudoyorni qip-qizil tusga qo‘yib, manglayida terlar ko‘rindi, g‘azab o‘ti alanga oldi.
+–Sening qilg‘on ishing pusulmonchilikda bormi, it uvli?!
+–Musulmonchilikda yuzlab xotin ustiga bir kambag‘al uylanmoqchi bo‘lgan qizga ham zo‘rlik qilish bormi, qiblayi оlam!
+–Chiqar buni, jallod!!! Jallodlar harakatlandilar:
+–Xanjarimiz qonsirag‘an! Anvar bosh chayqab kuldi.
+–Gunohsiz mening ko‘z oldimda banddan ozod qilinmas ekan, Anvarni bu yerdan chiqara olmaslar, qiblayi olam, – dedi va o‘zini tashqariga torta boshlagan jallodlarni arslonlarcha siltab yubordi.
+–Sizda adolat bormi, janob!
+Qo‘rqinch bu hayqiriq Xudoyorni insofga keltirdi. Jallodlarni to‘xtatishga va hudaychini Sultonalini hozirlashga buyurdi. Ko‘zi qonlangan Anvar ikki qo‘lini yoniga tashlab Xudoyor qarshisida turib qoldi. Hamma sukutda. Shunday fursatlarda gunohkorni odobsiz so‘zlar bilan so‘kib turuvchi Xudoyor ham jim. Chunki a’yon nazarida har bir odobsizligiga Anvar tarafidan kuchli haqorat olish ehtimoli bor. [2]Shayx Sa’diy aytgancha, dunyoda hayotidan qo‘l yuvguvchidek tili uzun kishi bo‘lmas. Darhaqiqat, insonni razolatga solguvchi uning manfaati taqozosi, qola bersa o‘limdir. Bu ikkisidan
+kechguvchiga esa podshohning qahri va jahannamning qa’ri farqsizdir.
+Ko‘p fursat o‘tmay hudaychining orqasidan Sultonali kirdi, xonga qarshi turuvchini tanib, titradi... Titrar ekan, Anvardan biroz keyinda turib xonga ta’zim qildi.
+–Siz ozod bo‘ldingiz! – dedi xon. – Devong‘a chiqib o‘z ishingizg‘a qarang! Sultonali ixtiyorsizcha xon tomon bukilib oldi... Anvar «istehzoli» vaziyatda
+Sultonaliga yon qaradi:
+–Menim qarshimga ishlab, janobga neqadar sodiq qolsangiz ham, sadoqatingiz sizni najotga chiqara olmadi, bil’aks, siz o‘ylagancha men – insofsiz sizni qutqardim... Siz shuni unutmasangiz bo‘ldi, Sultonali aka, – dedi Anvar va xonga ishorat qildi, – qo‘limni
+bog‘lasinlar, chiqarib o‘ldirsinlar!
+Sultonali orqasiga qaytdi, qaytar ekan, ko‘zidan bir necha tomchi yosh oqib tushdi.
+Jallodlardan biri Anvarning qo‘lini orqasiga bog‘ladi. Anvarning qo‘li bog‘lanar ekan, Muhammad Niyoz domla o‘rnidan turib, xonga qulluq qildi.
 —Saltikov bilan Shchedrin-a? Kim aytdi senga?
-—[2]O’zim bilaman, kitobda bor.
-—Kitobda bor? Shaxmatni ko‘proq o‘yna, itvachcha!
-Qutbiddinov bola bechorani xo‘p urishdi. Zargarov Qutbiddinovni o‘larday kalaka qilib toza alamini oldi, buning ham og‘irligi Suyarga tushdi. Suyar yig‘lab yubordi.
+–Shu odobsizning gunohini mening uchun kechirsinlar. Xon yuzini chetga o‘girdi:
+Rastag‘a chiqaring! Anvar, xonni va hamnishinlami masxaralagandek, ta’zim ado qildi.
 
 
-—Undoq demagin, o‘g‘lim,— dedi Zargarov birpas jimlikdan keyin,— dadang bir narsa degandan keyin darrov «xo‘p, bilmabman» deyishga o‘rgan. Yaxshi emas.
-—Noto‘g‘ri  aytsalar-chi?
-Ikki tanqidchi yalt etib bir-biriga qaradi va bu qarashda ikkovining ham ko‘nglidan bir gap o‘tdi: «Bola ham shunday o‘jar bo‘ladimi?» Suyar ichkariga kirib ketdi. Qutbiddinov ertagayoq Suyarning maktabiga borib katta g‘alva ko‘tarmoqchi bo‘ldi. Zargarov maktabdan ham ko‘ra pionerlar saroyiga borishni ma’qul ko‘rdi. Anchadan keyin Suyar kattakon bir kitob ko‘tarib chiqdi:
-—Mana,— dedi portretni ko‘rsatib,— mana, Saltikov-Shchedrin!
-Qutbiddinov «bu o‘jar bola hamon o‘zinikini ma’qul qilmoqchi» deb juda g‘azablandi, ammo mehmonning oldida o‘zini tiydi. Zargarov portretning ostidagi yozuvni o‘qib, xuddi qanotli tuya ko‘rganday ajablandi va kitobni sekin Qutbiddinovning oldiga surdi. Qutbiddinov portret va uning ostidagi yozuvga uzoq tikildi, so‘ngra ko‘zoynagini sekin qulog‘idan bo‘shatar ekan:
-—Him...—dedi,— Saltikov-Shchedrin! Ko‘rdingizmi, o‘sha vaqtdagi yozuvchilar ham soqol qo‘ygan ekan...
-Jimlik cho‘kdi. Suyar indamay ichkariga kirib ketdi. Shu yerda hikoya ham tamom, chunki uning mantiqiy davomi g‘alaba qozongan Suyarning bu ikki tanqidchidan o‘ch olishi bo‘lar edi. Suyar buni lozim topmadi.
+
+Izohli so'zlar:
+1 Takya qilgan – suyangan
+2 Shig‘оvul – sarоy marоsimlarini bоshqarib turadigan amaldоr
+3 G‘ayri – bоshqa, o‘zga
+4 Hamnishin – birga o‘tirganlar
+
   `.trim(),
     },
 
@@ -418,79 +429,67 @@ Jimlik cho‘kdi. Suyar indamay ichkariga kirib ketdi. Shu yerda hikoya ham tamo
     // 23
     {
         "id": 23,
-        "questionText": "Asar nomi orqali qanday badiiy maqsad ifoda etilgan?",
+        "questionText": "Matndan olingan ushbu parchani o‘qing, aslida kim kimga adolat qilganini asarning umumiy mazmunidan kelib chiqib aniqlang.",
         "questionType": "multiple_choice",
         "options": [
-            "Qahramonlarning shaxmatga qiziqishini ko‘rsatish uchun shunday nomlangan.",
-            "Bolaning haqiqatni dalil bilan aytishini “o‘jarlik” deb baholagan kattalarning holatini kinoya bilan ochish uchun shunday nomlangan.",
-            "Asarda faqat bolalarning tarbiyasi yomonlashgani ko‘rsatilgani uchun shunday nomlangan.",
-            "Asar nomi tasodifan tanlangan, badiiy yuklama yo‘q."
-        ],
-        "correctAnswer": "B",
-        "points": 1.7
-    }
-    ,
-
-// 24
-    {
-        "id": 24,
-        "questionText": "Qutbiddinov obraziga mos ta’rif berilgan javobni aniqlang.",
-        "questionType": "multiple_choice",
-        "options": [
-            "Har bir masalani dalil bilan tekshiradigan, xato qilsa ham tan oladigan sokin ota.",
-            "O‘zini bilimdon ko‘rsatishga urinadigan, gapni ko‘paytiradigan, ammo adabiy bilimda yuzaki; “ota obro‘si”ni haqiqatdan ustun qo‘yadigan kishi.",
-            "Bolasini erkin fikrlashga undaydigan, tanqidni yoqtiradigan zamonaviy ota.",
-            "Mehmon oldida ham bolani himoya qiladigan, vazmin va bag‘rikeng inson."
-        ],
-        "correctAnswer": "B",
-        "points": 1.7
-    }
-    ,
-
-// 25
-    {
-        "id": 25,
-        "questionText": "[1] raqami bilan ajratib ko‘rsatilgan gapni Zargarov nima maqsadda aytdi?",
-        "questionType": "multiple_choice",
-        "options": [
-            "Qutbiddinovning savolini ilmiy uslubda “to‘g‘rilash” va mavzuni chuqurlashtirish uchun.",
-            "Qutbiddinovning o‘g‘lini noqulay holatga solib, o‘zini ustun ko‘rsatish va bahsda g‘olib chiqish uchun.",
-            "Suyarni himoya qilib, uni uyaltirmaslik uchun.",
-            "Suhbatni shaxmatdan adabiyotga burish uchun."
-        ],
-        "correctAnswer": "B",
-        "points": 1.7
-    }
-    ,
-
-// 26
-    {
-        "id": 26,
-        "questionText": "“Him... Saltikov–Shchedrin! Ko‘rdingizmi, o‘sha vaqtdagi yozuvchilar ham soqol qo‘ygan ekan...” jumlasida Qutbiddinovning qanday ruhiy holati aks etgan?",
-        "questionType": "multiple_choice",
-        "options": [
-            "G‘alabadan mamnun bo‘lib, o‘g‘lini ochiq maqtash holati.",
-            "Adabiy haqiqatni anglab, chin dildan tan olgan holati.",
-            "Noqulay vaziyatdan qutulish uchun mavzuni chetga burib, “yuzni saqlash”ga urinayotgan andishali-uyalish aralash holat.",
-            "Zargarovdan qasos olish niyatini yashirmay turgan holat."
+            "Anvar Xudoyorxonga",
+            "Xudoyorxon Sultonaliga",
+            "Anvar Sultonaliga",
+            "Xudoyorxon Anvarga"
         ],
         "correctAnswer": "C",
         "points": 1.7
-    }
-    ,
-
-// 27
+    },
     {
-        "id": 27,
-        "questionText": "[2] raqami bilan ajratib ko‘rsatilgan gapni Suyar nima maqsadda aytdi?",
+        "id": 24,
+        "questionText": "Romandan olingan ushbu parchada Anvar nutqida “Men sizdan marhamat so‘rab kelgan emasman!” degan jumlalar tilga olinadi. Ushbu nutqiy ifoda muallifning qanday badiiy maqsadini amalga oshirishga xizmat qilgan?",
         "questionType": "multiple_choice",
         "options": [
-            "Otasini ataylab ranjitish va mehmon oldida obro‘sini tushirish uchun.",
-            "Kattalar fikrini so‘zsiz qabul qilish shart emasligini bildirib, noto‘g‘ri gapga e’tiroz qilish (haqiqatni himoya qilish) uchun.",
-            "O‘zini aybdor deb tan olib, uzr so‘rash uchun.",
-            "Suhbatni butunlay to‘xtatish uchun."
+            "Xudoyorxonning iltifot qilishidan butkul umidi uzilgan Anvarning ruhiy holatini ifodalash uchun bu nutq uning tilidan bayon etilgan.",
+            "Xon o‘sha davrda hech qanday siyosiy mavqega ega bo‘lmaganini ifodalash uchun ishlatilgan.",
+            "Olomon ichida Anvarning akasi va o‘rtoqlari uni qutqarish uchun shaylanib turganini, xondan marhamat so‘rashga muhtoj emasligini bildirib qo‘yish uchun ishlatilgan.",
+            "Anvarning nomusi, g‘ururi naqadar yuqoriligini yanada kuchli ifodalash uchun bu nutq muallif tomonidan kiritilgan."
         ],
-        "correctAnswer": "B",
+        "correctAnswer": "D",
+        "points": 1.7
+    },
+    {
+        "id": 25,
+        "questionText": "[1] raqami orqali ajratib ko‘rsatilgan qismda tasvirlangan qahramonlar nima sababdan bunday holatga tushishadi?",
+        "questionType": "multiple_choice",
+        "options": [
+            "Anvarning kutilmagan jasorati sabab",
+            "Anvardan qo‘rqqanlari uchun",
+            "Xursandligi uchun",
+            "O‘zlarining aybi borligi uchun"
+        ],
+        "correctAnswer": "A",
+        "points": 1.7
+    },
+    {
+        "id": 26,
+        "questionText": "Muallif nutqida [2] raqami bilan ajratib ko‘rsatilgan gap qo‘llanishiga oid noo‘rin fikrni aniqlang.",
+        "questionType": "multiple_choice",
+        "options": [
+            "Xudoyorxonning jim bo‘lishiga sababni chiroyli ifodalash uchun muallif ushbu jumlalarni ishlatgan.",
+            "Anvarning ko‘zi qonga to‘lganini, xonning asl basharasini ochish, haqiqatni bayon qilish uchun hech narsadan qaytmasligini ifodalash maqsadida qo‘llangan.",
+            "Ushbu gap inson o‘limi muqarrar bo‘lgan paytda dilidagi har qanday gapni tiliga chiqarishga qodirligini dalillash uchun qo‘llangan.",
+            "Masala adolat masalasi bo‘lgan paytda, insonning tili faqat haqiqatni so‘zlashi kerakligini barchaga uqtirish maqsadida ishlatilgan."
+        ],
+        "correctAnswer": "D",
+        "points": 1.7
+    },
+    {
+        "id": 27,
+        "questionText": "Parchadagi Sultonali obraziga mos ta’rif berilgan javobni aniqlang.",
+        "questionType": "multiple_choice",
+        "options": [
+            "Xonning sodiq odami",
+            "Anvardan najot kutgan obraz",
+            "Anvarni qo‘lga olish uchun xon va uning odamlari tomonidan garovga olingan obraz",
+            "O‘z xiyonatidan afsuslangan inson obrazi"
+        ],
+        "correctAnswer": "C",
         "points": 1.7
     }
     ,
@@ -504,29 +503,29 @@ Jimlik cho‘kdi. Suyar indamay ichkariga kirib ketdi. Shu yerda hikoya ham tamo
         questionText: `
 G‘azalni o‘qing va quyidagi topshiriqlarni bajaring.
 
-1.Furqat ichra sharbati la'ling visoli kam bo’lur,
-Garchi derlar: “Talx daryoda chuchuk su ham bo’lur”.
+1.Jamoling vasfni qildim chamanda, 
+Qizordi gul uyottin anjumanda.
 
-2.Zulfu ruxsoring g’ami ne tong buzug’ ko’nglum aro:
-“Ajdaho gar bo’lsa vayron ichra, maxzan ham bo’lur”.
+2.Tamanno qilg‘ali la’lingni ko‘nglum, 
+Kishi bilmas oni kim qoldi qanda.
 
-3.Ko’ksuma otsang bir o’q, ot yona bir yonindakim,
-Ul dag’i ko’nglumni shod aylar, bu ham muhkam bo’lur.
+3.Chu jonimdin aziz jonona sensan, 
+Kerakmas jon manga sensiz badanda.
 
-4.Ul pariy ishqin maloyikdin yoshursam ne ajab, 
-Dardi yo’qlar dard ahlig’a qachon mahram bo’lur.
+4.Manga ul dunyoda jannat ne hojat, 
+Eshiging tuprog‘i basdur kafanda.
 
-5.Ohu ashkimdin shikoyat ko’p qilur hamsoyakim:
-“Dud ravzandin kirar uyning binosi nam bo’lur”.
+5.Solib borma meni, ey Yusuf husn, 
+Bukun Ya’qubtek bayt ul-hazanda.
 
-6.Gar egilsa qomatim ishqing yukidin, qilma ayb,
-Kim, sipehr uzra bu og’ir yukni qo’ysang xam bo’lur.
+6.Uzun sochingdin uzmasmen ko‘ngulni, 
+Ayog‘ing qanda bo‘lsa boshim anda.
 
-7.Olam ahlidinkim, ul oyni Navoiy tanladi,
- Bilmadikim ishqidin ovorayi olam bo’lur. \n\
+7.Tilar el mansabi oliy, va lekin 
+Atoyi [sarvi ozodingg‘a] banda.\n\
 
 LUG‘AT:
-Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sipehr - osmon,falak.
+ Tamanno qilih – orzu qilish, bayt ul-hazan – g’am uyi
   `.trim(),
     }
     ,
@@ -535,82 +534,70 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     // 28
     {
         "id": 28,
-        "questionText": "G‘azal matla’si haqidagi NOTO‘G‘RI hukmni aniqlang.",
+        "questionText": "Ushbu g‘azal haqidagi NOTOʻG‘RI ma‘lumotni belgilang.",
         "questionType": "multiple_choice",
         "options": [
-            "Oshiqning ko‘ngli azim daryoga zidlangan.",
-            "Achchiq daryoda ham shirin suv bo‘lishi aks etgan.",
-            "Oshiq ayriliqda ham yorning visolidan umid qilayotgani aks etgan.",
-            "Yor la’lining sharbati shirin suvga o‘xshatilgan."
+            "G‘azalning barcha baytida tazod san’atidan mahorat bilan foydalanilgan.",
+            "G‘azalda Ya’qub payg‘ambarning o‘g‘lidan ayrilib iztirob chekkaniga ishora keltirilgan.",
+            "G‘azalda oshiq ma’shuqaning tashqi ko‘rinishini tasvirlashda istiora san’atidan foydalangan.",
+            "G‘azalda shoir o‘z yorini chiroyda Yusuf payg‘ambarga qiyoslagan."
+        ],
+        "correctAnswer": "A",
+        "points": 1.7
+    },
+    {
+        "id": 29,
+        "questionText": "Qaysi javobda g‘azal matla’siga oid to‘g‘ri fikr berilgan.",
+        "questionType": "multiple_choice",
+        "options": [
+            "Ushbu baytda shoir yorning sarv daraxtidek tik qomatiga o‘zining banda (qul) ekanligini, bog‘lanib qolganini aytmoqda.",
+            "Ushbu baytda yorning jamoli shu darajada go‘zalligidan bog‘dagi gullar ham hijolat chekib, ma’shuqaga hasad qilishi tasvirlangan.",
+            "Ushbu baytda ma’shuqa najlisga kelganda majlisdagi boshqa go‘zallarning hijolatdan qizarishi gulning qizarishiga qiyoslanmoqda.",
+            "Ushbu baytda tashxis va husni ta’lil san’atlari orqali yorning go‘zalligi tasvirlangan."
+        ],
+        "correctAnswer": "D",
+        "points": 1.7
+    },
+    {
+        "id": 30,
+        "questionText": "G‘azalning 4-baytiga oid mazmun qaysi qatorda to‘g‘ri izohlangan?",
+        "questionType": "multiple_choice",
+        "options": [
+            "Oshiqning jannatga kirish uchun yorning eshigi oldida tufroqqa aylanishga ham tayyorligi aytilmoqda.",
+            "Oshiq ma’shuqasining visoliga yetishish uchun tufroqdan o‘ziga kafan qilmoqchiligi aytilmoqda.",
+            "Oshiq dunyodagi jannatdan yor eshigining tufrog‘ini afzal bilmoqda.",
+            "Oshiq uchun yorning kafani Jannat ekanligi aytilmoqda."
+        ],
+        "correctAnswer": "C",
+        "points": 1.7
+    },
+    {
+        "id": 31,
+        "questionText": "G‘azalda quyidagi tasvirlarning qaysi biri BERILMAGAN?",
+        "questionType": "multiple_choice",
+        "options": [
+            "G‘azalda yorning labi shu darajada kichikligidan uni topib bo‘lmasligi tasviri keltirilgan.",
+            "G‘azalda oshiq suyuklisi tashlagan qadamga bosh urishiga tayyorligi tasviri keltirilgan.",
+            "G‘azalda ma’shuqaning uzun sochi oshiqning ko‘nglini olgani tasviri ham bor.",
+            "G‘azalda oshiq yoridan ayrilib qolish xavotirini Yusuf payg‘ambar o‘z o‘g‘li Ya’qub payg‘ambardan ayrilib qolgani orqali tasvirlamoqda."
+        ],
+        "correctAnswer": "D",
+        "points": 1.7
+    },
+    {
+        "id": 32,
+        "questionText": "7-baytdagi sarvi ozodingg‘a jumlasi g‘azalda qanday ma’no anglatib kelmoqda?",
+        "questionType": "multiple_choice",
+        "options": [
+            "xushqomat go‘zal",
+            "ozod inson",
+            "oshiqning qulligi",
+            "qora soch"
         ],
         "correctAnswer": "A",
         "points": 1.7
     }
-    ,
 
-// 29
-    {
-        "id": 29,
-        "questionText": "2-bayt mazmunida AKS ETMAGAN fikrni aniqlang.",
-        "questionType": "multiple_choice",
-        "options": [
-            "Ushbu baytda ajdarho bor joyda xazina ham bo‘lishi bayon etilgan.",
-            "Yorning uzun sochi ajdahoga o‘xshatilgan.",
-            "Oshiqning ko‘nglida yorning go‘zal yuzi va uzun sochlariga yetish qayg‘usi borligi aks etgan.",
-            "Oshiqning g‘amgin ko‘ngli xazinaga o‘xshatilgan."
-        ],
-        "correctAnswer": "D",
-        "points": 1.7
-    }
-    ,
-
-// 30
-    {
-        "id": 30,
-        "questionText": "Gʻazalda qaysi oʻxshatishdan FOYDALANILMAGAN?",
-        "questionType": "multiple_choice",
-        "options": [
-            "Yor olamni yorituvchi oyga o‘xshatilgan.",
-            "Oshiqning ohi qora tutunga o‘xshatilgan.",
-            "Yorning qomati kamon oʻqiga oʻxshatilgan.",
-            "Yorning kipriklari o‘qqa o‘xshatilgan."
-        ],
-        "correctAnswer": "C",
-        "points": 1.7
-    }
-
-    ,
-
-// 31
-    {
-        "id": 31,
-        "questionText": "Qaysi baytda IRSOL-U MASALDAN foydalanilmagan?",
-        "questionType": "multiple_choice",
-        "options": [
-            "2-bayt",
-            "1-bayt",
-            "4-bayt",
-            "5-bayt"
-        ],
-        "correctAnswer": "D",
-        "points": 1.7
-    }
-    ,
-
-// 32
-    {
-        "id": 32,
-        "questionText": "6-bayt haqida berilgan to‘g‘ri hukmni toping.",
-        "questionType": "multiple_choice",
-        "options": [
-            "Osmon egik holda bo‘lganligi uchun oshiqning ham qaddi egik ekanligi aks etgan.",
-            "Oshiqning ishqi egik gavdani ham tik qila olishi tasvirlangan.",
-            "Ishqning osmonni ham egallashi aks etgan.",
-            "Qomatning egikligi osmondan kelayotgan yuk bilan bog‘liqligi aks etgan."
-        ],
-        "correctAnswer": "C",
-        "points": 1.7
-    }
 
     ,
     /* ========== 33–37 (new sheet) ========== */
@@ -633,30 +620,36 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
             "left": [
                 {
                     "key": "33",
-                    "text": "Ustoz shogirdiga: — Shoshma! — dedi. — Bu gapni hech kimga aytib qo‘yma!"
+                    "text": "Uni ko‘rib, hayajondan tili kalimaga kelmay qoldi — dovdiradi."
                 },
                 {
                     "key": "34",
-                    "text": "Shogird: — Mayli. Men aytmayman, ammo siz nega buni yashiryapsiz, ayting, — dedi."
+                    "text": "Erta turganga baraka beriladi, kech qolganga — malomat."
                 },
                 {
                     "key": "35",
-                    "text": "Ustoz javob beribdi: — Demak, zarar kattalashmasin: birinchi zarar — obro‘ning ketishi; ikkinchi zarar — hasadgo‘yning quvonishi…"
+                    "text": "Oh, mening so‘lim bog‘larim!"
                 }
             ],
             "right": [
-                {"key": "A", "text": "Uyushiq bo‘lakli gap ishtirok etgan."},
-                {"key": "B", "text": "So‘z-gap ishtirok etgan."},
-                {"key": "C", "text": "Ajratilgan bo‘lakli gap ishtirok etgan."},
-                {"key": "D", "text": "To‘liqsiz gap ishtirok etgan."},
-                {"key": "E", "text": "Bir bosh bo‘lakli gap ishtirok etgan."},
-                {"key": "F", "text": "Kiritmali gap ishtirok etgan."}
+                { "key": "A", "text": "Atov gap." },
+                { "key": "B", "text": "So‘z-gap ishtirok etgan." },
+                { "key": "C", "text": "To‘liqsiz gap." },
+                { "key": "D", "text": "Undalmali gap." },
+                { "key": "E", "text": "Shaxsi noma’lum (shaxsi umumlashgan) gap." },
+                { "key": "F", "text": "Ajratilgan bo‘lakli gap." }
             ]
         },
-        "options": ["33–D; 34–F; 35–B", "33–E; 34–B; 35–F", "33–D; 34–C; 35–E", "33–E; 34–A; 35–B"],
-        "correctAnswer": "B",
+        "options": [
+            "33–F, 34–C, 35–A",
+            "33–F, 34–E, 35–D",
+            "33–B, 34–C, 35–D",
+            "33–E, 34–F, 35–A"
+        ],
+        "correctAnswer": "A",
         "points": 2.5
-    },
+    }
+    ,
 
     /**
      * 36. Shakldosh so‘z — fill later if needed
@@ -682,7 +675,7 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
                 "label": "Javob:",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLAR BILAN YOZISHINGIZ SHART",
                 "multiline": false,
-                "correct": "TUGUN"
+                "correct": "YUZ"
             }
         ],
         "points": 1.1
@@ -690,14 +683,14 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 37,
         "questionType": "structured",
-        "questionText": "Berilgan gapda noto‘g‘ri qo‘llangan tinish belgisini aniqlang.\n\nOtabek shu gapni aytishi bilan Hasanali bobo uning yoniga kelib sekin dedi: “Bolam, odamning so‘zi bir bo‘lsa, – el ichida yuzi yorug‘ bo‘lur!”",
+        "questionText": "Berilgan gapda qo‘llanishi lozim bo‘lgan tinish belgilarining to‘g‘ri ketma-ketligini yozing.\n\nBeruniy aytganidek Ona suti kabi aziz hisoblangan ona tili millatning ruhi g'ururi va ma'naviyat sarchashmasidir",
         "parts": [
             {
                 "key": "a",
                 "label": "Javob:",
-                "placeholder": "masalan: , . ; : \" ... \"",
+                "placeholder": "masalan: , . ; : \ ... \ qo'shtirnoqni << >> shaklda yozing, tinish belgilari orasida bo'shliq bo'lsin",
                 "multiline": false,
-                "correct": "-"
+                "correct": ": <<  -  ,  >> ."
             }
         ],
         "points": 1.1
@@ -705,14 +698,15 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 38,
         "questionType": "structured",
-        "questionText": "Berilgan parchada qo‘llangan so‘z yasovchi qo‘shimcha bilan almashtirib qo‘llash mumkin bo‘lgan ma’nodosh qo‘shimchani yozing.\n\nU ko‘p gapirmadi. Ammo aytgan har bir jumlasi ichida yashirin fikr bor edi — qisqa, lo‘nda, lekin ma’nodor edi.",
+        "questionText": "Har ikki kelishik shakli bilan ham ma’nodoshlik hosil qila oluvchi ko‘makchini yozing.",
+        "imageUrl": "/images/q38-diagram.png",
         "parts": [
             {
                 "key": "a",
                 "label": "Javob:",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "-LI"
+                "correct": "KO'RA"
             }
         ],
         "points": 1.1
@@ -720,14 +714,14 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 39,
         "questionType": "structured",
-        "questionText": "Berilgan parchada qaysi gap bo‘lagi ajratilganini aniqlang.\n\nVatan deb yonar yurak,\nKo‘nglimda bir tuyg‘u bor — sadoqat,\nShu tuyg‘u bilan inson\nTog‘larni ham oshar, elga xizmat.",
+        "questionText": "Berilgan gapni sintaktik tahlil qiling va qaysi gap bo‘lagi uyushganini yozing.\n\nU konferensiyada ilmiy maqolani, seminarda loyiha hisobotini, yakunda esa tajriba natijalarini batafsil taqdim etdi va savollarga aniq javob berdi.",
         "parts": [
             {
                 "key": "a",
                 "label": "Javob:",
-                "placeholder": "masalan: Hol, to‘ldiruvchi, aniqlovchi ...",
+                "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "EGA"
+                "correct": "TO'LDIRUVCHI"
             }
         ],
         "points": 1.1
@@ -735,21 +729,21 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 40,
         "questionType": "structured",
-        "questionText": "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.\n\nShahar chetida yashab, el og‘rig‘ini yuragida ko‘targan Miryoqub ko‘nglida umidni va iztirobni birday asrab yurardi.",
+        "questionText": "Gapdagi so‘zlarning mazmun va grammatik jihatdan bog‘lanishini tahlil qiling.\n\nYurtimizning go'zal tabiatini sevish, uni ko'z qorachig'idek «asrash» har birimizning muqaddas burchimizdir.",
         "parts": [
             {
                 "key": "a",
                 "label": "Gapda ajratib ko‘rsatilgan so‘z tobelanib bog‘langan so‘zni yozing.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "ASRAB YURARDI"
+                "correct": "BURCHIMIZDIR"
             },
             {
                 "key": "b",
                 "label": "Gapda ajratib ko‘rsatilgan so‘z bilan teng munosabatda bog‘langan so‘z yozing.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "IZTIROBNI"
+                "correct": "SEVISH"
             }
         ],
         "points": 1.1
@@ -758,7 +752,7 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 41,
         "questionType": "structured",
-        "questionText": "Berilgan parchada yordamchi so‘zlarning grammatik vazifasini tahlil qiling.\n\nYoshlar jamiyatda dinlararo totuvlikni mustahkamlash uchun ma’rifiy uchrashuv va targ‘ibot tadbirlarida faol qatnashmoqdalar, turli murakkabliklar va nizolarni keltirib chiqarishi mumkin bo‘lgan g‘oyalar tarqalishining oldini olishga hissa qo‘shmoqdalar.",
+        "questionText": "Berilgan parchada yordamchi so‘zlarning grammatik vazifasini tahlil qiling.\n\nInson o‘z maqsadiga erishish uchun tinmay mehnat qilishi kerak va qiyinchiliklarga qaramasdan olg‘a intilishi lozim.",
         "parts": [
             {
                 "key": "a",
@@ -781,21 +775,21 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 42,
         "questionType": "structured",
-        "questionText": "She’riy parchada ishtirok etgan badiiy san’atlar haqidagi topshiriqlarni bajaring.\n\nXayolingg‘a ko‘ngulda jon berurmen,\nAziz tuhfa erur mehmongʻa loyiq.",
+        "questionText": "She’riy parchada ishtirok etgan badiiy san’atlar haqidagi topshiriqlarni bajaring.\n\nAshraqat min aksi shamsil-ka'si anvorul -hudo\n\"Yor aksin mayda ko'r \" deb jomdin chiqti sado",
         "parts": [
             {
                 "key": "a",
-                "label": "Birinchi baytda alohida ajratib ko‘rsatilgan misra yordamida hosil qilingan badiiy san’atni aniqlang.",
+                "label": "Ikkinchi  misrada ta'sirchanlikni oshirgan  badiiy san’atni aniqlang.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "TAMSIL"
+                "correct": "INTOQ"
             },
             {
                 "key": "b",
                 "label": "Mazkur badiiy san’atning ta’rifini yozing.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "HAYOTIY MISOL KELTIRISH"
+                "correct": "GAPIRTIRISH"
             }
         ],
         "points": 1.1
@@ -804,14 +798,14 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 43,
         "questionType": "structured",
-        "questionText": "She’riy parchaning qofiyasini tahlil qiling va yozing.\n\nDo‘stlar, mahram deb elga roz ifsho qilmangiz,\nBoshingizg‘a yuz balo kuch birla paydo qilmangiz.",
+        "questionText": "She’riy parchaning qofiyasini tahlil qiling va yozing.\n\nKo‘nglumga har ne g‘am kelsa, sabr aylaymen,\nKo‘nglumni har ne dard olsa, shukr aylaymen.",
         "parts": [
             {
                 "key": "a",
                 "label": "Parchada qofiyadosh so‘zlardagi raviyni yozing.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "O"
+                "correct": "R"
             },
             {
                 "key": "b",
@@ -827,21 +821,21 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
     {
         "id": 44,
         "questionType": "structured",
-        "questionText": "Quyidagi qit’a mazmunini tahlil qiling va savollarga javob yozing.\n\nIlmdin kasb qilki, sud emas,\nCharx mushkillarini hal qilmoq.\nLekin ul ilm dog'i naf etmas,\nBilibon bo‘lmasa amal qilmoq.",
+        "questionText": "Quyidagi qit’a mazmunini tahlil qiling va savollarga javob yozing.\n\nTilni tiyib so‘zlasang — donolik belgisi,\nO‘ylamay aytilgan so‘z — ko‘ngilning kulgisi.\nHar so‘zing o‘lchov bilan chiqsa, el sevadi\nBekor gapga berilsa — obro‘ying so‘nadi.",
         "parts": [
             {
                 "key": "a",
                 "label": "Ushbu she’riy parchada ulug‘langan fazilatni aniqlang.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "ILMGA AMAL QILISH"
+                "correct": "TILNI TIYISH"
             },
             {
                 "key": "b",
                 "label": "Ushbu she’riy parchada qaysi illat qoralanganini aniqlang.",
                 "placeholder": "O'Z JAVOBINGIZNI KATTA BOSMA HARFLARDA YOZING",
                 "multiline": false,
-                "correct": "ILMGA AMAL QILMASLIK"
+                "correct": "O'YLAMAY SO'ZLASH"
             }
         ],
         "points": 1.1
@@ -855,7 +849,7 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
             "ESSE",
             "Quyidagi vaziyat yuzasidan o‘z munosabatingizni yozma bayon qiling.",
             "",
-            "Ba'zilar ta'lim olish jarayonida mehnat faoliyati bilan ham shug'ullansa tajriba oshib boradi deyishadi, ayrimlari esa ta'lim jarayonida chalg'imasidan faqat bilim olish muhimligini ta'kidlashadi",
+            "Ayrimlar turli shoular va yutuqli oʻyinlar odamlarning bir-biriga bo'lgan ishonchini soʻndiradi degan fikrda, ba'zilar esa bunday ko'ngilochar oʻyinlarning afzalliklari haqida gapirishadi",
             "",
             "• Fikr-mulohazalaringizni publitsistik uslubda bayon qiling.",
             "• Fikrlaringizni mantiqiy izchillikda, adabiy til me’yorlariga amal qilgan holda ifodalang.",
@@ -863,7 +857,8 @@ Talx – achchiq; Zulf – soch;  Maxzan – xazna; Maloyik – farishtalar; Sip
             "",
             "DIQQAT! Esse uchun reja tuzilmaydi, epigraf qo‘yilmaydi.",
             "",
-            "ESLATMA: ESSE qo‘lda tekshiriladi va yakunda e’lon qilinadi."
+            "ESLATMA: ESSE qo‘lda tekshiriladi va yakunda e’lon qilinadi.",
+            "ESSENI TELEFONDA YOKI KLAVIATURADA ADMINGA YOZIB TASHLANG!"
         ].join("\n"),
         "points": 0
     }
