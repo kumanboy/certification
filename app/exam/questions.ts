@@ -915,24 +915,12 @@ LUG‘AT:
 
 
     // 45) ESSE — long-form writing (textarea is rendered by QuestionRenderer)
-    // {
-    //     "id": 45,
-    //     "questionType": "essay",
-    //     "questionText": [
-    //         "ESSE",
-    //         "Quyidagi vaziyat yuzasidan o‘z munosabatingizni yozma bayon qiling.",
-    //         "",
-    //         "Ayrimlar turli shoular va yutuqli oʻyinlar odamlarning bir-biriga bo'lgan ishonchini soʻndiradi degan fikrda, ba'zilar esa bunday ko'ngilochar oʻyinlarning afzalliklari haqida gapirishadi",
-    //         "",
-    //         "• Fikr-mulohazalaringizni publitsistik uslubda bayon qiling.",
-    //         "• Fikrlaringizni mantiqiy izchillikda, adabiy til me’yorlariga amal qilgan holda ifodalang.",
-    //         "• Bayon qilinayotgan barcha fikr-mulohazalar faqat mavzu doirasida bo‘lishi lozim.",
-    //         "",
-    //         "DIQQAT! Esse uchun reja tuzilmaydi, epigraf qo‘yilmaydi.",
-    //         "",
-    //         "ESLATMA: ESSE qo‘lda tekshiriladi va yakunda e’lon qilinadi.",
-    //         "ESSENI TELEFONDA YOKI KLAVIATURADA ADMINGA YOZIB TASHLANG!"
-    //     ].join("\n"),
-    //     "points": 0
-    // }
+    {
+        "id": 45,
+        "questionType": "essay",
+        "questionText": [
+            "ESSE"
+        ].join("\n"),
+        "points": 0
+    }
 ];

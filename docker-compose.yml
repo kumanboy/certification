@@ -1,29 +1,26 @@
-version: "3.9"
-
 services:
-  app:
-    build: .
-    container_name: certification_app
-    restart: always
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env.production
-    depends_on:
-      - db
-
-  db:
+  certification_db:
     image: postgres:16
     container_name: certification_db
-    restart: always
     environment:
-      POSTGRES_DB: examdb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 0011
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      POSTGRES_PASSWORD: "0011"
+      POSTGRES_DB: examdb
     ports:
-      - "5432:5432"
+      - "5433:5432"   # host:container
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./schema.sql:/schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d examdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
-volumes:
-  pgdata:
+  certification_app:
+    build: .
+    container_name: certification_app
+    # ✅ app should NOT be public on :3000 anymore
+    expose:
+      - "3000"
+    environment:

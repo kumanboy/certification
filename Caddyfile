@@ -1,0 +1,3 @@
+uzcert.xyz, www.uzcert.xyz {
+  reverse_proxy certification_app:3000
+}
