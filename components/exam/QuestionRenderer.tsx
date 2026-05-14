@@ -214,6 +214,27 @@ export default function QuestionRenderer({ q, answer, onAnswer }: Props) {
                 </div>
             )}
 
+            {/* essay */}
+            {q.questionType === "essay" && (
+                <div className="space-y-4 rounded-xl border bg-blue-50 p-4 text-center">
+                    <div>
+                        <h3 className="text-lg font-semibold text-blue-900">ESSE</h3>
+                        <p className="mt-2 text-sm leading-6 text-blue-800">
+                            ESSE yozish uchun, iltimos, quyidagi Telegram botga o‘ting!
+                        </p>
+                    </div>
+
+                    <a
+                        href="https://t.me/esse_tekshir_bot"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 sm:w-auto"
+                    >
+                        Telegram botga o‘tish
+                    </a>
+                </div>
+            )}
+
 
         </div>
     );
