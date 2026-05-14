@@ -1,6 +1,7 @@
+// app/admin/page.tsx
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -19,12 +20,16 @@ type StatsResponse = {
 export default function AdminPage() {
     const [stats, setStats] = useState<StatsResponse | null>(null);
     const [loading, setLoading] = useState(false);
+    const chartScrollRef = useRef<HTMLDivElement | null>(null);
 
-    // ✅ stable function (safe for deps)
     const fetchStats = useCallback(async () => {
         setLoading(true);
+
         try {
-            const r = await fetch("/api/admin/stats/correct-by-question", { cache: "no-store" });
+            const r = await fetch("/api/admin/stats/correct-by-question", {
+                cache: "no-store",
+            });
+
             const j = (await r.json()) as StatsResponse;
 
             if (!r.ok || !j.ok) {
@@ -36,80 +41,190 @@ export default function AdminPage() {
                 });
                 return;
             }
+
             setStats(j);
+
+            setTimeout(() => {
+                chartScrollRef.current?.scrollTo({ left: 0 });
+            }, 0);
         } catch (e) {
             const msg = e instanceof Error ? e.message : String(e);
-            setStats({ ok: false, totalAttempts: 0, items: [], error: msg });
+
+            setStats({
+                ok: false,
+                totalAttempts: 0,
+                items: [],
+                error: msg,
+            });
         } finally {
             setLoading(false);
         }
     }, []);
 
-    // ✅ no warning: deps include fetchStats
     useEffect(() => {
         void fetchStats();
     }, [fetchStats]);
 
+    const items = stats?.items ?? [];
+
     const maxCount = useMemo(() => {
-        const items = stats?.items ?? [];
         let m = 0;
-        for (const it of items) m = Math.max(m, it.correctCount);
+
+        for (const it of items) {
+            m = Math.max(m, it.correctCount);
+        }
+
         return m;
-    }, [stats]);
+    }, [items]);
+
+    const chartWidth = useMemo(() => {
+        const barWidth = 48;
+        const minWidth = 760;
+        return Math.max(minWidth, items.length * barWidth);
+    }, [items.length]);
 
     return (
-        <main className="min-h-screen bg-gray-50 p-6">
-            <div className="mx-auto max-w-6xl space-y-6">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <h1 className="text-2xl font-semibold">Admin</h1>
+        <main className="min-h-screen bg-gray-50 px-4 py-5 sm:px-6">
+            <div className="mx-auto max-w-6xl space-y-5">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <h1 className="text-2xl font-semibold">Admin</h1>
+                        <p className="mt-1 text-sm text-gray-600">
+                            Test statistikasi va natijalar boshqaruvi.
+                        </p>
+                    </div>
 
-                    <div className="flex flex-wrap gap-2">
-                        <Button variant="outline" onClick={() => void fetchStats()} disabled={loading}>
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 lg:flex lg:flex-wrap">
+                        <Button
+                            variant="outline"
+                            onClick={() => void fetchStats()}
+                            disabled={loading}
+                            className="w-full lg:w-auto"
+                        >
                             {loading ? "Yuklanmoqda..." : "Yangilash"}
                         </Button>
 
-                        <a href="/api/attempts/export/pdf" target="_blank" rel="noopener noreferrer">
-                            <Button>PDF yuklab olish</Button>
+                        <a
+                            href="/api/attempts/export/pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full lg:w-auto"
+                        >
+                            <Button className="w-full lg:w-auto">
+                                PDF yuklab olish
+                            </Button>
                         </a>
-                        <a href="/admin/questions">
-                            <Button variant="outline">Savollarni boshqarish</Button>
+
+                        <a href="/admin/questions" className="w-full lg:w-auto">
+                            <Button variant="outline" className="w-full lg:w-auto">
+                                Savollarni boshqarish
+                            </Button>
                         </a>
                     </div>
                 </div>
 
-                <Card className="p-4">
-                    <div className="flex flex-col gap-1">
-                        <h2 className="text-lg font-semibold">Savollar bo‘yicha to‘g‘ri javoblar statistikasi</h2>
-                        <p className="text-sm text-gray-600">
-                            Jami urinishlar: <b>{stats?.ok ? stats.totalAttempts : 0}</b>
-                        </p>
-                        {stats?.error ? <p className="text-sm text-red-600">Xatolik: {stats.error}</p> : null}
+                <Card className="overflow-hidden p-4 sm:p-5">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                        <div>
+                            <h2 className="text-lg font-semibold">
+                                Savollar bo‘yicha to‘g‘ri javoblar statistikasi
+                            </h2>
+
+                            <p className="mt-1 text-sm text-gray-600">
+                                Jami urinishlar:{" "}
+                                <b>{stats?.ok ? stats.totalAttempts : 0}</b>
+                            </p>
+
+                            {stats?.error ? (
+                                <p className="mt-1 text-sm text-red-600">
+                                    Xatolik: {stats.error}
+                                </p>
+                            ) : null}
+                        </div>
+
+                        <div className="rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-700">
+                            Savollar: <b>{items.length}</b>
+                        </div>
                     </div>
 
-                    <div className="mt-4 overflow-x-auto">
-                        <div className="min-w-[1100px]">
-                            <div className="flex items-end gap-2 rounded-md border bg-white p-3">
-                                {(stats?.items ?? []).map((it) => {
-                                    const h = maxCount > 0 ? Math.max(2, Math.round((it.correctCount / maxCount) * 180)) : 2;
-
-                                    return (
-                                        <div key={it.label} className="flex w-10 flex-col items-center gap-2">
-                                            <div className="text-xs text-gray-600">{it.correctCount}</div>
-                                            <div
-                                                title={`${it.label}: ${it.correctCount}`}
-                                                className="w-full rounded-md bg-blue-600"
-                                                style={{ height: `${h}px` }}
-                                            />
-                                            <div className="text-[11px] text-gray-700">{it.label}</div>
-                                        </div>
-                                    );
-                                })}
+                    <div className="mt-5">
+                        {items.length === 0 ? (
+                            <div className="rounded-lg border bg-white p-8 text-center text-sm text-gray-500">
+                                Hozircha statistika mavjud emas.
                             </div>
+                        ) : (
+                            <div
+                                ref={chartScrollRef}
+                                className="w-full overflow-x-auto rounded-xl border bg-white"
+                                style={{
+                                    WebkitOverflowScrolling: "touch",
+                                }}
+                            >
+                                <div
+                                    className="relative px-3 pb-4 pt-4"
+                                    style={{
+                                        width: `${chartWidth}px`,
+                                        minWidth: "100%",
+                                    }}
+                                >
+                                    <div className="flex h-72 items-end gap-3 border-b border-gray-200 pb-8">
+                                        {items.map((it) => {
+                                            const height =
+                                                maxCount > 0
+                                                    ? Math.max(
+                                                        4,
+                                                        Math.round((it.correctCount / maxCount) * 210)
+                                                    )
+                                                    : 4;
 
-                            <p className="mt-2 text-xs text-gray-500">
-                                Izoh: balandlik — eng ko‘p to‘g‘ri javob olingan savolga nisbatan hisoblanadi.
-                            </p>
-                        </div>
+                                            return (
+                                                <div
+                                                    key={it.label}
+                                                    className="flex w-9 shrink-0 flex-col items-center justify-end"
+                                                >
+                                                    <div
+                                                        className="mb-2 max-w-[46px] truncate text-center text-[11px] text-gray-700"
+                                                        title={String(it.correctCount)}
+                                                    >
+                                                        {it.correctCount}
+                                                    </div>
+
+                                                    <div
+                                                        title={`${it.label}: ${it.correctCount}`}
+                                                        className="w-full rounded-t-md bg-blue-600 transition-all"
+                                                        style={{ height: `${height}px` }}
+                                                    />
+
+                                                    <div
+                                                        className="absolute bottom-3 w-9 truncate text-center text-[11px] text-gray-700"
+                                                        style={{
+                                                            transform: "translateY(0)",
+                                                        }}
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+
+                                    <div className="mt-2 flex gap-3">
+                                        {items.map((it) => (
+                                            <div
+                                                key={`label-${it.label}`}
+                                                className="w-9 shrink-0 truncate text-center text-[11px] text-gray-700"
+                                                title={it.label}
+                                            >
+                                                {it.label}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <p className="mt-3 text-xs leading-5 text-gray-500">
+                            Izoh: ustun balandligi eng ko‘p to‘g‘ri javob olingan savolga
+                            nisbatan hisoblanadi. Jadvalni chapga yoki o‘ngga surib ko‘rish mumkin.
+                        </p>
                     </div>
                 </Card>
             </div>
