@@ -15,6 +15,7 @@ import Link from "next/link";
 
 const EXAM_MINUTES = 120;
 const STORAGE_KEY = "exam_state_v2";
+const STORAGE_TTL_MS = 24 * 60 * 60 * 1000; // 1 day
 
 /** passages → special labels */
 const SPECIAL_LABELS: Record<number, "M" | "G"> = {
@@ -42,6 +43,11 @@ type QuestionsResponse = {
     ok: boolean;
     questions?: Question[];
     error?: string;
+};
+
+type SavedExamState = {
+    answers?: Record<string, string>;
+    savedAt?: number;
 };
 
 export default function ExamPage() {
@@ -155,9 +161,13 @@ export default function ExamPage() {
                 const raw = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
 
                 if (raw) {
-                    const parsed = JSON.parse(raw) as { answers?: Record<string, string> } | null;
+                    const parsed = JSON.parse(raw) as SavedExamState | null;
+                    const savedAt = Number(parsed?.savedAt ?? 0);
+                    const isExpired = !savedAt || Date.now() - savedAt > STORAGE_TTL_MS;
 
-                    if (parsed?.answers) {
+                    if (isExpired) {
+                        localStorage.removeItem(STORAGE_KEY);
+                    } else if (parsed?.answers) {
                         Object.entries(parsed.answers).forEach(([k, v]) => {
                             const idNum = Number(k);
                             if (Number.isFinite(idNum)) setAnswer(idNum, String(v));
@@ -165,7 +175,13 @@ export default function ExamPage() {
                     }
                 }
             } catch {
-                // ignore corrupted storage
+                try {
+                    if (typeof window !== "undefined") {
+                        localStorage.removeItem(STORAGE_KEY);
+                    }
+                } catch {
+                    // ignore
+                }
             } finally {
                 hydratedOnceRef.current = true;
             }
@@ -182,7 +198,13 @@ export default function ExamPage() {
     useEffect(() => {
         try {
             if (typeof window !== "undefined") {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify({ answers }));
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify({
+                        answers,
+                        savedAt: Date.now(),
+                    })
+                );
             }
         } catch {
             // ignore
@@ -334,6 +356,14 @@ export default function ExamPage() {
         setRows(newRows);
         setSubmitted(true);
         setCalc({ totalPercent, grade });
+
+        try {
+            if (typeof window !== "undefined") {
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        } catch {
+            // ignore
+        }
     }
 
     function onClickFinish() {
