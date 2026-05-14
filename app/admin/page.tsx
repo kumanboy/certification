@@ -71,6 +71,9 @@ export default function AdminPage() {
                         <a href="/api/attempts/export/pdf" target="_blank" rel="noopener noreferrer">
                             <Button>PDF yuklab olish</Button>
                         </a>
+                        <a href="/admin/questions">
+                            <Button variant="outline">Savollarni boshqarish</Button>
+                        </a>
                     </div>
                 </div>
 
