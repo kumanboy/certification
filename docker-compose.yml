@@ -22,16 +22,28 @@ services:
     build: .
     container_name: certification_app
     restart: unless-stopped
-    # ✅ app should NOT be public on :3000 anymore
+    # app should NOT be public on :3000 anymore
     expose:
       - "3000"
     environment:
       NODE_ENV: production
+
+      # Database connection inside Docker network
       PGHOST: certification_db
       PGPORT: "5432"          # container ichida doim 5432
       PGUSER: postgres
       PGPASSWORD: "0011"
       PGDATABASE: examdb
+      PGSSL: "false"
+
+      # Admin security
+      ADMIN_CODE: "5784"
+      ADMIN_JWT_SECRET: "e8b39a48dc7df84501ba4a88dc57fb2d3c907a4a98a3b8cd2c1a82d8c3df22af"
+
+    #  Keeps uploaded question images after rebuild/recreate
+    volumes:
+      - uploaded_question_images:/app/public/images/questions
+
     depends_on:
       certification_db:
         condition: service_healthy
@@ -60,3 +72,4 @@ volumes:
   db_data:
   caddy_data:
   caddy_config:
+  uploaded_question_images:
