@@ -65,7 +65,7 @@ export default function AdminPage() {
         void fetchStats();
     }, [fetchStats]);
 
-    const items = stats?.items ?? [];
+    const items = useMemo(() => stats?.items ?? [], [stats?.items]);
 
     const maxCount = useMemo(() => {
         let m = 0;
